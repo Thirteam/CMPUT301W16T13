@@ -2,4 +2,24 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tab_max_width">264dp</dimen>
+    <dimen name="tab_padding_bottom">16dp</dimen>
+    <dimen name="tab_label">14sp</dimen>
+    <dimen name="custom_tab_layout_height">72dp</dimen>
+
+    <dimen name="margin_et_login_lr">32dp</dimen>
+    <dimen name="margin_et_login_tb">24dp</dimen>
+    <dimen name="margin_tv_login_top">64dp</dimen>
+    <dimen name="margin_tv_login_bot">16dp</dimen>
+    <dimen name="margin_btn_login_lr">32dp</dimen>
+    <dimen name="margin_btn_login_tb">32dp</dimen>
+    <dimen name="margin_imageview">48dp</dimen>
+
+    <dimen name="textsize_appname">36sp</dimen>
+    <dimen name="textsize_btn_login">18sp</dimen>
+    <dimen name="textsize_et_login">18sp</dimen>
+    <dimen name="textsize_btn_main">20sp</dimen>
+
+    <dimen name="margin_separator">3dp</dimen>
+
 </resources>
