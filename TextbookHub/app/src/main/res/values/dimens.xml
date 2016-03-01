@@ -19,7 +19,19 @@
     <dimen name="textsize_btn_login">18sp</dimen>
     <dimen name="textsize_et_login">18sp</dimen>
     <dimen name="textsize_btn_main">20sp</dimen>
+    <dimen name="textsize_title_large">24sp</dimen>
+    <dimen name="textsize_large">16sp</dimen>
+    <dimen name="textsize_small">13sp</dimen>
+    <dimen name="textsize_xlarge">20sp</dimen>
+    <dimen name="textsize_content">15sp</dimen>
 
     <dimen name="margin_separator">3dp</dimen>
+
+    <dimen name="padding_title">20dp</dimen>
+    <dimen name="padding_element">26dp</dimen>
+    <dimen name="padding_line_spacing_medium">16dp</dimen>
+    <dimen name="padding_line_spacing_small">8dp</dimen>
+
+    <dimen name="size_listview_bid_hist">160dp</dimen>
 
 </resources>

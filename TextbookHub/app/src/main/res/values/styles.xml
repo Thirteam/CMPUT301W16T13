@@ -20,4 +20,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CustomTheme.BaseWhiteEditText" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/pure_white</item>
+        <item name="colorControlActivated">@color/pure_white</item>
+        <item name="colorControlHighlight">@color/pure_white</item>
+    </style>
+
 </resources>

@@ -3,14 +3,58 @@
 
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="username_">Username:</string>
+    <string name="password_">Password:</string>
+    <string name="email">Email</string>
+    <string name="email_">Email:</string>
+    <string name="owner">Owner</string>
+    <string name="owner_">Owner: (click to view profile)</string>
+    <string name="comments_">Comments:</string>
+    <string name="status_">Status:</string>
+    <string name="book_name_">Book Name:</string>
+    <string name="book_cat_">Book Category:</string>
+    <string name="book_edition_">Book Edition:</string>
+    <string name="book_start_bid_">Starting Bid($):</string>
+    <string name="yes_en">Yes</string>
+    <string name="no_en">No</string>
+    <string name="ok_en">Ok</string>
+    <string name="cancel_en">Cancel</string>
+    <string name="save_en">Save</string>
+    <string name="post_en">Post</string>
+    <string name="finish_en">Finish</string>
+    <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
+    <string name="bid_history_">Bid History:</string>
+    <string name="bid_count">\ bid(s) were placed for this item</string>
+    <string name="place_bid">Place Bid</string>
+    <string name="accept_bid">Accept Bid</string>
+    <string name="delete_item">Delete Item</string>
+
+    <string name="username_hint">Please enter a unique username</string>
+    <string name="password_hint">Type in your password</string>
+    <string name="book_name_hint">(required)</string>
+    <string name="comments_hint">Anything worth mentioning?</string>
 
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
 
     <string name="userprofile">User Profile</string>
-    <string name="mybids">My Bids</string>
-    <string name="myborrows">My Borrows</string>
-    <string name="myinventory">My Inventory</string>
+    <string name="my_bids">My Bids</string>
+    <string name="my_borrows">My Borrows</string>
+    <string name="my_inventory">My Inventory</string>
+
+    <string name="no_result_found">No result found</string>
+
+    <string-array name="category_array">
+        <item>English</item>
+        <item>Business</item>
+        <item>Engineering</item>
+        <item>Science</item>
+        <item>Calculus</item>
+        <item>Linear Algebra</item>
+        <item>Economy</item>
+        <item>Sociology</item>
+        <item>Geology</item>
+    </string-array>
 
 </resources>

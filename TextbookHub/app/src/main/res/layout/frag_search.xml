@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
 
     <SearchView
@@ -9,9 +10,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:iconifiedByDefault="false"
-        android:layout_gravity="center_horizontal" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/lv_search_result"
+        android:layout_below="@id/searchView"
+        >
     </ListView>
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_no_search_result"
+        android:text="@string/no_result_found"
+        android:textSize="@dimen/textsize_title_large"
+        android:visibility="gone"/>
+
+</RelativeLayout>

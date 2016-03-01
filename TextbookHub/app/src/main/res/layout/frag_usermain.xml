@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/mybids"
+                    android:text="@string/my_bids"
                     android:textColor="@color/mat_grey_darker"
                     android:textSize="@dimen/textsize_btn_main"/>
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/myinventory"
+                    android:text="@string/my_inventory"
                     android:textColor="@color/mat_grey_darker"
                     android:textSize="@dimen/textsize_btn_main"/>
 
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_below="@id/imageview_profile"
-                    android:text="@string/myborrows"
+                    android:text="@string/my_borrows"
                     android:textColor="@color/mat_grey_darker"
                     android:textSize="@dimen/textsize_btn_main"/>
 
