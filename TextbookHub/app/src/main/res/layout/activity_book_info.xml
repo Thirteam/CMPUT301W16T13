@@ -1,13 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_bottom_action"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent">
+        <LinearLayout
+            android:id="@+id/borrower_bid_action_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mat_indigo_superdark"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:singleLine="true"
+                android:textColor="@color/pure_white"
+                />
+
+            <Button
+                android:id="@+id/button_place_bid"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:background="@drawable/button_indigo"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:text="@string/place_bid"
+                android:textSize="@dimen/textsize_content" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/owner_bid_action_layout"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mat_indigo_superdark"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_delete_item"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_indigo"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:textSize="@dimen/textsize_content"
+                android:text="@string/delete_item" />
+
+
+            <Button
+                android:id="@+id/button_accpet_bid"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_indigo"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:text="@string/accept_bid"
+                android:textSize="@dimen/textsize_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
     <ScrollView
         android:id="@+id/scrollview_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/transparent">
+        android:background="@color/transparent"
+        android:layout_above="@id/layout_bottom_action">
 
         <LinearLayout
             android:id="@+id/section0_container"
@@ -19,8 +97,9 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_line_spacing_medium"
-            android:paddingTop="@dimen/padding_line_spacing_medium" >
+            android:paddingBottom="@dimen/padding_line_spacing_large"
+            android:paddingTop="@dimen/padding_line_spacing_medium"
+            >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -237,71 +316,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/borrower_bid_action_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/mat_indigo_superdark"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:singleLine="true"
-            android:textColor="@color/pure_white"
-            />
-
-        <Button
-            android:id="@+id/button_place_bid"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:textColor="@color/pure_white"
-            android:text="@string/place_bid"
-            android:textSize="@dimen/textsize_content" />
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/owner_bid_action_layout"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
-        android:background="@color/mat_indigo_superdark"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button_delete_item"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:textColor="@color/pure_white"
-            android:textSize="@dimen/textsize_content"
-            android:text="@string/delete_item" />
-
-
-        <Button
-            android:id="@+id/button_accpet_bid"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:drawablePadding="0dp"
-            android:textColor="@color/pure_white"
-            android:text="@string/accept_bid"
-            android:textSize="@dimen/textsize_content" />
-
-    </LinearLayout>
 
 </RelativeLayout>
