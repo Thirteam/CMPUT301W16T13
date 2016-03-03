@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/outer_container"
     android:layout_width="match_parent"
@@ -34,13 +33,34 @@
                 android:paddingLeft="@dimen/padding_title"
                 android:paddingRight="@dimen/padding_title"
                 android:paddingStart="@dimen/padding_title"
+                android:text="@string/profile_cap"
+                android:textColor="@color/mat_grey_dark"
+                android:textSize="@dimen/textsize_large"
+                 />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="@dimen/padding_title"
+                android:layout_marginRight="@dimen/padding_title"
+                android:layout_marginBottom="@dimen/padding_line_spacing_large"
+                android:background="@color/mat_grey_light"></View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
                 android:text="@string/username_"
                 android:textColor="@color/mat_grey_superdark"
                 android:textSize="@dimen/textsize_large"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_name"
+                android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_element"

@@ -3,9 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
     <ScrollView
         android:id="@+id/scrollview_container"
         android:layout_width="match_parent"
@@ -32,6 +29,20 @@
                 android:adjustViewBounds="true"
                 android:layout_margin="100dp"/>
 
+            <Button
+                android:id="@+id/button_take_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:layout_marginTop="@dimen/padding_line_spacing_small"
+                android:layout_marginBottom="@dimen/padding_line_spacing_small"
+                android:text="@string/take_pictures"
+                android:textAllCaps="false"
+                android:background="@drawable/button_indigo"
+                android:textColor="@color/pure_white"
+                android:textSize="@dimen/textsize_small" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,6 +51,7 @@
                 android:paddingLeft="@dimen/padding_title"
                 android:paddingRight="@dimen/padding_title"
                 android:paddingStart="@dimen/padding_title"
+                android:paddingTop="@dimen/padding_line_spacing_large"
                 android:text="@string/book_name_"
                 android:textColor="@color/mat_grey_superdark"
                 android:textSize="@dimen/textsize_large"

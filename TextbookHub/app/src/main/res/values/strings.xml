@@ -21,6 +21,7 @@
     <string name="cancel_en">Cancel</string>
     <string name="save_en">Save</string>
     <string name="post_en">Post</string>
+    <string name="edit_en">Edit</string>
     <string name="finish_en">Finish</string>
     <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
     <string name="bid_history_">Bid History:</string>
@@ -43,8 +44,24 @@
     <string name="my_borrows">My Borrows</string>
     <string name="my_inventory">My Inventory</string>
 
-    <string name="no_result_found">No result found</string>
+    <string name="nothing_here">There is nothing here!</string>
+    <string name="no_result_found">Nothing Found? No Way!</string>
+    <string name="no_bids">See a book you want? Bid fearlessly!</string>
+    <string name="no_borrowed_book">Want to borrow a book? Search for it!</string>
+    <string name="no_inventory_book">Have a book to available? Click New!</string>
+    <string name="new_book">+ New</string>
 
+    <string name="discard_changes">Discard Changes</string>
+    <string name="unsaved_warning">All unsaved changes will be lost, continue?</string>
+    <string name="title_logout">Logout</string>
+    <string name="logout_warning">Are you sure you want to logout?</string>
+    <string name="new_search">Search for a particular book here!</string>
+    <string name="activity_title_my_bids">Book(s) I Bid On</string>
+    <string name="activity_title_my_books">My Books</string>
+    <string name="activity_title_my_borrows">Book(s) I Borrowed</string>
+    <string name="take_pictures">+ Picture</string>
+
+    <string name="profile_cap">USER INFO</string>
     <string-array name="category_array">
         <item>English</item>
         <item>Business</item>
@@ -55,6 +72,12 @@
         <item>Economy</item>
         <item>Sociology</item>
         <item>Geology</item>
+    </string-array>
+
+    <string-array name="inventory_list_content_array">
+        <item>Show All Books</item>
+        <item>Show Pending Books</item>
+        <item>Show Borrowed Books</item>
     </string-array>
 
 </resources>

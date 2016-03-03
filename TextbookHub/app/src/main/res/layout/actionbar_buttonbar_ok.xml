@@ -3,12 +3,12 @@
     android:id="@+id/add_action_bar_custom"
     style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/mat_indigo_superdark"
     android:orientation="horizontal" >
 
     <Button
-        android:id="@+id/btn_ok"
+        android:id="@+id/button_ok"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"

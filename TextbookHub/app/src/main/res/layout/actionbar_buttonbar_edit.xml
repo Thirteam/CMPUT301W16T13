@@ -3,13 +3,14 @@
     android:id="@+id/add_action_bar_custom"
     style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/mat_indigo_superdark"
     android:orientation="horizontal" >
 
     <Button
-        android:id="@+id/btn_cancel"
+        android:id="@+id/button_cancel"
         style="?android:attr/buttonBarButtonStyle"
+        android:background="@drawable/button_indigo"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -20,10 +21,11 @@
 
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/button_save"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@drawable/button_indigo"
         android:layout_gravity="start"
         android:layout_weight="1"
         android:drawablePadding="0dp"

@@ -10,7 +10,6 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cmput301.textbookhub.R;
 
 public class Activity_Main extends AppCompatActivity {
@@ -32,8 +31,10 @@ public class Activity_Main extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Fragment_Search(), Fragment_Search.getFragmentLabel());
-        adapter.addFragment(new Fragment_UserMain(), Fragment_UserMain.getFragmentLabel());
+        BaseFragment frag_search = new Fragment_Search();
+        BaseFragment frag_main = new Fragment_UserMain();
+        adapter.addFragment(frag_search, frag_search.getFragmentLabel());
+        adapter.addFragment(frag_main, frag_main.getFragmentLabel());
         viewPager.setAdapter(adapter);
     }
 
