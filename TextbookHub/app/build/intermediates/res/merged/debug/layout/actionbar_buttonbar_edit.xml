@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_action_bar_custom"
+    style="?android:attr/buttonBarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mat_indigo_superdark"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/button_cancel"
+        style="?android:attr/buttonBarButtonStyle"
+        android:background="@drawable/button_indigo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawablePadding="0dp"
+        android:textColor="@color/pure_white"
+        android:textSize="@dimen/textsize_content"
+        android:text="@string/cancel_en" />
+
+
+    <Button
+        android:id="@+id/button_save"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/button_indigo"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:drawablePadding="0dp"
+        android:textColor="@color/pure_white"
+        android:text="@string/post_en"
+        android:textSize="@dimen/textsize_content" />
+
+</LinearLayout><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/actionbar_buttonbar_edit.xml -->
