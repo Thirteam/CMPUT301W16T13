@@ -1,0 +1,43 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tab_max_width">264dp</dimen>
+    <dimen name="tab_padding_bottom">16dp</dimen>
+    <dimen name="tab_label">14sp</dimen>
+    <dimen name="custom_tab_layout_height">72dp</dimen>
+
+    <dimen name="margin_et_login_lr">32dp</dimen>
+    <dimen name="margin_et_login_tb">24dp</dimen>
+    <dimen name="margin_tv_login_top">64dp</dimen>
+    <dimen name="margin_tv_login_bot">16dp</dimen>
+    <dimen name="margin_btn_login_lr">32dp</dimen>
+    <dimen name="margin_btn_login_tb">32dp</dimen>
+    <dimen name="margin_imageview">56dp</dimen>
+    <dimen name="margin_imageview_small">28dp</dimen>
+
+    <dimen name="textsize_appname">36sp</dimen>
+    <dimen name="textsize_btn_login">18sp</dimen>
+    <dimen name="textsize_et_login">18sp</dimen>
+    <dimen name="textsize_btn_main">20sp</dimen>
+    <dimen name="textsize_title_large">24sp</dimen>
+    <dimen name="textsize_title_medium">16sp</dimen>
+    <dimen name="textsize_large">16sp</dimen>
+    <dimen name="textsize_small">13sp</dimen>
+    <dimen name="textsize_tiny">11sp</dimen>
+    <dimen name="textsize_xlarge">20sp</dimen>
+    <dimen name="textsize_content">15sp</dimen>
+    <dimen name="textsize_spinner">18sp</dimen>
+
+    <dimen name="margin_separator">3dp</dimen>
+
+    <dimen name="padding_title">20dp</dimen>
+    <dimen name="padding_element">26dp</dimen>
+    <dimen name="padding_line_spacing_large">24dp</dimen>
+    <dimen name="padding_line_spacing_medium">16dp</dimen>
+    <dimen name="padding_line_spacing_small">8dp</dimen>
+    <dimen name="padding_inside">8dp</dimen>
+
+    <dimen name="size_listview_bid_hist">160dp</dimen>
+
+</resources>

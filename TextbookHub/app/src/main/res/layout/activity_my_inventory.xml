@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/new_button_layout"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:background="@color/mat_indigo_superdark"
+        android:orientation="horizontal" >
+
+
+        <Button
+            android:id="@+id/button_new"
+            android:background="@drawable/button_indigo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:drawablePadding="0dp"
+            android:textColor="@color/pure_white"
+            android:text="@string/new_book"
+            android:textSize="@dimen/textsize_content" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lv_inventory"
+        android:layout_above="@id/new_button_layout"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/layout_inventory_hint"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_nothing_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/nothing_here"
+            android:gravity="center"
+            android:textSize="@dimen/textsize_title_large"
+            android:textColor="@color/mat_grey_dark"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_empty_inventory_2"
+            android:text="@string/no_inventory_book"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/textsize_title_medium"
+            android:layout_marginTop="@dimen/padding_line_spacing_small"
+            android:textColor="@color/mat_grey_dark"
+            android:layout_below="@id/tv_nothing_here"/>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

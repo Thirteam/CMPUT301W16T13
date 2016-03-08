@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_bottom_action"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent">
+        <LinearLayout
+            android:id="@+id/borrower_bid_action_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mat_indigo_superdark"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:singleLine="true"
+                android:textColor="@color/pure_white"
+                />
+
+            <Button
+                android:id="@+id/button_place_bid"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:background="@drawable/button_indigo"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:text="@string/place_bid"
+                android:textSize="@dimen/textsize_content" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/owner_bid_action_layout"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mat_indigo_superdark"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_delete_item"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_indigo"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:textSize="@dimen/textsize_content"
+                android:text="@string/delete_item" />
+
+
+            <Button
+                android:id="@+id/button_accpet_bid"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_indigo"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:drawablePadding="0dp"
+                android:textColor="@color/pure_white"
+                android:text="@string/accept_bid"
+                android:textSize="@dimen/textsize_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <ScrollView
+        android:id="@+id/scrollview_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_above="@id/layout_bottom_action">
+
+        <LinearLayout
+            android:id="@+id/section0_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:animateLayoutChanges="true"
+            android:background="@color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/padding_line_spacing_large"
+            android:paddingTop="@dimen/padding_line_spacing_medium"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_import_borrows_black_24dp"
+                android:adjustViewBounds="true"
+                android:layout_margin="100dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:text="@string/book_name_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_book_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:textColor="@color/mat_grey_superdark"
+                android:paddingTop="@dimen/padding_line_spacing_small"
+                android:text="This is the name of the book"
+                android:textSize="@dimen/textsize_large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:paddingTop="@dimen/padding_line_spacing_medium"
+                android:text="@string/owner_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:layout_marginTop="@dimen/padding_line_spacing_small"
+                android:layout_marginBottom="@dimen/padding_line_spacing_small"
+                android:text="I'm the owner of this book"
+                android:textAllCaps="false"
+                android:background="@drawable/button_indigo"
+                android:textColor="@color/pure_white"
+                android:textSize="@dimen/textsize_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/bid_section">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_line_spacing_medium"
+                    android:paddingEnd="@dimen/padding_title"
+                    android:paddingLeft="@dimen/padding_title"
+                    android:paddingRight="@dimen/padding_title"
+                    android:paddingStart="@dimen/padding_title"
+                    android:text="@string/current_bid_"
+                    android:textColor="@color/mat_grey_superdark"
+                    android:textSize="@dimen/textsize_large"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_current_highest_bid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_element"
+                    android:layout_marginRight="@dimen/padding_element"
+                    android:textColor="@color/mat_grey_superdark"
+                    android:paddingTop="@dimen/padding_line_spacing_small"
+                    android:text="$37.05"
+                    android:textSize="@dimen/textsize_title_large" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_line_spacing_medium"
+                    android:paddingEnd="@dimen/padding_title"
+                    android:paddingLeft="@dimen/padding_title"
+                    android:paddingRight="@dimen/padding_title"
+                    android:paddingStart="@dimen/padding_title"
+                    android:text="@string/bid_history_"
+                    android:textColor="@color/mat_grey_superdark"
+                    android:textSize="@dimen/textsize_large"
+                    android:textStyle="bold" />
+                
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/size_listview_bid_hist">
+
+                </ListView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_bid_count"
+                        android:layout_alignParentLeft="true"
+                        android:paddingTop="@dimen/padding_line_spacing_medium"
+                        android:text="0"
+                        android:textColor="@color/mat_grey_dark"
+                        android:textSize="@dimen/textsize_large"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv_bid_count"
+                        android:paddingTop="@dimen/padding_line_spacing_medium"
+                        android:text="@string/bid_count"
+                        android:textColor="@color/mat_grey_dark"
+                        android:textSize="@dimen/textsize_large"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:paddingTop="@dimen/padding_line_spacing_medium"
+                android:text="@string/book_cat_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_book_cat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:textColor="@color/mat_grey_superdark"
+                android:paddingTop="@dimen/padding_line_spacing_small"
+                android:text="This is the category of the book"
+                android:textSize="@dimen/textsize_large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:paddingTop="@dimen/padding_line_spacing_medium"
+                android:text="@string/book_edition_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_book_edition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:textColor="@color/mat_grey_superdark"
+                android:paddingTop="@dimen/padding_line_spacing_small"
+                android:text="This is the edition of the book"
+                android:textSize="@dimen/textsize_large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:paddingTop="@dimen/padding_line_spacing_medium"
+                android:text="@string/comments_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_book_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:textColor="@color/mat_grey_superdark"
+                android:paddingTop="@dimen/padding_line_spacing_small"
+                android:text="This is the comments of the book"
+                android:textSize="@dimen/textsize_large" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
