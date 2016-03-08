@@ -24,9 +24,9 @@ public class Activity_Main extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         setupViewPager(viewPager);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -36,6 +36,7 @@ public class Activity_Main extends AppCompatActivity {
         adapter.addFragment(frag_search, frag_search.getFragmentLabel());
         adapter.addFragment(frag_main, frag_main.getFragmentLabel());
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

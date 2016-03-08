@@ -117,6 +117,7 @@ public class Activity_UserProfile extends AppCompatActivity {
                     context.startActivity(intent);
                 }
             });
+            btn_finish.setText(getResources().getString(R.string.cancel_en));
             btn_finish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
