@@ -8,5 +8,4 @@ public enum BookStatus {
     PENDING,
     BORROWED
 
-
 }
