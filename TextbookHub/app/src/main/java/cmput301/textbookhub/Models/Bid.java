@@ -2,15 +2,18 @@ package cmput301.textbookhub.Models;
 
 import java.util.Calendar;
 
+import cmput301.textbookhub.UniqueItem;
+
 /**
  * Created by Fred on 2016/3/8.
  */
-public class Bid implements Comparable{
+public class Bid implements Comparable, UniqueItem<String>{
+
 
     private Double amount;
     private User bidder;
     private TextBook textBook;
-    private long timestamp;
+    private Long timestamp;
 
     public Bid(Double amount, User user, TextBook textBook){
         this.amount = amount;
@@ -48,5 +51,10 @@ public class Bid implements Comparable{
     @Override
     public String toString() {
         return this.amount.toString();
+    }
+
+    @Override
+    public String getID() {
+        return this.bidder.getID() + " " + this.timestamp.toString();
     }
 }
