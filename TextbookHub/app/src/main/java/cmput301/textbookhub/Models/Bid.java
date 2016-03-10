@@ -1,13 +1,21 @@
 package cmput301.textbookhub.Models;
 
+import android.os.Bundle;
+
 import java.util.Calendar;
 
 /**
  * Created by Fred on 2016/3/8.
  */
-public class Bid implements Comparable, UniqueItem<String>{
+public class Bid implements Comparable, DataBundleObject{
 
+    public static String BUNDLE_KEY_STR_ID = "BID_ID";
+    public static String BUNDLE_KEY_DOUBLE_AMOUNT = "BID_AMOUNT";
+    public static String BUNDLE_KEY_STR_BIDDER_ID = "BID_BIDDER";
+    public static String BUNDLE_KEY_STR_TEXTBOOK_ID = "BID_TEXTBOOK";
+    public static String BUNDLE_KEY_LONG_TIMESTAMP = "BID_TIMESTAMP";
 
+    private String id;
     private Double amount;
     private User bidder;
     private TextBook textBook;
@@ -53,6 +61,29 @@ public class Bid implements Comparable, UniqueItem<String>{
 
     @Override
     public String getID() {
-        return "BID_ID_" + this.bidder.getID() + " " + this.timestamp.toString();
+        return this.id;
     }
+
+    @Override
+    public void setID(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public Bundle generateDataBundle() {
+        Bundle b = new Bundle();
+        if(this.id != null)
+            b.putString(BUNDLE_KEY_STR_ID, this.id);
+        b.putDouble(BUNDLE_KEY_DOUBLE_AMOUNT, this.getAmount());
+        b.putString(BUNDLE_KEY_STR_BIDDER_ID, this.bidder.getID());
+        b.putString(BUNDLE_KEY_STR_TEXTBOOK_ID, this.textBook.getID());
+        b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
+        return b;
+    }
+
+    @Override
+    public DataBundleLabel getDataModelLabel() {
+        return DataBundleLabel.BID;
+    }
+
 }

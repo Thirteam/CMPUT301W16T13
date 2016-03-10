@@ -1,11 +1,18 @@
 package cmput301.textbookhub.Models;
 
+import android.os.Bundle;
+
 import java.util.Calendar;
 
 /**
  * Created by Fred on 2016/3/8.
  */
-public class User implements NamedItem, UniqueItem<String>, Syncable{
+public class User implements NamedItem, Syncable, DataBundleObject{
+
+    public static String BUNDLE_KEY_STR_USERNAME = "TEXTBOOK_ID";
+    public static String BUNDLE_KEY_STR_PASSWORD = "TEXTBOOK_NAME";
+    public static String BUNDLE_KEY_STR_EMAIL = "TEXTBOOK_EDITION";
+    public static String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
 
     private String username;
     private String password;
@@ -56,6 +63,10 @@ public class User implements NamedItem, UniqueItem<String>, Syncable{
         return this.username;
     }
 
+    @Override
+    public void setID(String id) {
+    }
+
     public BookShelf getBookShelf() {
         return bookShelf;
     }
@@ -96,5 +107,21 @@ public class User implements NamedItem, UniqueItem<String>, Syncable{
     @Override
     public String toString() {
         return this.username;
+    }
+
+    @Override
+    public DataBundleLabel getDataModelLabel() {
+        return DataBundleLabel.USER;
+    }
+
+    @Override
+    public Bundle generateDataBundle() {
+        Bundle b = new Bundle();
+        b.putString(BUNDLE_KEY_STR_USERNAME, this.username);
+        b.putString(BUNDLE_KEY_STR_PASSWORD, this.password);
+        if(this.email != null)
+            b.putString(BUNDLE_KEY_STR_EMAIL, this.email);
+        b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
+        return b;
     }
 }

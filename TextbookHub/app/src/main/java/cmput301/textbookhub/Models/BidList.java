@@ -44,4 +44,12 @@ public class BidList {
             throw new IndexOutOfBoundsException();
         }
     }
+
+    public ArrayList<String> getBidIDStringArray(){
+        ArrayList<String> arr = new ArrayList<>();
+        for(Bid b : this.bidList){
+            arr.add(b.getID());
+        }
+        return arr;
+    }
 }

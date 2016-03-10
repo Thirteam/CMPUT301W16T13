@@ -6,4 +6,6 @@ package cmput301.textbookhub.Models;
 public interface UniqueItem<T> {
 
     T getID();
+
+    void setID(T id);
 }

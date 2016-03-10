@@ -5,6 +5,8 @@ package cmput301.textbookhub.Models;
  */
 public interface Syncable {
 
+    //TODO: don't know if this interface is required
+
     SyncStatus getSyncStatus();
 
     void setSyncStatus(SyncStatus status);

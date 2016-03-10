@@ -1,16 +1,16 @@
 package cmput301.textbookhub.Models;
 
 /**
- * Created by xuefei1 on 3/8/16.
+ * Created by Fred on 2016/3/10.
  */
-public enum BookStatus {
-
-    AVAILABLE("Available"),
-    BORROWED("Borrowed");
+public enum DataBundleLabel{
+    BID("BID"),
+    TEXTBOOK("TEXTBOOK"),
+    USER("USER");
 
     private final String name;
 
-    BookStatus(String s) {
+    DataBundleLabel(String s) {
         name = s;
     }
 
@@ -22,10 +22,10 @@ public enum BookStatus {
         return this.name;
     }
 
-    public BookStatus findStatus(String name) throws IllegalArgumentException{
-        for(BookStatus status : BookStatus.values()){
-            if(status.equalsName(name)){
-                return status;
+    public DataBundleLabel findLabel(String name) throws IllegalArgumentException{
+        for(DataBundleLabel label : DataBundleLabel.values()){
+            if(label.equalsName(name)){
+                return label;
             }
         }
         throw new IllegalArgumentException();
