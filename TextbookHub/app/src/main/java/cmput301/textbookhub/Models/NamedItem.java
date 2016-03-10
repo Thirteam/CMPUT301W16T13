@@ -1,4 +1,4 @@
-package cmput301.textbookhub;
+package cmput301.textbookhub.Models;
 
 /**
  * Created by Fred on 2016/2/29.

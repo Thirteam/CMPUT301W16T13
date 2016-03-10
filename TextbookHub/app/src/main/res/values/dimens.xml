@@ -13,6 +13,7 @@
     <dimen name="margin_tv_login_bot">16dp</dimen>
     <dimen name="margin_btn_login_lr">32dp</dimen>
     <dimen name="margin_btn_login_tb">32dp</dimen>
+    <dimen name="margin_tab">10dp</dimen>
     <dimen name="margin_imageview">56dp</dimen>
     <dimen name="margin_imageview_small">28dp</dimen>
 
@@ -36,6 +37,7 @@
     <dimen name="padding_line_spacing_large">24dp</dimen>
     <dimen name="padding_line_spacing_medium">16dp</dimen>
     <dimen name="padding_line_spacing_small">8dp</dimen>
+    <dimen name="padding_around_text">5dp</dimen>
     <dimen name="padding_inside">8dp</dimen>
 
     <dimen name="size_listview_bid_hist">160dp</dimen>

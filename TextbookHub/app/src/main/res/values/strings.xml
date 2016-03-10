@@ -8,6 +8,7 @@
     <string name="email">Email</string>
     <string name="email_">Email:</string>
     <string name="owner">Owner</string>
+    <string name="owner__">Owner:</string>
     <string name="owner_">Owner: (click to view profile)</string>
     <string name="comments_">Comments:</string>
     <string name="status_">Status:</string>
@@ -23,6 +24,7 @@
     <string name="post_en">Post</string>
     <string name="edit_en">Edit</string>
     <string name="finish_en">Finish</string>
+    <string name="current_highest_">Current Highest Bid:</string>
     <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
     <string name="bid_history_">Bid History:</string>
     <string name="bid_count">\ bid(s) were placed for this item</string>
