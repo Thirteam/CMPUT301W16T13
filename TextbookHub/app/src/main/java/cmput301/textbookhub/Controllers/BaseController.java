@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.util.ArrayList;
+
 import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.DataBundleLabel;
 import cmput301.textbookhub.Views.BaseView;
@@ -13,18 +15,14 @@ import cmput301.textbookhub.Views.BaseView;
  */
 public abstract class BaseController {
 
-    private Context ctx;
+    private ArrayList<BaseView> views;
 
-    protected BaseController(Context ctx){
+    public BaseController(){
         //TODO:init database here
-        this.ctx = ctx;
+        this.views = new ArrayList<>();
     }
 
-    public Context getContext() {
-        return this.ctx;
-    }
-
-    public boolean isNetworkAvailable() {
+    public boolean isNetworkAvailable(Context ctx) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -49,8 +47,21 @@ public abstract class BaseController {
         throw new IllegalArgumentException();
     }
 
-    public abstract void addBaseViews(BaseView view);
+    public ArrayList<BaseView> getBaseViews() {
+        return views;
+    }
 
-    public abstract void updateBaseViews();
+    public void setBaseViews(ArrayList<BaseView> list) {
+        this.views = list;
+    }
+
+    public void addBaseView(BaseView view) {
+        this.views.add(view);
+    }
+
+    public void updateBaseViews() {
+        for(BaseView v : this.views)
+            v.updateView();
+    }
 
 }

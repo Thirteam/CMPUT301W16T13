@@ -7,19 +7,26 @@ import android.view.View;
 import android.widget.Button;
 import android.support.v7.app.ActionBar;
 
+import cmput301.textbookhub.Controllers.EditBookActivityController;
+import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.R;
 
 /**
  * Created by Fred on 2016/3/2.
  */
-public class Activity_EditBook extends AppCompatActivity {
+public class Activity_EditBook extends AppCompatActivity implements BaseView{
 
     Button btn_save, btn_cancel;
+    private EditBookActivityController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_edit);
+
+        this.controller = (EditBookActivityController)ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit,
                 null);
@@ -44,6 +51,11 @@ public class Activity_EditBook extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    @Override
+    public void updateView(){
 
     }
 }

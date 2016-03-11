@@ -19,22 +19,30 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.MyInventoryActivityController;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
  * Created by Fred on 2016/3/1.
  */
-public class Activity_MyInventory extends AppCompatActivity {
+public class Activity_MyInventory extends AppCompatActivity implements BaseView{
     ListView lv_my_books;
     LinearLayout layout_inventory_hint;
     Button btn_new;
     Context context;
 
+    private MyInventoryActivityController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_inventory);
+
+        this.controller = (MyInventoryActivityController) ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this);
+
         context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -111,5 +119,10 @@ public class Activity_MyInventory extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void updateView(){
+
     }
 }

@@ -16,22 +16,30 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
  * Created by Fred on 2016/3/1.
  */
-public class Activity_MyBorrows extends AppCompatActivity {
+public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
     ListView lv_my_borrows;
     LinearLayout layout_borrows_hint;
     Context context;
 
+    private MyBorrowsActivityController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_borrows);
+
+        this.controller = (MyBorrowsActivityController) ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BORROWS, this);
+
         this.context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.activity_title_my_borrows));
@@ -63,4 +71,8 @@ public class Activity_MyBorrows extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void updateView(){
+
+    }
 }

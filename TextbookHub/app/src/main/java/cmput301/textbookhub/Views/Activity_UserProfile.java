@@ -16,12 +16,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.UserProfileActivityController;
 import cmput301.textbookhub.R;
 
 /**
  * Created by Fred on 2016/3/2.
  */
-public class Activity_UserProfile extends AppCompatActivity {
+public class Activity_UserProfile extends AppCompatActivity implements BaseView{
 
     public static final String BUNDLE_KEY_PROFILE_TYPE = "Activity_Type";
     public static final String INTENT_EXTRAS_KEY_BUNDLE = "Bundle";
@@ -35,10 +37,16 @@ public class Activity_UserProfile extends AppCompatActivity {
     Button btn_save, btn_finish;
     EditText et_username, et_password, et_email;
 
+    private UserProfileActivityController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        this.controller = (UserProfileActivityController)ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this);
+
         context = this;
         // Set your custom view
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -143,5 +151,10 @@ public class Activity_UserProfile extends AppCompatActivity {
         et_username.setEnabled(false);
         et_password.setEnabled(false);
         et_email.setEnabled(false);
+    }
+
+    @Override
+    public void updateView(){
+
     }
 }

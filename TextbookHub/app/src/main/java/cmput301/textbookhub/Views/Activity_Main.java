@@ -10,17 +10,25 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
 
-public class Activity_Main extends AppCompatActivity {
+public class Activity_Main extends AppCompatActivity implements BaseView{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private MainActivityController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.controller  = (MainActivityController) ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_MAIN, this);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         setupViewPager(viewPager);
@@ -37,6 +45,11 @@ public class Activity_Main extends AppCompatActivity {
         adapter.addFragment(frag_main, frag_main.getFragmentLabel());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+    }
+
+    @Override
+    public void updateView(){
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

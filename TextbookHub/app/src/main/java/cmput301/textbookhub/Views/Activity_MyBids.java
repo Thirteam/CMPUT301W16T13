@@ -12,22 +12,30 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.MyBidsActivityController;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
  * Created by Fred on 2016/3/1.
  */
-public class Activity_MyBids extends AppCompatActivity {
+public class Activity_MyBids extends AppCompatActivity implements BaseView{
 
     ListView lv_my_bids;
     LinearLayout layout_bids_hint;
     Context context;
 
+    private MyBidsActivityController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bids);
+
+        this.controller = (MyBidsActivityController) ControllerFactory.getControllerForView(
+                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BIDS, this);
+
         this.context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.activity_title_my_bids));
@@ -57,5 +65,10 @@ public class Activity_MyBids extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void updateView(){
+
     }
 }
