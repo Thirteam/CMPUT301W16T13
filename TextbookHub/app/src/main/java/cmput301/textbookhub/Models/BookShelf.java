@@ -7,12 +7,6 @@ import java.util.ArrayList;
  */
 public class BookShelf {
 
-<<<<<<< HEAD
-    private ArrayList<TextBook> allBooks;
-    private ArrayList<TextBook> personalBooks;
-    private ArrayList<TextBook> borrowedBooks;
-
-=======
     private ArrayList<TextBook> personalBooks;
     private ArrayList<TextBook> borrowedBooks;
 
@@ -50,6 +44,4 @@ public class BookShelf {
         return this.borrowedBooks.size();
     }
 
-
->>>>>>> xuefei1
 }

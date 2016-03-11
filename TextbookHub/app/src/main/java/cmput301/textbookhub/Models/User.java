@@ -1,15 +1,7 @@
 package cmput301.textbookhub.Models;
 
-<<<<<<< HEAD
-/**
- * Created by Fred on 2016/3/8.
- */
-public class User {
-=======
-import android.os.Bundle;
-
 import java.util.Calendar;
-
+import android.os.Bundle;
 /**
  * Created by Fred on 2016/3/8.
  */
@@ -130,5 +122,4 @@ public class User implements NamedItem, Syncable, DataBundleObject{
         b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
         return b;
     }
->>>>>>> xuefei1
 }

@@ -1,11 +1,5 @@
 package cmput301.textbookhub.Models;
 
-<<<<<<< HEAD
-/**
- * Created by Fred on 2016/3/8.
- */
-public class TextBook {
-=======
 import android.os.Bundle;
 
 import java.util.Calendar;
@@ -159,5 +153,4 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     public DataBundleLabel getDataModelLabel() {
         return DataBundleLabel.TEXTBOOK;
     }
->>>>>>> xuefei1
 }
