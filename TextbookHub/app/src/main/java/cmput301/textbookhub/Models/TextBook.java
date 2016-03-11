@@ -9,15 +9,15 @@ import java.util.Calendar;
  */
 public class TextBook implements NamedItem, Syncable, DataBundleObject{
 
-    public static String BUNDLE_KEY_STR_ID = "TEXTBOOK_ID";
-    public static String BUNDLE_KEY_STR_BOOKNAME = "TEXTBOOK_NAME";
-    public static String BUNDLE_KEY_STR_EDITION = "TEXTBOOK_EDITION";
-    public static String BUNDLE_KEY_STR_COMMENTS = "TEXTBOOK_COMMENTS";
-    public static String BUNDLE_KEY_STR_OWNER_ID = "TEXTBOOK_OWNER";
-    public static String BUNDLE_KEY_STR_BORROWER_ID = "TEXTBOOK_BORROWED";
-    public static String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
-    public static String BUNDLE_KEY_STRARR_BIDLIST = "TEXTBOOK_BIDLIST";
-    public static String BUNDLE_KEY_STR_BOOKSTAT = "TEXTBOOK_BOOKSTAT";
+    public static final String BUNDLE_KEY_STR_ID = "TEXTBOOK_ID";
+    public static final String BUNDLE_KEY_STR_BOOKNAME = "TEXTBOOK_NAME";
+    public static final String BUNDLE_KEY_STR_EDITION = "TEXTBOOK_EDITION";
+    public static final String BUNDLE_KEY_STR_COMMENTS = "TEXTBOOK_COMMENTS";
+    public static final String BUNDLE_KEY_STR_OWNER_ID = "TEXTBOOK_OWNER";
+    public static final String BUNDLE_KEY_STR_BORROWER_ID = "TEXTBOOK_BORROWED";
+    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
+    public static final String BUNDLE_KEY_STRARR_BIDLIST = "TEXTBOOK_BIDLIST";
+    public static final String BUNDLE_KEY_STR_BOOKSTAT = "TEXTBOOK_BOOKSTAT";
 
     private String id;
     private String bookName;
@@ -39,6 +39,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
         this.timestamp = Calendar.getInstance().getTimeInMillis();
         this.owner = owner;
         this.bookName = bookName;
+        this.id = this.owner.getID()+"_"+this.timestamp.toString();
     }
 
     @Override
@@ -135,8 +136,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     @Override
     public Bundle generateDataBundle() {
         Bundle b = new Bundle();
-        if(this.id != null)
-            b.putString(BUNDLE_KEY_STR_ID, this.id);
+        b.putString(BUNDLE_KEY_STR_ID, this.id);
         b.putString(BUNDLE_KEY_STR_BOOKNAME, this.bookName);
         b.putString(BUNDLE_KEY_STR_OWNER_ID, this.owner.getID());
         b.putString(BUNDLE_KEY_STR_BOOKSTAT, this.bookStatus.toString());

@@ -1,9 +1,11 @@
 package cmput301.textbookhub.Views;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
+import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
@@ -33,8 +38,12 @@ public class Activity_MyInventory extends AppCompatActivity {
         context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //TODO:fetch data for lv
         lv_my_books = (ListView) findViewById(R.id.lv_inventory);
         lv_my_books.setVisibility(View.GONE);
+        lv_my_books.setAdapter(
+                new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, new ArrayList<TextBook>())
+        );
         layout_inventory_hint = (LinearLayout) findViewById(R.id.layout_inventory_hint);
         btn_new = (Button) findViewById(R.id.button_new);
         btn_new.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +51,17 @@ public class Activity_MyInventory extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, Activity_EditBook.class);
                 startActivity(intent);
+            }
+        });
+
+        lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(context, Activity_ViewBook.class);
+                Bundle b = new Bundle();
+                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
+                i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
+                startActivity(i);
             }
         });
 
@@ -90,5 +110,38 @@ public class Activity_MyInventory extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    static class InventoryListAdapter extends ArrayAdapter{
+
+        private Context ctx;
+        private int layoutResID;
+        private ArrayList<TextBook> data;
+
+        public InventoryListAdapter(Context context, int layoutResourceId, ArrayList<TextBook> data){
+            super(context, layoutResourceId, data);
+            this.data = data;
+            this.ctx = context;
+            this.layoutResID = layoutResourceId;
+
+        }
+        @Override
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public TextBook getItem(int position) {
+            return data.get(position);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null) {
+                LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
+                convertView = inflater.inflate(layoutResID, parent, false);
+            }
+            return convertView;
+        }
     }
 }

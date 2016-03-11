@@ -7,8 +7,8 @@ import cmput301.textbookhub.Views.BaseView;
  */
 public interface BaseObservable {
 
-    void addObserverView(BaseView v);
+    void addObserver(BaseView v);
 
-    void notifyObserverView();
+    void notifyObserver();
 
 }

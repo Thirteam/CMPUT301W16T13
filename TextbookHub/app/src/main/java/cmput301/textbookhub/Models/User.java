@@ -9,10 +9,10 @@ import java.util.Calendar;
  */
 public class User implements NamedItem, Syncable, DataBundleObject{
 
-    public static String BUNDLE_KEY_STR_USERNAME = "TEXTBOOK_ID";
-    public static String BUNDLE_KEY_STR_PASSWORD = "TEXTBOOK_NAME";
-    public static String BUNDLE_KEY_STR_EMAIL = "TEXTBOOK_EDITION";
-    public static String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
+    public static final String BUNDLE_KEY_STR_USERNAME = "TEXTBOOK_ID";
+    public static final String BUNDLE_KEY_STR_PASSWORD = "TEXTBOOK_NAME";
+    public static final String BUNDLE_KEY_STR_EMAIL = "TEXTBOOK_EDITION";
+    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
 
     private String username;
     private String password;
