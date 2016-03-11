@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Created by Fred on 2016/3/10.
  */
-public class LoginActivityController extends BaseController {
+public class    LoginActivityController extends BaseController {
 
     private static LoginActivityController instance;
 

@@ -19,4 +19,4 @@
         android:textSize="@dimen/textsize_content"
         android:text="@string/finish_en" />
 
-</LinearLayout><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/actionbar_buttonbar_ok.xml -->
+</LinearLayout><!-- From: file:/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/actionbar_buttonbar_ok.xml -->

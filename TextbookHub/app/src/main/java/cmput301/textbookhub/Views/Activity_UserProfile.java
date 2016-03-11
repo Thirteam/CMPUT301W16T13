@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.UserProfileActivityController;
+import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 
 /**
@@ -33,6 +34,12 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private static final String STATUS_VIEW_ONLY = "View";
     private String status = STATUS_VIEW_ONLY;
     Context context;
+
+    //private String Username;
+    //private String Password;
+    //private String Email;
+
+    protected User user;
 
     Button btn_save, btn_finish;
     EditText et_username, et_password, et_email;
@@ -85,6 +92,9 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
                         //TODO: save changes to profile
+                        et_username.setText(user.getName());
+                        et_password.setText(user.getPassword());
+                        et_email.setText(user.getEmail());
                         finish();
                     }
                 }
@@ -118,11 +128,20 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
             initEditTextValues();
             disableEditTexts();
         }else{
-            btn_save.setText(getResources().getString(R.string.save_en));
+            btn_save.setText("Register");
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO: check input data integrity, create new user, go to main page
+                    String Username = et_username.getText().toString();
+                    String Password = et_password.getText().toString();
+                    String Email = et_email.getText().toString();
+
+                    user.setID(Username);
+                    user.setPassword(Password);
+                    user.setEmail(Email);
+
+                    //curl post '{ "Username": "2016-02-14U13:12:11", "tweet": "Happy Valentines Day! (I am so lonely ;_;)"}'
                     Intent intent = new Intent(context, Activity_Main.class);
                     context.startActivity(intent);
                 }

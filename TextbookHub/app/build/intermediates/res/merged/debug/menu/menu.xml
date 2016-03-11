@@ -6,4 +6,4 @@
         TextBookHub:showAsAction="ifRoom"
         android:title="Content Select"
         TextBookHub:actionViewClass="android.widget.Spinner" />
-</menu><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/menu/menu.xml -->
+</menu><!-- From: file:/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/src/main/res/menu/menu.xml -->

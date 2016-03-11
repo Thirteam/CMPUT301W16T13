@@ -12,8 +12,8 @@ public class UserProfileActivityController extends BaseController {
     private UserProfileActivityController() {
     }
 
-    public static UserProfileActivityController getInstance(){
-        if(instance == null)
+    public static UserProfileActivityController getInstance() {
+        if (instance == null)
             instance = new UserProfileActivityController();
         return instance;
     }

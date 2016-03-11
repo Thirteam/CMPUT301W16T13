@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-h720dp/values-h720dp.xml -->
+    <!-- From: file:/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-h720dp/values-h720dp.xml -->
     <eat-comment/>
     <dimen name="abc_alert_dialog_button_bar_height">54dip</dimen>
 </resources>
