@@ -318,6 +318,7 @@
     <dimen name="margin_imageview">56dp</dimen>
     <dimen name="margin_imageview_small">28dp</dimen>
     <dimen name="margin_separator">3dp</dimen>
+    <dimen name="margin_tab">10dp</dimen>
     <dimen name="margin_tv_login_bot">16dp</dimen>
     <dimen name="margin_tv_login_top">64dp</dimen>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
@@ -327,6 +328,7 @@
     <dimen name="notification_subtext_size">12dp</dimen>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
+    <dimen name="padding_around_text">5dp</dimen>
     <dimen name="padding_element">26dp</dimen>
     <dimen name="padding_inside">8dp</dimen>
     <dimen name="padding_line_spacing_large">24dp</dimen>
@@ -416,6 +418,7 @@
     <string name="comments_">Comments:</string>
     <string name="comments_hint">Anything worth mentioning?</string>
     <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
+    <string name="current_highest_">Current Highest Bid:</string>
     <string name="delete_item">Delete Item</string>
     <string name="discard_changes">Discard Changes</string>
     <string name="edit_en">Edit</string>
@@ -439,6 +442,7 @@
     <string name="ok_en">Ok</string>
     <string name="owner">Owner</string>
     <string name="owner_">Owner: (click to view profile)</string>
+    <string name="owner__">Owner:</string>
     <string name="password">Password</string>
     <string name="password_">Password:</string>
     <string name="password_hint">Type in your password</string>

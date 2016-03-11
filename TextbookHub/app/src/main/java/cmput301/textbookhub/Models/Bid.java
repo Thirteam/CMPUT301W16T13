@@ -30,11 +30,11 @@ public class Bid implements Comparable{
 =======
 public class Bid implements Comparable, DataBundleObject{
 
-    public static String BUNDLE_KEY_STR_ID = "BID_ID";
-    public static String BUNDLE_KEY_DOUBLE_AMOUNT = "BID_AMOUNT";
-    public static String BUNDLE_KEY_STR_BIDDER_ID = "BID_BIDDER";
-    public static String BUNDLE_KEY_STR_TEXTBOOK_ID = "BID_TEXTBOOK";
-    public static String BUNDLE_KEY_LONG_TIMESTAMP = "BID_TIMESTAMP";
+    public static final String BUNDLE_KEY_STR_ID = "BID_ID";
+    public static final String BUNDLE_KEY_DOUBLE_AMOUNT = "BID_AMOUNT";
+    public static final String BUNDLE_KEY_STR_BIDDER_ID = "BID_BIDDER";
+    public static final String BUNDLE_KEY_STR_TEXTBOOK_ID = "BID_TEXTBOOK";
+    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "BID_TIMESTAMP";
 
     private String id;
     private Double amount;
@@ -47,6 +47,7 @@ public class Bid implements Comparable, DataBundleObject{
         this.bidder = user;
         this.textBook = textBook;
         this.timestamp = Calendar.getInstance().getTimeInMillis();
+        this.id = this.bidder.getID() + "_" + this.timestamp.toString();
     }
 
     public void setAmount(Double amount) {
@@ -122,8 +123,7 @@ public class Bid implements Comparable, DataBundleObject{
     @Override
     public Bundle generateDataBundle() {
         Bundle b = new Bundle();
-        if(this.id != null)
-            b.putString(BUNDLE_KEY_STR_ID, this.id);
+        b.putString(BUNDLE_KEY_STR_ID, this.id);
         b.putDouble(BUNDLE_KEY_DOUBLE_AMOUNT, this.getAmount());
         b.putString(BUNDLE_KEY_STR_BIDDER_ID, this.bidder.getID());
         b.putString(BUNDLE_KEY_STR_TEXTBOOK_ID, this.textBook.getID());

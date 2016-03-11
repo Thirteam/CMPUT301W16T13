@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.support.v7.app.ActionBar;
 
 import cmput301.textbookhub.R;
 
@@ -13,17 +14,28 @@ import cmput301.textbookhub.R;
  * Created by Fred on 2016/3/2.
  */
 public class Activity_ViewBook extends AppCompatActivity {
+
+    public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
+    public static final String INTENT_EXTRAS_KEY_BUNDLE = "BUNDLE";
+
     Button btn_finish;
+    String book_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle b = getIntent().getExtras().getBundle(INTENT_EXTRAS_KEY_BUNDLE);
+        if(b != null){
+            this.book_id = b.getString(BUNDLE_KEY_BOOK_ID);
+        }
+        //TODO:extract book info with id
+        //TODO:if book is borrowed, disable edit, if book is not current owner's, disable. Else enable
         setContentView(R.layout.activity_book_info);
-        getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_ok,
                 null);
-        android.support.v7.app.ActionBar.LayoutParams layoutParams = new android.support.v7.app.ActionBar.LayoutParams(android.support.v7.app.ActionBar.LayoutParams.MATCH_PARENT,
-                android.support.v7.app.ActionBar.LayoutParams.MATCH_PARENT);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
