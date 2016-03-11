@@ -33,8 +33,8 @@ public class Fragment_UserMain extends BaseFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(v.getContext(), Activity_UserProfile.class);
                 Bundle b = new Bundle();
-                b.putString(ActivityHelper.BUNDLE_KEY_ACTIVITY_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW);
-                intent.putExtra(ActivityHelper.INTENT_KEY_BUNDLE, b);
+                b.putString(Activity_UserProfile.BUNDLE_KEY_PROFILE_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW);
+                intent.putExtra(Activity_UserProfile.INTENT_EXTRAS_KEY_BUNDLE, b);
                 startActivity(intent);
             }
         });

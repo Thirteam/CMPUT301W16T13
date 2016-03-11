@@ -23,6 +23,8 @@ import cmput301.textbookhub.R;
  */
 public class Activity_UserProfile extends AppCompatActivity {
 
+    public static final String BUNDLE_KEY_PROFILE_TYPE = "Activity_Type";
+    public static final String INTENT_EXTRAS_KEY_BUNDLE = "Bundle";
     public static final String BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER = "Register";
     public static final String BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW = "View";
     private static final String STATUS_EDIT_ENABLED = "Edit";
@@ -50,7 +52,7 @@ public class Activity_UserProfile extends AppCompatActivity {
         parent.setContentInsetsAbsolute(0, 0);
 
 
-        final Bundle extras = getIntent().getBundleExtra(ActivityHelper.INTENT_KEY_BUNDLE);
+        final Bundle extras = getIntent().getBundleExtra(INTENT_EXTRAS_KEY_BUNDLE);
         if (extras != null) {
             initializeView(extras, view);
         }
@@ -63,7 +65,7 @@ public class Activity_UserProfile extends AppCompatActivity {
         btn_save = (Button) v.findViewById(R.id.button_save);
         btn_finish = (Button)v.findViewById(R.id.button_cancel);
         btn_finish.setText(getResources().getString(R.string.finish_en));
-        if(extras.getString(ActivityHelper.BUNDLE_KEY_ACTIVITY_TYPE, BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW).equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
+        if(extras.getString(BUNDLE_KEY_PROFILE_TYPE, BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW).equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
             btn_save.setText(getResources().getString(R.string.edit_en));
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override

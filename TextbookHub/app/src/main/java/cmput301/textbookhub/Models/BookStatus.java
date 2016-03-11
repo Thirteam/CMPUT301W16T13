@@ -22,12 +22,5 @@ public enum BookStatus {
         return this.name;
     }
 
-    public BookStatus findStatus(String name) throws IllegalArgumentException{
-        for(BookStatus status : BookStatus.values()){
-            if(status.equalsName(name)){
-                return status;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
+
 }

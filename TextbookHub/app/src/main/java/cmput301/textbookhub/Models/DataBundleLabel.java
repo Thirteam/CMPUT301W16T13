@@ -22,12 +22,4 @@ public enum DataBundleLabel{
         return this.name;
     }
 
-    public DataBundleLabel findLabel(String name) throws IllegalArgumentException{
-        for(DataBundleLabel label : DataBundleLabel.values()){
-            if(label.equalsName(name)){
-                return label;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
 }
