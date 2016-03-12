@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\classes-be656684df01a6dc7cb8fb534c5f2acc94d345ba.jar" />
-    </item>
-    <item
-        jar="C:\Users\Fred\android-sdks\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jar="/Users/jackxcn/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-8f31968a334cd81ded42e79c913e57f78e24d571.jar" />
+        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-9e11068562d96ac6020dd16e9e67a8c41b19e3d2.jar" />
     </item>
     <item
-        jar="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\classes-cd3ed92a13f0b66bb6a795e0efae3b141b0d3563.jar" />
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-cd4b6cf2881e6b353704c66feba51bb03053ca5a.jar" />
     </item>
     <item
-        jar="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\classes-01b847403a76a3bf6ef2be20e3c442d98bb340e8.jar" />
+        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-4d2f2f751cc834cfb4f507d342085502b49b5fa2.jar" />
     </item>
     <item
-        jar="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-df6f65c36f14a621f4fb0d8d47c7569969a916bb.jar" />
+    </item>
+    <item
+        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-bd705bff2fed40e56f21b20738a62f1cf7a09294.jar" />
+        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-d4c54a6e55e89c4a0314cc6160cb9e82c66aa696.jar" />
     </item>
 
 </items>

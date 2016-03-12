@@ -50,6 +50,7 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
                 Bundle b = new Bundle();
                 b.putString(Activity_UserProfile.BUNDLE_KEY_PROFILE_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER);
                 intent.putExtra(Activity_UserProfile.INTENT_EXTRAS_KEY_BUNDLE, b);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
         });

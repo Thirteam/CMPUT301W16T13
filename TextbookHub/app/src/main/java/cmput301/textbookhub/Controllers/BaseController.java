@@ -19,6 +19,7 @@ public abstract class BaseController {
 
     public BaseController(){
         //TODO:init database here
+        //http://cmput301.softwareprocess.es:8080/thirteam/
         this.views = new ArrayList<>();
     }
 

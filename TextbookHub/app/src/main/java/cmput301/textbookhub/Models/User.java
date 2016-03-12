@@ -23,6 +23,17 @@ public class User implements NamedItem, Syncable, DataBundleObject{
 
     private BookShelf bookShelf;
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
     public User(String username, String password, BookShelf bookShelf) {
         this.username = username;
         this.password = password;
