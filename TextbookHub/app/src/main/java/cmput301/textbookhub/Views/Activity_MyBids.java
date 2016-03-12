@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.MyBidsActivityController;
+import cmput301.textbookhub.Models.BidList;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
@@ -42,13 +43,13 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
         lv_my_bids = (ListView) findViewById(R.id.lv_my_bids);
         lv_my_bids.setVisibility(View.GONE);
         layout_bids_hint = (LinearLayout) findViewById(R.id.layout_bids_hint);
-        lv_my_bids.setAdapter(new BookListAdapter(this.context, R.layout.adapter_book_bid, new ArrayList<TextBook>()));
+        lv_my_bids.setAdapter(new BidListAdapter(this.context, R.layout.adapter_book_bid, new ArrayList<TextBook>()));
         lv_my_bids.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
-                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BookListAdapter) lv_my_bids.getAdapter()).getItem(position).getID());
+                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID());
                 i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
                 startActivity(i);
             }

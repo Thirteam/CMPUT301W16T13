@@ -16,6 +16,9 @@ import cmput301.textbookhub.R;
  */
 public class Activity_EditBook extends AppCompatActivity implements BaseView{
 
+    public static final String INTENT_EXTRAS_KEY_BUNDLE = "BUNDLE";
+    public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
+
     Button btn_save, btn_cancel;
     private EditBookActivityController controller;
 

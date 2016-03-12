@@ -36,13 +36,8 @@ public class BidList {
         Collections.sort(this.bidList, Collections.reverseOrder());
     }
 
-    public Bid getHighestBid() throws IndexOutOfBoundsException{
-        if(this.bidList.size() != 0){
-            this.sortBidsByAmount();
-            return this.bidList.get(0);
-        }else{
-            throw new IndexOutOfBoundsException();
-        }
+    public Bid getHighestBid(){
+        return this.bidList.get(0);
     }
 
     public ArrayList<String> getBidIDStringArray(){
@@ -51,5 +46,10 @@ public class BidList {
             arr.add(b.getID());
         }
         return arr;
+    }
+
+    public void addBid(Bid b){
+        this.bidList.add(b);
+        this.sortBidsByAmount();
     }
 }

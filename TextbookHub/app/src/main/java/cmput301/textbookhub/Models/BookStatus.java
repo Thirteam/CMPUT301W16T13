@@ -6,6 +6,7 @@ package cmput301.textbookhub.Models;
 public enum BookStatus {
 
     AVAILABLE("Available"),
+    PENDING("Pending"),
     BORROWED("Borrowed");
 
     private final String name;

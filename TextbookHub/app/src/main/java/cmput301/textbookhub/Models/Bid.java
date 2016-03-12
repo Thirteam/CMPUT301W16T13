@@ -21,6 +21,13 @@ public class Bid implements Comparable, DataBundleObject{
     private TextBook textBook;
     private Long timestamp;
 
+    public Bid(Double amount, User user){
+        this.amount = amount;
+        this.bidder = user;
+        this.timestamp = Calendar.getInstance().getTimeInMillis();
+        this.id = this.bidder.getID() + "_" + this.timestamp.toString();
+    }
+
     public Bid(Double amount, User user, TextBook textBook){
         this.amount = amount;
         this.bidder = user;

@@ -46,14 +46,14 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
         lv_my_borrows = (ListView) findViewById(R.id.lv_borrowed);
         lv_my_borrows.setVisibility(View.GONE);
         //TODO:modify adapter input data
-        lv_my_borrows.setAdapter( new BookListAdapter(this.context, R.layout.adapter_book_borrowed, new ArrayList<TextBook>()));
+        lv_my_borrows.setAdapter( new BorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, new ArrayList<TextBook>()));
         layout_borrows_hint = (LinearLayout) findViewById(R.id.layout_borrows_hint);
         lv_my_borrows.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
-                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BookListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID());
+                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID());
                 i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
                 startActivity(i);
             }

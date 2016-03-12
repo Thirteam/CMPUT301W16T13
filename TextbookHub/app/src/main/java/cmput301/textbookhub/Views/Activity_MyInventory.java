@@ -51,7 +51,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
         lv_my_books.setVisibility(View.GONE);
         //TODO:modify adapter input data
         lv_my_books.setAdapter(
-                new BookListAdapter(this.context, R.layout.adapter_book_inventory, new ArrayList<TextBook>())
+                new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, new ArrayList<TextBook>())
         );
         layout_inventory_hint = (LinearLayout) findViewById(R.id.layout_inventory_hint);
         btn_new = (Button) findViewById(R.id.button_new);
@@ -68,7 +68,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
-                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BookListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
+                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
                 i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
                 startActivity(i);
             }

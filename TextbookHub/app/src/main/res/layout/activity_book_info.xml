@@ -23,6 +23,7 @@
                 android:layout_weight="2"
                 android:singleLine="true"
                 android:textColor="@color/pure_white"
+                android:id="@+id/et_bid_amount"
                 />
 
             <Button
@@ -60,19 +61,18 @@
                 android:textSize="@dimen/textsize_content"
                 android:text="@string/delete_item" />
 
-
             <Button
-                android:id="@+id/button_accpet_bid"
+                android:id="@+id/button_edit_item"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_indigo"
-                android:layout_gravity="start"
                 android:layout_weight="1"
+                android:background="@drawable/button_indigo"
                 android:drawablePadding="0dp"
                 android:textColor="@color/pure_white"
-                android:text="@string/accept_bid"
-                android:textSize="@dimen/textsize_content" />
+                android:textSize="@dimen/textsize_content"
+                android:text="@string/edit_en" />
+
 
         </LinearLayout>
 
@@ -101,13 +101,13 @@
             android:paddingTop="@dimen/padding_line_spacing_medium"
             >
 
-            <ImageView
+           <!--  <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_import_borrows_black_24dp"
                 android:adjustViewBounds="true"
                 android:layout_margin="100dp"/>
-
+-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,16 +177,19 @@
                     android:textSize="@dimen/textsize_large"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_current_highest_bid"
+                <Button
+                    android:id="@+id/btn_current_highest_bid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_element"
                     android:layout_marginRight="@dimen/padding_element"
-                    android:textColor="@color/mat_grey_superdark"
-                    android:paddingTop="@dimen/padding_line_spacing_small"
+                    android:layout_marginTop="@dimen/padding_line_spacing_small"
+                    android:layout_marginBottom="@dimen/padding_line_spacing_small"
                     android:text="$37.05"
-                    android:textSize="@dimen/textsize_title_large" />
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_indigo"
+                    android:textColor="@color/pure_white"
+                    android:textSize="@dimen/textsize_small" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -203,7 +206,8 @@
                 
                 <ListView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/size_listview_bid_hist">
+                    android:layout_height="@dimen/size_listview_bid_hist"
+                    android:id="@+id/lv_bid_hist">
 
                 </ListView>
 

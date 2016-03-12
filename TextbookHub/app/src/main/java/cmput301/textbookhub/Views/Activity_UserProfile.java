@@ -39,7 +39,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     //private String Password;
     //private String Email;
 
-    protected User user;
+    private User user;
 
     Button btn_save, btn_finish;
     EditText et_username, et_password, et_email;
