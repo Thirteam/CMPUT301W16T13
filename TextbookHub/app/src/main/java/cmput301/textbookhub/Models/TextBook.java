@@ -5,6 +5,7 @@ import android.os.Bundle;
 import java.util.Calendar;
 
 import cmput301.textbookhub.Tools;
+import io.searchbox.annotations.JestId;
 
 /**
  * Created by Fred on 2016/3/8.
@@ -46,6 +47,9 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
         this.id = this.owner.getID()+"_"+this.timestamp.toString();
         this.bids = new BidList();
     }
+
+    @JestId
+    protected String jid;
 
     @Override
     public void onSync() {
@@ -208,5 +212,13 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
             return this;
         }
 
+    }
+
+    public String getJid() {
+        return jid;
+    }
+
+    public void setJid(String jid) {
+        this.jid = jid;
     }
 }

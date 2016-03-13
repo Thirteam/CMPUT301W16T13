@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * Created by Fred on 2016/3/8.
  */
@@ -48,6 +50,9 @@ public class User implements NamedItem, Syncable, DataBundleObject{
         this.timestamp = Calendar.getInstance().getTimeInMillis();
         this.bookShelf = bookShelf;
     }
+
+    @JestId
+    protected String jid;
 
     @Override
     public void onSync() {
@@ -134,5 +139,13 @@ public class User implements NamedItem, Syncable, DataBundleObject{
             b.putString(BUNDLE_KEY_STR_EMAIL, this.email);
         b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
         return b;
+    }
+
+    public String getJid() {
+        return jid;
+    }
+
+    public void setJid(String jid) {
+        this.jid = jid;
     }
 }
