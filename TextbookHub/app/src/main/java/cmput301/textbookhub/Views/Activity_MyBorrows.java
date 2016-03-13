@@ -26,9 +26,9 @@ import cmput301.textbookhub.R;
  */
 public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
-    ListView lv_my_borrows;
-    LinearLayout layout_borrows_hint;
-    Context context;
+    private ListView lv_my_borrows;
+    private LinearLayout layout_borrows_hint;
+    private Context context;
 
     private MyBorrowsActivityController controller;
 

@@ -27,24 +27,24 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
     public static final String INTENT_EXTRAS_KEY_BUNDLE = "BUNDLE";
 
-    Button btn_finish;
-    Button btn_delete;
-    Button btn_edit;
-    Button btn_submit_bid;
-    TextView tv_book_name;
-    TextView tv_book_edition;
-    TextView tv_book_cat;
-    TextView tv_book_comments;
-    EditText et_bid_amount;
-    Button btn_current_highest_bid;
-    Button btn_owner;
-    LinearLayout borrower_bid_action_layout;
-    LinearLayout owner_bid_action_layout;
-    LinearLayout bid_section;
-    ListView bid_hist;
-    Context context;
+    private Button btn_finish;
+    private Button btn_delete;
+    private  Button btn_edit;
+    private  Button btn_submit_bid;
+    private  TextView tv_book_name;
+    private  TextView tv_book_edition;
+    private TextView tv_book_cat;
+    private  TextView tv_book_comments;
+    private  EditText et_bid_amount;
+    private  Button btn_current_highest_bid;
+    private  Button btn_owner;
+    private  LinearLayout borrower_bid_action_layout;
+    private  LinearLayout owner_bid_action_layout;
+    private  LinearLayout bid_section;
+    private  ListView bid_hist;
+    private Context context;
 
-    String book_id;
+    private String book_id;
 
     private ViewBookActivityController controller;
 

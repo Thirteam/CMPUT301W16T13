@@ -33,7 +33,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private static final String STATUS_EDIT_ENABLED = "Edit";
     private static final String STATUS_VIEW_ONLY = "View";
     private String status = STATUS_VIEW_ONLY;
-    Context context;
+    private Context context;
 
     //private String Username;
     //private String Password;
@@ -41,8 +41,8 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
 
     private User user;
 
-    Button btn_save, btn_finish;
-    EditText et_username, et_password, et_email;
+    private Button btn_save, btn_finish;
+    private EditText et_username, et_password, et_email;
 
     private UserProfileActivityController controller;
 

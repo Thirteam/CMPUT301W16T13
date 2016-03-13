@@ -79,23 +79,7 @@ public abstract class BaseController {
         this.user = user;
     }
 
-    public boolean isInteger(String input){
-        try {
-            Integer.parseInt(input);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
-    public boolean isDouble(String input){
-        try {
-            Double.parseDouble(input);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
     public void displayNotificationDialog(Context ctx, String title, String msg){
         AlertDialog.Builder dialog = new AlertDialog.Builder(ctx);
@@ -109,5 +93,6 @@ public abstract class BaseController {
         });
         dialog.show();
     }
+
 
 }

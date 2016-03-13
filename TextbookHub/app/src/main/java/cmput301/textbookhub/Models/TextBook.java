@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
+import cmput301.textbookhub.Tools;
+
 /**
  * Created by Fred on 2016/3/8.
  */
@@ -14,6 +16,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     public static final String BUNDLE_KEY_STR_EDITION = "TEXTBOOK_EDITION";
     public static final String BUNDLE_KEY_STR_COMMENTS = "TEXTBOOK_COMMENTS";
     public static final String BUNDLE_KEY_STR_OWNER_ID = "TEXTBOOK_OWNER";
+    public static final String BUNDLE_KEY_STR_CATEGORY = "TEXTBOOK_CATEGORY";
     public static final String BUNDLE_KEY_STR_BORROWER_ID = "TEXTBOOK_BORROWED";
     public static final String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
     public static final String BUNDLE_KEY_STRARR_BIDLIST = "TEXTBOOK_BIDLIST";
@@ -22,6 +25,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     private String id;
     private String bookName;
     private String edition;
+    private String category;
     private String comments;
 
     private User owner;
@@ -40,6 +44,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
         this.owner = owner;
         this.bookName = bookName;
         this.id = this.owner.getID()+"_"+this.timestamp.toString();
+        this.bids = new BidList();
     }
 
     @Override
@@ -101,6 +106,14 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
         this.bookStatus = BookStatus.BORROWED;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public void setBookAvailable(){
         this.borrower = null;
         this.bookStatus = BookStatus.AVAILABLE;
@@ -111,18 +124,23 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     }
 
     public void setComments(String comments) {
-        if(this.bookStatus == BookStatus.AVAILABLE)
+        if(this.bookStatus != BookStatus.BORROWED)
             this.comments = comments;
     }
 
     public void setEdition(String edition) {
-        if(this.bookStatus == BookStatus.AVAILABLE)
+        if(this.bookStatus != BookStatus.BORROWED)
             this.edition = edition;
     }
 
     public void setBids(BidList bids) {
-        if(this.bookStatus == BookStatus.AVAILABLE)
+        if(this.bookStatus != BookStatus.BORROWED)
             this.bids = bids;
+    }
+
+    public void addBid(Bid bid){
+        if(this.bookStatus != BookStatus.BORROWED)
+            this.bids.addBid(bid);
     }
 
     public BidList getBids() {
@@ -130,7 +148,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     }
 
     public boolean isUpdateAble(){
-        return this.bookStatus == BookStatus.AVAILABLE;
+        return this.bookStatus != BookStatus.BORROWED;
     }
 
     @Override
@@ -141,6 +159,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
         b.putString(BUNDLE_KEY_STR_OWNER_ID, this.owner.getID());
         b.putString(BUNDLE_KEY_STR_BOOKSTAT, this.bookStatus.toString());
         b.putString(BUNDLE_KEY_STR_EDITION, this.edition);
+        b.putString(BUNDLE_KEY_STR_CATEGORY, this.category);
         b.putString(BUNDLE_KEY_STR_COMMENTS, this.comments);
         b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
         b.putStringArrayList(BUNDLE_KEY_STRARR_BIDLIST, this.bids.getBidIDStringArray());
@@ -152,5 +171,42 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
     @Override
     public DataBundleLabel getDataModelLabel() {
         return DataBundleLabel.TEXTBOOK;
+    }
+
+    public static class Builder{
+
+        private TextBook textBook;
+
+        public Builder(User owner, String name){
+            this.textBook = new TextBook(owner, name);
+        }
+
+        public TextBook buildTextBook(){
+            return this.textBook;
+        }
+
+        public Builder addComments(String comments){
+            if(Tools.isStringValid(comments))
+                this.textBook.setComments(comments);
+            return this;
+        }
+
+        public Builder addEdition(String edition){
+            if(Tools.isStringValid(edition))
+                this.textBook.setEdition(edition);
+            return this;
+        }
+
+        public Builder addCategory(String category){
+            if(Tools.isStringValid(category))
+                this.textBook.setCategory(category);
+            return this;
+        }
+
+        public Builder addStartingBid(String amount, User user){
+            this.textBook.addBid(new Bid(Double.parseDouble(amount), user));
+            return this;
+        }
+
     }
 }

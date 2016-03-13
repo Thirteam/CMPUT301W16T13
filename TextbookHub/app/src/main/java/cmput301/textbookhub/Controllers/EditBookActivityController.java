@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.Views.BaseView;
 
 /**
@@ -20,6 +22,10 @@ public class EditBookActivityController extends BaseController{
         if(instance == null)
             instance = new EditBookActivityController();
         return instance;
+    }
+
+    public void saveTextBook(TextBook book){
+
     }
 
 }

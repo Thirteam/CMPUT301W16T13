@@ -28,10 +28,10 @@ import cmput301.textbookhub.R;
  * Created by Fred on 2016/3/1.
  */
 public class Activity_MyInventory extends AppCompatActivity implements BaseView{
-    ListView lv_my_books;
-    LinearLayout layout_inventory_hint;
-    Button btn_new;
-    Context context;
+    private ListView lv_my_books;
+    private LinearLayout layout_inventory_hint;
+    private Button btn_new;
+    private Context context;
 
     private MyInventoryActivityController controller;
 

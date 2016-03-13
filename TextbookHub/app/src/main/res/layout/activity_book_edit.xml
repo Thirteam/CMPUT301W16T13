@@ -88,7 +88,7 @@
                 android:layout_marginLeft="@dimen/padding_element"
                 android:layout_marginRight="@dimen/padding_element"
                 android:inputType="numberDecimal"
-                android:text="0.0"
+                android:text="0"
                 android:textColor="@color/mat_grey_superdark"
                 android:textSize="@dimen/textsize_large" />
 

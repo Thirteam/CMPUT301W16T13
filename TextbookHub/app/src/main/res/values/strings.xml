@@ -66,6 +66,7 @@
 
     <string name="error">Error</string>
     <string name="invalid_bid_entered">Invalid Bid Entered.</string>
+    <string name="invalid_book_name">Invalid Book Name Entered.</string>
 
     <string name="profile_cap">USER INFO</string>
     <string-array name="category_array">

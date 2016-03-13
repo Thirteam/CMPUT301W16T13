@@ -14,8 +14,8 @@ import cmput301.textbookhub.R;
  */
 public class Fragment_Search extends BaseFragment {
 
-    ListView lv_search_result;
-    TextView tv_hint;
+    private  ListView lv_search_result;
+    private  TextView tv_hint;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

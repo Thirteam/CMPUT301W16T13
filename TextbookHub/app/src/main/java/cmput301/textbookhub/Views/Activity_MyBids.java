@@ -23,9 +23,9 @@ import cmput301.textbookhub.R;
  */
 public class Activity_MyBids extends AppCompatActivity implements BaseView{
 
-    ListView lv_my_bids;
-    LinearLayout layout_bids_hint;
-    Context context;
+    private ListView lv_my_bids;
+    private LinearLayout layout_bids_hint;
+    private Context context;
 
     private MyBidsActivityController controller;
 

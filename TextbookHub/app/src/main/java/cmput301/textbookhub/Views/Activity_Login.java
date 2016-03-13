@@ -17,9 +17,9 @@ import cmput301.textbookhub.R;
  */
 public class Activity_Login extends AppCompatActivity implements BaseView{
 
-    Button btn_login, btn_register;
-    EditText et_username, et_password;
-    Context context;
+    private Button btn_login, btn_register;
+    private EditText et_username, et_password;
+    private Context context;
     private LoginActivityController controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

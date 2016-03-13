@@ -7,6 +7,7 @@ import android.os.Bundle;
 import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Tools;
 import cmput301.textbookhub.Views.Activity_EditBook;
 
 /**
@@ -49,11 +50,9 @@ public class ViewBookActivityController extends BaseController {
     }
 
     private boolean isBidValid(String bid){
-        if(isDouble(bid)){
-            Double b = Double.parseDouble(bid);
-            if(this.textBook.getBids().getHighestBid().getAmount() < b){
-                return true;
-            }
+        Double b = Double.parseDouble(bid);
+        if(this.textBook.getBids().getHighestBid().getAmount() < b){
+            return true;
         }
         return false;
     }

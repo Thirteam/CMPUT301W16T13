@@ -16,8 +16,8 @@ import cmput301.textbookhub.R;
  */
 public class Fragment_UserMain extends BaseFragment {
 
-    LinearLayout btn_profile, btn_inventory, btn_bids, btn_borrows;
-    Button btn_logout;
+    private LinearLayout btn_profile, btn_inventory, btn_bids, btn_borrows;
+    private Button btn_logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

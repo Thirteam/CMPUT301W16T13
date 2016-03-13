@@ -24,6 +24,7 @@
                 android:singleLine="true"
                 android:textColor="@color/pure_white"
                 android:id="@+id/et_bid_amount"
+                android:inputType="numberDecimal"
                 />
 
             <Button

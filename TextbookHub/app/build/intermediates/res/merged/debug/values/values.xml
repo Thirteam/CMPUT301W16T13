@@ -419,12 +419,15 @@
     <string name="comments_hint">Anything worth mentioning?</string>
     <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
     <string name="current_highest_">Current Highest Bid:</string>
+    <string name="decline_bid">Decline Bid</string>
     <string name="delete_item">Delete Item</string>
     <string name="discard_changes">Discard Changes</string>
     <string name="edit_en">Edit</string>
     <string name="email">Email</string>
     <string name="email_">Email:</string>
+    <string name="error">Error</string>
     <string name="finish_en">Finish</string>
+    <string name="invalid_bid_entered">Invalid Bid Entered.</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="logout_warning">Are you sure you want to logout?</string>
