@@ -73,6 +73,8 @@
 
     <string name="book_status_">Book Status:</string>
 
+    <string name="search_en">Search</string>
+
     <string name="profile_cap">USER INFO</string>
     <string-array name="category_array">
         <item>English</item>

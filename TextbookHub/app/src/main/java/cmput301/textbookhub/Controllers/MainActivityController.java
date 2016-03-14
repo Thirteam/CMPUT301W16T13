@@ -33,7 +33,7 @@ public class MainActivityController extends BaseController {
         return this.searchResult;
     }
 
-    public void initNewSearch(String s){
+    public ArrayList initNewSearch(String s){
         DataHelper.SearchTextbookTask t = new DataHelper.SearchTextbookTask();
         t.execute(s);
         ArrayList<TextBook> rv = new ArrayList();
@@ -45,5 +45,6 @@ public class MainActivityController extends BaseController {
             e.printStackTrace();
         }
         this.searchResult = rv;
+        return this.searchResult;
     }
 }

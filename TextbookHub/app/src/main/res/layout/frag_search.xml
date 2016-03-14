@@ -5,18 +5,35 @@
     android:animateLayoutChanges="true"
     >
 
-    <SearchView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:iconifiedByDefault="false"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/padding_line_spacing_medium"
+        android:layout_marginRight="@dimen/padding_line_spacing_medium"
+        android:id="@+id/search_layout">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_search"
+            android:hint="@string/search_en"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_search"
+            android:layout_margin="@dimen/padding_inside"
+            android:textColor="@color/pure_white"
+            android:background="@drawable/button_indigo"
+            android:text="@string/search_en"/>
+
+    </LinearLayout>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/lv_search_result"
-        android:layout_below="@id/searchView"
+        android:layout_below="@id/search_layout"
         >
     </ListView>
     <TextView

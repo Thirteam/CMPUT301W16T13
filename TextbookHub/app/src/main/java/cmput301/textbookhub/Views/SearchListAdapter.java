@@ -46,6 +46,9 @@ public class SearchListAdapter extends ArrayAdapter{
             convertView = inflater.inflate(layoutResID, parent, false);
             ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
             ((TextView) convertView.findViewById(R.id.tvl_status)).setText(getItem(position).getBookStatus().toString());
+
+            //TODO: not ready yet
+            //((TextView) convertView.findViewById(R.id.tvl_current_highest_bid)).setText(getItem(position).getBidList().getHighestBid().toString());
         }
         return convertView;
     }

@@ -457,6 +457,7 @@
     <string name="profile_cap">USER INFO</string>
     <string name="register">Register</string>
     <string name="save_en">Save</string>
+    <string name="search_en">Search</string>
     <string name="status_">Status:</string>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>

@@ -135,7 +135,7 @@ public class DataHelper {
             ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
 
             if (Tools.isStringValid(search_strings[0])){
-                search_string = "{\"query\": {\"term\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
+                search_string = "{\"query\": {\"match\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
@@ -225,7 +225,7 @@ public class DataHelper {
             ArrayList<User> users =  new ArrayList<User>();
 
             if (Tools.isStringValid(search_strings[0])){
-                search_string = "{\"query\": {\"term\":{ \"username\": \"" + search_strings[0] + "\"}}}";
+                search_string = "{\"query\": {\"match\":{ \"username\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
