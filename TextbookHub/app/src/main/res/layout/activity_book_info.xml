@@ -110,17 +110,17 @@
                 android:layout_margin="100dp"/>
 -->
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:paddingEnd="@dimen/padding_title"
-                android:paddingLeft="@dimen/padding_title"
-                android:paddingRight="@dimen/padding_title"
-                android:paddingStart="@dimen/padding_title"
-                android:text="@string/book_name_"
-                android:textColor="@color/mat_grey_superdark"
-                android:textSize="@dimen/textsize_large"
-                android:textStyle="bold" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingEnd="@dimen/padding_title"
+            android:paddingLeft="@dimen/padding_title"
+            android:paddingRight="@dimen/padding_title"
+            android:paddingStart="@dimen/padding_title"
+            android:text="@string/book_name_"
+            android:textColor="@color/mat_grey_superdark"
+            android:textSize="@dimen/textsize_large"
+            android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_book_name"
@@ -131,6 +131,31 @@
                 android:textColor="@color/mat_grey_superdark"
                 android:paddingTop="@dimen/padding_line_spacing_small"
                 android:text="This is the name of the book"
+                android:textSize="@dimen/textsize_large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingTop="@dimen/padding_line_spacing_medium"
+                android:paddingEnd="@dimen/padding_title"
+                android:paddingLeft="@dimen/padding_title"
+                android:paddingRight="@dimen/padding_title"
+                android:paddingStart="@dimen/padding_title"
+                android:text="@string/book_status_"
+                android:textColor="@color/mat_grey_superdark"
+                android:textSize="@dimen/textsize_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_book_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:textColor="@color/mat_grey_superdark"
+                android:paddingTop="@dimen/padding_line_spacing_small"
+                android:text="Available"
                 android:textSize="@dimen/textsize_large" />
 
             <TextView
@@ -215,6 +240,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_title"
                     android:gravity="center">
 
                     <TextView

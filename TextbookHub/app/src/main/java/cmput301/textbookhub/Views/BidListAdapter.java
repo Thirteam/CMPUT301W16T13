@@ -45,7 +45,7 @@ public class BidListAdapter extends ArrayAdapter{
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
             ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
-            ((TextView) convertView.findViewById(R.id.tvl_current_highest_bid)).setText(getItem(position).getBids().getHighestBid().getAmount().toString());
+            ((TextView) convertView.findViewById(R.id.tvl_current_highest_bid)).setText(getItem(position).getBidList().getHighestBid().getAmount().toString());
         }
         return convertView;
     }

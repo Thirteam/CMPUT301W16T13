@@ -11,10 +11,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmput301.textbookhub.Tools;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 
 /**
  * Created by Jayden on 2016-03-12.
@@ -23,6 +26,10 @@ import io.searchbox.core.SearchResult;
  */
 public class DataHelper {
     private static JestDroidClient    client;
+
+    private static String QUERY_MATCH_ALL = "{\n" +
+            "  \"query\": { \"match\": {} }\n" +
+            "}";
 
     public static class GetTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
         @Override
@@ -34,8 +41,10 @@ public class DataHelper {
             //Start our initial array list (empty)
             ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
 
-            if (search_strings[0] != ""){
-                search_string = "{\"query\": {\"match\":{ \"message\": \"" + search_strings[0] + "\"}}}";
+            if (Tools.isStringValid(search_strings[0])){
+                search_string = "{\"query\": {\"match\":{ \"id\": \"" + search_strings[0] + "\"}}}";
+            }else{
+                search_string = QUERY_MATCH_ALL;
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
@@ -59,6 +68,86 @@ public class DataHelper {
             }
 
             return textbooks;
+        }
+    }
+
+    public static class UpdateTextbookTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... ids){
+            verifyClient();
+            Update update = new Update.Builder(ids[0]).index("thirteam").type("textbook").build();
+            try {
+                DocumentResult result = client.execute(update);
+                if (result.isSucceeded()) {
+
+                }else{
+                    //TODO add an error message
+                    Log.i("TODO", "we actually failed here");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static class GetAllTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
+        @Override
+        protected ArrayList<TextBook> doInBackground(String... search_strings){
+            verifyClient();
+
+            String search_string = "";
+
+            //Start our initial array list (empty)
+            ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
+
+            if (Tools.isStringValid(search_strings[0])){
+                search_string = "{\"query\": {\"match\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
+            }else{
+                search_string = QUERY_MATCH_ALL;
+            }
+
+            //Note: I'm making a huge assumption here, that only the first search term will be used.
+            Search search = new Search.Builder(search_string)
+                    .addIndex("thirteam")
+                    .addType("textbook")
+                    .build();
+
+            try {
+                SearchResult execute = client.execute(search);
+                if(execute.isSucceeded()){
+                    //Search our list of tweets
+                    List<TextBook> returned_books = execute.getSourceAsObjectList(TextBook.class);
+                    textbooks.addAll(returned_books);
+                }else{
+                    //TODO add an error message
+                    Log.i("TODO", "we actually failed here");
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return textbooks;
+        }
+    }
+
+    public static class DeleteTextbookTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... ids){
+            verifyClient();
+            Delete del = new Delete.Builder(ids[0]).index("thirteam").type("textbook").build();
+            try {
+                DocumentResult result = client.execute(del);
+                if (result.isSucceeded()) {
+
+                }else{
+                    //TODO add an error message
+                    Log.i("TODO", "we actually failed here");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
@@ -98,8 +187,8 @@ public class DataHelper {
             //Start our initial array list (empty)
             ArrayList<User> users =  new ArrayList<User>();
 
-            if (search_strings[0] != ""){
-                search_string = "{\"query\": {\"match\":{ \"message\": \"" + search_strings[0] + "\"}}}";
+            if (Tools.isStringValid(search_strings[0])){
+                search_string = "{\"query\": {\"match\":{ \"username\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.

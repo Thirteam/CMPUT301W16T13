@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.UserProfileActivityController;
 import cmput301.textbookhub.Models.User;
@@ -35,12 +36,6 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private String status = STATUS_VIEW_ONLY;
     private Context context;
 
-    //private String Username;
-    //private String Password;
-    //private String Email;
-
-    private User user;
-
     private Button btn_save, btn_finish;
     private EditText et_username, et_password, et_email;
 
@@ -52,7 +47,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
         setContentView(R.layout.activity_profile);
 
         this.controller = (UserProfileActivityController)ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this);
+                ControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this, ((BaseApplication) getApplication()).getAppUsername());
 
         context = this;
         // Set your custom view
@@ -91,11 +86,10 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_save.setText(getResources().getString(R.string.save_en));
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
-                        //TODO: save changes to profile
-                        et_username.setText(user.getName());
-                        et_password.setText(user.getPassword());
-                        et_email.setText(user.getEmail());
-                        finish();
+                        //TODO:Update user profile
+                        //if(controller.registerNewUser(context, et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                            finish();
+                       // }
                     }
                 }
             });
@@ -133,18 +127,12 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                 @Override
                 public void onClick(View v) {
                     //TODO: check input data integrity, create new user, go to main page
-                    String Username = et_username.getText().toString();
-                    String Password = et_password.getText().toString();
-                    String Email = et_email.getText().toString();
-                    user = new User(Username, Password, Email);
-                    user.setID(Username);
-                    user.setPassword(Password);
-                    user.setEmail(Email);
-
-                    //curl post '{ "Username": "2016-02-14U13:12:11", "tweet": "Happy Valentines Day! (I am so lonely ;_;)"}'
-                    Intent intent = new Intent(context, Activity_Main.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent);
+                    if(controller.registerNewUser(context, et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                        ((BaseApplication)getApplication()).setAppUsername(et_username.getText().toString());
+                        Intent intent = new Intent(context, Activity_Main.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                    }
                 }
             });
             btn_finish.setText(getResources().getString(R.string.cancel_en));
@@ -158,12 +146,14 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
 
     }
 
-    private void initEditTextValues(){
-
+    private void initEditTextValues() {
+        et_username.setText(this.controller.getAppUser().getName());
+        et_password.setText(this.controller.getAppUser().getPassword());
+        et_email.setText(this.controller.getAppUser().getEmail());
     }
 
     private void enableEditTexts(){
-        et_username.setEnabled(true);
+        //et_username.setEnabled(true);
         et_password.setEnabled(true);
         et_email.setEnabled(true);
     }

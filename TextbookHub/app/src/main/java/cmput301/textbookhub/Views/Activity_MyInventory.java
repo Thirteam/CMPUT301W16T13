@@ -1,11 +1,9 @@
 package cmput301.textbookhub.Views;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +17,9 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.MyInventoryActivityController;
-import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
@@ -32,8 +30,11 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
     private LinearLayout layout_inventory_hint;
     private Button btn_new;
     private Context context;
+    private ArrayList inventoryList;
 
     private MyInventoryActivityController controller;
+
+    private InventoryListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,15 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
         setContentView(R.layout.activity_my_inventory);
 
         this.controller = (MyInventoryActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this);
+                ControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this, ((BaseApplication)getApplication()).getAppUsername());
 
         context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //TODO:fetch data for lv
         lv_my_books = (ListView) findViewById(R.id.lv_inventory);
-        lv_my_books.setVisibility(View.GONE);
-        //TODO:modify adapter input data
-        lv_my_books.setAdapter(
-                new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, new ArrayList<TextBook>())
-        );
+        inventoryList = this.controller.getAllBooksList();
+        this.adapter = new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, inventoryList);
+        lv_my_books.setAdapter(this.adapter);
         layout_inventory_hint = (LinearLayout) findViewById(R.id.layout_inventory_hint);
         btn_new = (Button) findViewById(R.id.button_new);
         btn_new.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +71,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
                 startActivity(i);
             }
         });
-
+        this.updateView();
     }
 
     @Override
@@ -123,6 +121,20 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
+        inventoryList = this.controller.getAllBooksList();
+        adapter.notifyDataSetChanged();
+        if (adapter.getCount()==0){
+            this.lv_my_books.setVisibility(View.GONE);
+            this.layout_inventory_hint.setVisibility(View.VISIBLE);
+        }else{
+            this.lv_my_books.setVisibility(View.VISIBLE);
+            this.layout_inventory_hint.setVisibility(View.GONE);
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.updateView();
     }
 }

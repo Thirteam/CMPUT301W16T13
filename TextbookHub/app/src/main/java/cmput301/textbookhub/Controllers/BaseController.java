@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.DataBundleLabel;
+import cmput301.textbookhub.Models.DataHelper;
+import cmput301.textbookhub.Models.ElasticSearchQueryException;
+import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.BaseView;
@@ -19,12 +22,11 @@ import cmput301.textbookhub.Views.BaseView;
  */
 public abstract class BaseController {
 
-    private User user;
+    private static User user;
 
     private ArrayList<BaseView> views;
 
     public BaseController(){
-        //TODO:init database here
         //http://cmput301.softwareprocess.es:8080/thirteam/
         this.views = new ArrayList<>();
     }
@@ -72,14 +74,36 @@ public abstract class BaseController {
     }
 
     public User getAppUser(){
-        return this.user;
+        return user;
     }
 
-    public void setAppUser(User user){
-        this.user = user;
+    private User queryAppUser(String username){
+        DataHelper.GetUserTask t = new DataHelper.GetUserTask();
+        t.execute(username);
+        try{
+            ArrayList<User> user = t.get();
+            if(user.size() > 1){
+                throw new ElasticSearchQueryException("Query username: "+username+" should only return one result but got "+user.size()+" \n");}
+            else if(user.size() == 0) {
+                throw new ElasticSearchQueryException("No user found?");
+            }
+            else{
+                return user.get(0);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
+    public void initAppUser(String username){
+        if(user == null)
+            user = queryAppUser(username);
+    }
 
+    public void setAppUser(User u){
+        user = u;
+    }
 
     public void displayNotificationDialog(Context ctx, String title, String msg){
         AlertDialog.Builder dialog = new AlertDialog.Builder(ctx);
@@ -94,5 +118,22 @@ public abstract class BaseController {
         dialog.show();
     }
 
+    public TextBook queryTextbook(String id){
+        DataHelper.GetTextbookTask t = new DataHelper.GetTextbookTask();
+        t.execute(id);
+        try{
+            ArrayList<TextBook> books = t.get();
+            if(books.size() > 1){
+                throw new ElasticSearchQueryException("Query book: "+id+" should only return one result but got "+books.size()+" \n");}
+            else if(books.size() == 0){
+                throw new ElasticSearchQueryException("No book found\n");
+            }
+            else{
+                return books.get(0);
+            }
+        }catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
 
 }

@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
 import cmput301.textbookhub.Models.TextBook;
@@ -38,7 +39,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
         setContentView(R.layout.activity_my_borrows);
 
         this.controller = (MyBorrowsActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BORROWS, this);
+                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BORROWS, this, ((BaseApplication)getApplication()).getAppUsername());
 
         this.context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

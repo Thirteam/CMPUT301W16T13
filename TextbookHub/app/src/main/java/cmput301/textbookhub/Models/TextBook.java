@@ -147,7 +147,7 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
             this.bids.addBid(bid);
     }
 
-    public BidList getBids() {
+    public BidList getBidList() {
         return bids;
     }
 

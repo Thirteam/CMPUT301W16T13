@@ -67,6 +67,11 @@
     <string name="error">Error</string>
     <string name="invalid_bid_entered">Invalid Bid Entered.</string>
     <string name="invalid_book_name">Invalid Book Name Entered.</string>
+    <string name="auth_failure">Wrong Username or Password</string>
+    <string name="username_exists">Username Already Exists</string>
+    <string name="user_profile_empty">Username or Password or Email cannot be Empty</string>
+
+    <string name="book_status_">Book Status:</string>
 
     <string name="profile_cap">USER INFO</string>
     <string-array name="category_array">

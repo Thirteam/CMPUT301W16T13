@@ -2,18 +2,19 @@ package cmput301.textbookhub;
 
 import android.app.Application;
 
-import cmput301.textbookhub.Controllers.BaseController;
-import cmput301.textbookhub.Controllers.ControllerFactory;
-
 /**
- * Created by Fred on 2016/3/1.
+ * Created by Fred on 2016/3/13.
  */
 public class BaseApplication extends Application {
 
-    ControllerFactory controllerFactory = ControllerFactory.getInstance();
+    private String appUsername = null;
 
-    public ControllerFactory getControllerFactory(){
-        return this.controllerFactory;
+    public String getAppUsername() {
+        return appUsername;
+    }
+
+    public void setAppUsername(String appUsername) {
+        this.appUsername = appUsername;
     }
 
 }

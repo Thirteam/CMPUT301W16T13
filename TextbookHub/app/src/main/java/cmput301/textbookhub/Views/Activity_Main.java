@@ -11,6 +11,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
@@ -28,7 +29,7 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
         setContentView(R.layout.activity_main);
 
         this.controller  = (MainActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MAIN, this);
+                ControllerFactory.FactoryCatalog.ACTIVITY_MAIN, this, ((BaseApplication)getApplication()).getAppUsername());
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         setupViewPager(viewPager);
@@ -45,6 +46,10 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
         adapter.addFragment(frag_main, frag_main.getFragmentLabel());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+    }
+
+    public MainActivityController getController() {
+        return controller;
     }
 
     @Override

@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.support.v7.app.ActionBar;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.EditBookActivityController;
 import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Models.TextBook;
@@ -39,7 +40,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.context = this;
 
         this.controller = (EditBookActivityController)ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
+                ControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this, ((BaseApplication)getApplication()).getAppUsername());
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit,
@@ -58,7 +59,8 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.et_book_edition = (EditText) findViewById(R.id.et_edition);
         this.et_book_comments = (EditText) findViewById(R.id.et_comments);
         this.et_starting_bid = (EditText) findViewById(R.id.et_starting_bid);
-
+        this.et_book_category.setAdapter( new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.category_array)));
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,10 +84,26 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
             }
         });
 
+        if(getIntent().hasExtra(INTENT_EXTRAS_KEY_BUNDLE)){
+            Bundle b = getIntent().getExtras().getBundle(INTENT_EXTRAS_KEY_BUNDLE);
+            initEditBookValues(b.getString(BUNDLE_KEY_BOOK_ID));
+        }
     }
 
     @Override
     public void updateView(){
 
+    }
+
+    public void initEditBookValues(String id){
+        TextBook book = this.controller.queryTextbook(id);
+        this.et_book_name.setText(book.getName());
+        book.getBidList().sortBidsByAmount();
+        this.et_starting_bid.setText(book.getBidList().getBids().get(
+                book.getBidList().getBids().size() - 1
+        ).toString());
+        this.et_book_comments.setText(book.getComments());
+        this.et_book_edition.setText(book.getEdition());
+        this.et_book_category.setText(book.getCategory());
     }
 }

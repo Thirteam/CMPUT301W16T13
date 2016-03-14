@@ -1,6 +1,9 @@
 package cmput301.textbookhub.Controllers;
 
-import android.content.Context;
+import java.util.ArrayList;
+
+import cmput301.textbookhub.Models.DataHelper;
+import cmput301.textbookhub.Models.TextBook;
 
 /**
  * Created by Fred on 2016/3/10.
@@ -12,10 +15,36 @@ public class MyInventoryActivityController extends BaseController {
     private MyInventoryActivityController() {
     }
 
-    public static MyInventoryActivityController getInstance(){
-        if(instance == null)
+    public static MyInventoryActivityController getInstance(String username){
+        if(instance == null) {
             instance = new MyInventoryActivityController();
+            instance.initAppUser(username);
+        }
         return instance;
     }
 
+    public ArrayList getAllBooksList(){
+        ArrayList<TextBook> books = queryAllTextbooks();
+        getAppUser().getBookShelf().populateBookShelf(books);
+        return getAppUser().getBookShelf().getAllBooks();
+    }
+
+    public ArrayList getAvailableBooksList(){
+        return getAppUser().getBookShelf().getAvailableBooks();
+    }
+
+    public ArrayList getBorrowedBooksList(){
+        return getAppUser().getBookShelf().getBorrowedBooks();
+    }
+
+    public ArrayList<TextBook> queryAllTextbooks(){
+        DataHelper.GetAllTextbookTask t = new DataHelper.GetAllTextbookTask();
+        t.execute(getAppUser().getName());
+        try{
+            ArrayList<TextBook> books = t.get();
+            return books;
+        }catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
 }

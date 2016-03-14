@@ -407,6 +407,7 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="auth_failure">Wrong Username or Password</string>
     <string name="bid_count">\ bid(s) were placed for this item</string>
     <string name="bid_history_">Bid History:</string>
     <string name="book_cat_">Book Category:</string>
@@ -414,6 +415,7 @@
     <string name="book_name_">Book Name:</string>
     <string name="book_name_hint">(required)</string>
     <string name="book_start_bid_">Starting Bid($):</string>
+    <string name="book_status_">Book Status:</string>
     <string name="cancel_en">Cancel</string>
     <string name="comments_">Comments:</string>
     <string name="comments_hint">Anything worth mentioning?</string>
@@ -428,6 +430,7 @@
     <string name="error">Error</string>
     <string name="finish_en">Finish</string>
     <string name="invalid_bid_entered">Invalid Bid Entered.</string>
+    <string name="invalid_book_name">Invalid Book Name Entered.</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="logout_warning">Are you sure you want to logout?</string>
@@ -463,8 +466,10 @@
     <string name="take_pictures">+ Picture</string>
     <string name="title_logout">Logout</string>
     <string name="unsaved_warning">All unsaved changes will be lost, continue?</string>
+    <string name="user_profile_empty">Username or Password or Email cannot be Empty</string>
     <string name="username">Username</string>
     <string name="username_">Username:</string>
+    <string name="username_exists">Username Already Exists</string>
     <string name="username_hint">Please enter a unique username</string>
     <string name="userprofile">User Profile</string>
     <string name="yes_en">Yes</string>

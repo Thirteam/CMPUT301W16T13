@@ -7,42 +7,47 @@ import java.util.ArrayList;
  */
 public class BookShelf {
 
-    private ArrayList<TextBook> personalBooks;
-    private ArrayList<TextBook> borrowedBooks;
+    private ArrayList<TextBook> allBooks;
+
 
     public BookShelf(){
-        this.personalBooks = new ArrayList<>();
-        this.borrowedBooks = new ArrayList<>();
+        this.allBooks = new ArrayList<>();
+
     }
 
-    public BookShelf(ArrayList personalBooks, ArrayList borrowedBooks){
-        this.personalBooks = personalBooks;
-        this.borrowedBooks = borrowedBooks;
+    public BookShelf(ArrayList<TextBook> allBooks){
+        this.allBooks = allBooks;
     }
 
-    public void addPersonalBook(TextBook book){
-        this.personalBooks.add(book);
+    public void addNewBook(TextBook book){
+        this.allBooks.add(book);
     }
 
-    public void addBorrowedBook(TextBook book){
-        this.borrowedBooks.add(book);
+    public ArrayList<TextBook> getAllBooks() {
+        return allBooks;
     }
 
     public ArrayList<TextBook> getBorrowedBooks() {
-        return borrowedBooks;
+        ArrayList rv = new ArrayList<>();
+        for(TextBook t : allBooks){
+            if(t.getBookStatus().equals(BookStatus.BORROWED)){
+                rv.add(t);
+            }
+        }
+        return rv;
     }
 
-    public ArrayList<TextBook> getPersonalBooks() {
-        return personalBooks;
+    public ArrayList<TextBook> getAvailableBooks() {
+        ArrayList rv = new ArrayList<>();
+        for(TextBook t : allBooks){
+            if(!t.getBookStatus().equals(BookStatus.BORROWED)){
+                rv.add(t);
+            }
+        }
+        return rv;
     }
 
-    public int getPersonalBooksAmount(){
-        return this.personalBooks.size();
+    public void populateBookShelf(ArrayList<TextBook> allBooks){
+        this.allBooks = allBooks;
     }
-
-    public int getBorrowedBooksAmount(){
-        return this.borrowedBooks.size();
-    }
-
-
 }

@@ -11,10 +11,10 @@ import io.searchbox.annotations.JestId;
  */
 public class User implements NamedItem, Syncable, DataBundleObject{
 
-    public static final String BUNDLE_KEY_STR_USERNAME = "TEXTBOOK_ID";
-    public static final String BUNDLE_KEY_STR_PASSWORD = "TEXTBOOK_NAME";
-    public static final String BUNDLE_KEY_STR_EMAIL = "TEXTBOOK_EDITION";
-    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
+    public static final String BUNDLE_KEY_STR_USERNAME = "USERNAME";
+    public static final String BUNDLE_KEY_STR_PASSWORD = "PASSWORD";
+    public static final String BUNDLE_KEY_STR_EMAIL = "EMAIL";
+    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "USER_TIMESTAMP";
 
     private String username;
     private String password;
@@ -28,19 +28,27 @@ public class User implements NamedItem, Syncable, DataBundleObject{
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.timestamp = Calendar.getInstance().getTimeInMillis();
+        this.bookShelf = new BookShelf();
     }
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.timestamp = Calendar.getInstance().getTimeInMillis();
+        this.bookShelf = new BookShelf();
     }
 
     public User(String username, String password, BookShelf bookShelf) {
         this.username = username;
         this.password = password;
         this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.bookShelf = bookShelf;
+        if(bookShelf != null) {
+            this.bookShelf = bookShelf;
+        }else{
+            this.bookShelf = new BookShelf();
+        }
     }
 
     public User(String username, String password, BookShelf bookShelf, String email) {
@@ -49,6 +57,11 @@ public class User implements NamedItem, Syncable, DataBundleObject{
         this.email = email;
         this.timestamp = Calendar.getInstance().getTimeInMillis();
         this.bookShelf = bookShelf;
+        if(bookShelf != null) {
+            this.bookShelf = bookShelf;
+        }else{
+            this.bookShelf = new BookShelf();
+        }
     }
 
     @JestId
@@ -81,6 +94,7 @@ public class User implements NamedItem, Syncable, DataBundleObject{
 
     @Override
     public void setID(String id) {
+        this.username = id;
     }
 
     public BookShelf getBookShelf() {

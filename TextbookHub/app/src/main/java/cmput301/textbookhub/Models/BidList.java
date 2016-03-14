@@ -23,13 +23,16 @@ public class BidList {
         return bidList;
     }
 
-    public void sortInMostRecentOrder(){
-        Collections.sort(this.bidList, new Comparator<Bid>(){
+    public ArrayList<Bid> sortInMostRecentOrder(){
+        ArrayList rv = new ArrayList<Bid>();
+        rv.addAll(this.bidList);
+        Collections.sort(rv, new Comparator<Bid>(){
             @Override
             public int compare(Bid lhs, Bid rhs) {
                 return rhs.getTimestamp().compareTo(lhs.getTimestamp());
             }
         });
+        return rv;
     }
 
     public void sortBidsByAmount(){

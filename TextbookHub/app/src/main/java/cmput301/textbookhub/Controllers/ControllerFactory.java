@@ -20,32 +20,32 @@ public class ControllerFactory {
         ACTIVITY_VIEW_BOOK
     }
 
-    public static BaseController getControllerForView(FactoryCatalog catalog, BaseView v){
+    public static BaseController getControllerForView(FactoryCatalog catalog, BaseView v, String username){
         BaseController controller;
         switch(catalog){
             case ACTIVITY_EDIT_BOOK:
-                controller = EditBookActivityController.getInstance();
+                controller = EditBookActivityController.getInstance(username);
                 break;
             case ACTIVITY_LOGIN:
                 controller = LoginActivityController.getInstance();
                 break;
             case ACTIVITY_MAIN:
-                controller = MainActivityController.getInstance();
+                controller = MainActivityController.getInstance(username);
                 break;
             case ACTIVITY_MY_BIDS:
-                controller = MyBidsActivityController.getInstance();
+                controller = MyBidsActivityController.getInstance(username);
                 break;
             case ACTIVITY_MY_BORROWS:
-                controller = MyBorrowsActivityController.getInstance();
+                controller = MyBorrowsActivityController.getInstance(username);
                 break;
             case ACTIVITY_MY_INVENTORY:
-                controller = MyInventoryActivityController.getInstance();
+                controller = MyInventoryActivityController.getInstance(username);
                 break;
             case ACTIVITY_USER_PROFILE:
-                controller = UserProfileActivityController.getInstance();
+                controller = UserProfileActivityController.getInstance(username);
                 break;
             case ACTIVITY_VIEW_BOOK:
-                controller = ViewBookActivityController.getInstance();
+                controller = ViewBookActivityController.getInstance(username);
                 break;
             default:
                 controller = new BaseController(){};

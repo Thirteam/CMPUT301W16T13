@@ -2,39 +2,74 @@
 <items version="2" >
 
     <item
-        jar="/Users/jackxcn/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\18.0\cce0823396aa693798f8882e64213b1772032b09\guava-18.0.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-9e11068562d96ac6020dd16e9e67a8c41b19e3d2.jar" />
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\guava-18.0-afbb98bb615b6b547fff39472d2bc653e42e8c21.jar" />
     </item>
     <item
-        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.4\b31526a230871fbe285fbcbe2813f9c0839ae9b0\httpcore-4.4.4.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-cd4b6cf2881e6b353704c66feba51bb03053ca5a.jar" />
+        sha1="b31526a230871fbe285fbcbe2813f9c0839ae9b0">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\httpcore-4.4.4-4569e907c9cec4dbb2f6be65cdca791568b47751.jar" />
     </item>
     <item
-        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpasyncclient\4.1.1\dd624f5a0ff43eb5cdf828d9739d3177ee00a5a9\httpasyncclient-4.1.1.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-4d2f2f751cc834cfb4f507d342085502b49b5fa2.jar" />
+        sha1="dd624f5a0ff43eb5cdf828d9739d3177ee00a5a9">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\httpasyncclient-4.1.1-32ae32ecb2d1e1f1f1affe335553b9982746091d.jar" />
     </item>
     <item
-        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\io.searchbox\jest-common\2.0.0\f41a569ccaaed8ebfd42bc421047ccc66a6bcdc1\jest-common-2.0.0.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/classes-df6f65c36f14a621f4fb0d8d47c7569969a916bb.jar" />
+        sha1="f41a569ccaaed8ebfd42bc421047ccc66a6bcdc1">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\jest-common-2.0.0-5b6a531fa067a2a32ed01163776ac8cd72956eb9.jar" />
     </item>
     <item
-        jar="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\src\main\includes\jest-droid-2.0.1-SNAPSHOT.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/jackxcn/Desktop/cmput301proj/CMPUT301W16T13/TextbookHub/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-d4c54a6e55e89c4a0314cc6160cb9e82c66aa696.jar" />
+        sha1="e1199e84d8d3907b8262330dd6976ce04d37f6de">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\jest-droid-2.0.1-SNAPSHOT-10594113708e1b40fc8c003e10f2ab9bfaabfa4a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\commons-lang3-3.4-f76b70c37d9f997ba5bd86270abeed91a67545ad.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\1.7.13\7fcf30c25b8f4a9379b9dad0d3f487b25272c026\slf4j-api-1.7.13.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7fcf30c25b8f4a9379b9dad0d3f487b25272c026">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\slf4j-api-1.7.13-d58d45ed40d60305bf8e7cf13f6c3bb422c07669.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\io.searchbox\jest\2.0.0\b9941159f67f54aa6923f34c672b0b77718bacbc\jest-2.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b9941159f67f54aa6923f34c672b0b77718bacbc">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\jest-2.0.0-244aab113daaccce9c679979a4f09c40a0d647a4.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.4\695b63d702f505b9b916e02272e3b6381bade7f\gson-2.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="0695b63d702f505b9b916e02272e3b6381bade7f">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\gson-2.4-75107338478cdeb2220e637353945882bc2e469c.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fred\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore-nio\4.4.4\16badfc2d99db264c486ba8c57ae577301a58bd9\httpcore-nio-4.4.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="16badfc2d99db264c486ba8c57ae577301a58bd9">
+        <dex dex="C:\Users\Fred\Documents\GitHub\CMPUT301W16T13\TextbookHub\app\build\intermediates\pre-dexed\debug\httpcore-nio-4.4.4-4bd9503233456de70b9dbe98e4cf6b19a350a3de.jar" />
     </item>
 
 </items>

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import cmput301.textbookhub.Models.Bid;
+import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
-import cmput301.textbookhub.Tools;
 import cmput301.textbookhub.Views.Activity_EditBook;
 
 /**
@@ -22,9 +22,11 @@ public class ViewBookActivityController extends BaseController {
     private ViewBookActivityController() {
     }
 
-    public static ViewBookActivityController getInstance(){
-        if(instance == null)
+    public static ViewBookActivityController getInstance(String username){
+        if(instance == null) {
             instance = new ViewBookActivityController();
+            instance.initAppUser(username);
+        }
         return instance;
     }
 
@@ -38,11 +40,12 @@ public class ViewBookActivityController extends BaseController {
     }
 
     public void requestDeleteTextBook(Context ctx){
-
+        DataHelper.DeleteTextbookTask t = new DataHelper.DeleteTextbookTask();
+        t.execute(this.textBook.getJid());
     }
 
     public void setCurrentBook(String id){
-
+        this.textBook = queryTextbook(id);
     }
 
     public TextBook getCurrentBook(){
@@ -51,7 +54,7 @@ public class ViewBookActivityController extends BaseController {
 
     private boolean isBidValid(String bid){
         Double b = Double.parseDouble(bid);
-        if(this.textBook.getBids().getHighestBid().getAmount() < b){
+        if(this.textBook.getBidList().getHighestBid().getAmount() < b){
             return true;
         }
         return false;
@@ -60,7 +63,7 @@ public class ViewBookActivityController extends BaseController {
     public void requestBidUpdate(Context ctx, String bid){
         if(isBidValid(bid)){
             Double new_bid = Double.parseDouble(bid);
-            this.textBook.getBids().addBid(new Bid(new_bid, getAppUser()));
+            this.textBook.getBidList().addBid(new Bid(new_bid, getAppUser()));
             //TODO:update the bid
 
         }else{
