@@ -85,6 +85,45 @@ public class DataHelper {
         }
     }
 
+    public static class SearchTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
+        @Override
+        protected ArrayList<TextBook> doInBackground(String... search_strings){
+            verifyClient();
+
+            String search_string = "";
+
+            //Start our initial array list (empty)
+            ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
+
+            for(String key:search_strings) {
+                if (Tools.isStringValid(search_strings[0])) {
+                    search_string = "{\"query\": {\"match\":{ \"bookName\": \"" + key + "\"}}}";
+                }
+
+                //Note: I'm making a huge assumption here, that only the first search term will be used.
+                Search search = new Search.Builder(search_string)
+                        .addIndex("thirteam")
+                        .addType("textbook")
+                        .build();
+
+                try {
+                    SearchResult execute = client.execute(search);
+                    if (execute.isSucceeded()) {
+                        //Search our list of tweets
+                        List<TextBook> returned_books = execute.getSourceAsObjectList(TextBook.class);
+                        textbooks.addAll(returned_books);
+                    } else {
+                        //TODO add an error message
+                        Log.i("TODO", "we actually failed here");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return textbooks;
+        }
+    }
+
     public static class GetAllTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
         @Override
         protected ArrayList<TextBook> doInBackground(String... search_strings){
@@ -96,7 +135,7 @@ public class DataHelper {
             ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
 
             if (Tools.isStringValid(search_strings[0])){
-                search_string = "{\"query\": {\"match\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
+                search_string = "{\"query\": {\"term\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
@@ -186,7 +225,7 @@ public class DataHelper {
             ArrayList<User> users =  new ArrayList<User>();
 
             if (Tools.isStringValid(search_strings[0])){
-                search_string = "{\"query\": {\"match\":{ \"username\": \"" + search_strings[0] + "\"}}}";
+                search_string = "{\"query\": {\"term\":{ \"username\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.

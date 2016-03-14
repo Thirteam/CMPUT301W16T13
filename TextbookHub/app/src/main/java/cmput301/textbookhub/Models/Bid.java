@@ -64,7 +64,7 @@ public class Bid implements Comparable, DataBundleObject{
 
     @Override
     public String toString() {
-        return this.amount.toString();
+        return "$"+this.amount.toString();
     }
 
     @Override
