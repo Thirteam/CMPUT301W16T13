@@ -39,7 +39,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     //private String Password;
     //private String Email;
 
-    protected User user;
+    private User user;
 
     Button btn_save, btn_finish;
     EditText et_username, et_password, et_email;
@@ -92,7 +92,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
                         //TODO: save changes to profile
-                        et_username.setText(user.getName());
+                        et_username.setText(user.getUsename());
                         et_password.setText(user.getPassword());
                         et_email.setText(user.getEmail());
                         finish();
@@ -133,13 +133,16 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                 @Override
                 public void onClick(View v) {
                     //TODO: check input data integrity, create new user, go to main page
-                    String Username = et_username.getText().toString();
-                    String Password = et_password.getText().toString();
-                    String Email = et_email.getText().toString();
+                    //String username = et_username.getText().toString();
+                    String username = ((EditText) findViewById(R.id.et_username)).getText().toString();
+                    //String password = et_password.getText().toString();
+                    String password = ((EditText) findViewById(R.id.et_password)).getText().toString();
+                    //String email = et_email.getText().toString();
+                    String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
 
-                    user.setID(Username);
-                    user.setPassword(Password);
-                    user.setEmail(Email);
+                    user.setUsername(username);
+                    user.setPassword(password);
+                    user.setEmail(email);
 
                     //curl post '{ "Username": "2016-02-14U13:12:11", "tweet": "Happy Valentines Day! (I am so lonely ;_;)"}'
                     Intent intent = new Intent(context, Activity_Main.class);

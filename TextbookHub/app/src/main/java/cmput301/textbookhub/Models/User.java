@@ -29,20 +29,20 @@ public class User implements NamedItem, Syncable, DataBundleObject{
         this.email = email;
     }
 
-    public User(String username, String password, BookShelf bookShelf) {
-        this.username = username;
-        this.password = password;
-        this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.bookShelf = bookShelf;
-    }
+    //public User(String username, String password, BookShelf bookShelf) {
+    //    this.username = username;
+    //    this.password = password;
+    //    this.timestamp = Calendar.getInstance().getTimeInMillis();
+    //    this.bookShelf = bookShelf;
+    //}
 
-    public User(String username, String password, BookShelf bookShelf, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.bookShelf = bookShelf;
-    }
+    //public User(String username, String password, BookShelf bookShelf, String email) {
+    //    this.username = username;
+    //    this.password = password;
+    //    this.email = email;
+    //    this.timestamp = Calendar.getInstance().getTimeInMillis();
+    //    this.bookShelf = bookShelf;
+    //}
 
     @Override
     public void onSync() {
@@ -71,6 +71,15 @@ public class User implements NamedItem, Syncable, DataBundleObject{
 
     @Override
     public void setID(String id) {
+
+    }
+
+    public String getUsename() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public BookShelf getBookShelf() {
