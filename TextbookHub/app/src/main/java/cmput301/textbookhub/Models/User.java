@@ -7,7 +7,7 @@ import java.util.Calendar;
 import io.searchbox.annotations.JestId;
 
 /**
- *
+ * Model class for user profile.
  *
  * @author CMPUT301W16T13
  * @Version 1.0

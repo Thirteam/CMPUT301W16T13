@@ -23,7 +23,8 @@ import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 
 /**
- *
+ * Activity allows user to edit their profile when login. Username cannot be changed.
+ * Activity allows user to register a new account at the login screen.
  *
  * @author CMPUT301W16T13
  * @Version 1.0

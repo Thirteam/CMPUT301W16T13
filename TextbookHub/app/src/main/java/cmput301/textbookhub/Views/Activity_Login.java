@@ -14,7 +14,7 @@ import cmput301.textbookhub.Controllers.LoginActivityController;
 import cmput301.textbookhub.R;
 
 /**
- *
+ * Activity promote user to login with their username and password.
  *
  * @author CMPUT301W16T13
  * @Version 1.0

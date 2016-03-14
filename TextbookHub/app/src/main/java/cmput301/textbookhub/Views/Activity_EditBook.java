@@ -19,7 +19,7 @@ import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
 /**
- *
+ * Activity allows user to select textbook and changes its information.
  *
  * @author CMPUT301W16T13
  * @Version 1.0

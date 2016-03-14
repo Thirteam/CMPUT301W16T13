@@ -11,7 +11,8 @@ import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
 /**
- *
+ * This class deal with registration of new user and updating of existing user.
+ * Also when registering it checks if the username is available or not.
  *
  * @author CMPUT301W16T13
  * @Version 1.0
