@@ -10,7 +10,6 @@ import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.Models.User;
 
 /**
- * Created by Jayden on 2016-03-12.
  *
  * Unfortunately asynchronous operations are ultimately unable to use the test case format
  * as test cases will not produce more threads. As such these can be placed into any activity
@@ -25,6 +24,10 @@ import cmput301.textbookhub.Models.User;
  * est.testAddTextbookTask();
  *
  * That should add 6 textbooks into the test user "Jayden" automatically.
+ *
+ * @author CMPUT301W16T13
+ * @version 1.0
+ * @since 2016-03-12
  */
 public class ElasticSearchTest{
 

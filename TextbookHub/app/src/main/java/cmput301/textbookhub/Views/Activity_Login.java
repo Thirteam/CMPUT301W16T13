@@ -14,7 +14,11 @@ import cmput301.textbookhub.Controllers.LoginActivityController;
 import cmput301.textbookhub.R;
 
 /**
- * Created by Fred on 2016/2/29.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
  */
 public class Activity_Login extends AppCompatActivity implements BaseView{
 

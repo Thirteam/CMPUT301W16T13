@@ -8,7 +8,11 @@ import cmput301.textbookhub.Tools;
 import io.searchbox.annotations.JestId;
 
 /**
- * Created by Fred on 2016/3/8.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
  */
 public class TextBook implements NamedItem, Syncable, DataBundleObject{
 

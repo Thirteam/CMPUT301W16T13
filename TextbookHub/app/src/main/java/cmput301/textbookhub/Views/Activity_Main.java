@@ -16,6 +16,13 @@ import cmput301.textbookhub.Controllers.ControllerFactory;
 import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
 
+/**
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
+ */
 public class Activity_Main extends AppCompatActivity implements BaseView{
 
     private TabLayout tabLayout;

@@ -45,4 +45,4 @@
         android:textSize="@dimen/textsize_title_large"
         android:visibility="visible"/>
 
-</RelativeLayout><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/frag_search.xml -->
+</RelativeLayout><!-- From: file:/Users/jackxcn/Desktop/cmput301proj/testfile/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/frag_search.xml -->

@@ -18,7 +18,11 @@ import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.BaseView;
 
 /**
- * Created by Fred on 2016/3/8.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-08
  */
 public abstract class BaseController {
 

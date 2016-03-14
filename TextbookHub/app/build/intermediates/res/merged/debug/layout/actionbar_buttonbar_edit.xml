@@ -33,4 +33,4 @@
         android:text="@string/post_en"
         android:textSize="@dimen/textsize_content" />
 
-</LinearLayout><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/actionbar_buttonbar_edit.xml -->
+</LinearLayout><!-- From: file:/Users/jackxcn/Desktop/cmput301proj/testfile/CMPUT301W16T13/TextbookHub/app/src/main/res/layout/actionbar_buttonbar_edit.xml -->

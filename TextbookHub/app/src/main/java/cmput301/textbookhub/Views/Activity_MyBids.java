@@ -20,7 +20,11 @@ import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
 /**
- * Created by Fred on 2016/3/1.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
  */
 public class Activity_MyBids extends AppCompatActivity implements BaseView{
 

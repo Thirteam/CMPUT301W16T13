@@ -3,7 +3,11 @@ package cmput301.textbookhub;
 import android.app.Application;
 
 /**
- * Created by Fred on 2016/3/13.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-14
  */
 public class BaseApplication extends Application {
 

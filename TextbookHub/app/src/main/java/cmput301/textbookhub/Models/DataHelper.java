@@ -20,9 +20,13 @@ import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
- * Created by Jayden on 2016-03-12.
  *
  * Based on the code built by esports
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-12
  */
 public class DataHelper {
     private static JestDroidClient    client;

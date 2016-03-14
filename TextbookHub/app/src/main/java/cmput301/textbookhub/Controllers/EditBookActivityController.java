@@ -8,7 +8,11 @@ import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.TextBook;
 
 /**
- * Created by Fred on 2016/3/10.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
  */
 public class EditBookActivityController extends BaseController{
 

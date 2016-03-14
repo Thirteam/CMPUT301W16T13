@@ -11,7 +11,11 @@ import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
 /**
- * Created by Fred on 2016/3/10.
+ *
+ *
+ * @author CMPUT301W16T13
+ * @Version 1.0
+ * @since 2016-03-10
  */
 public class UserProfileActivityController extends BaseController {
 
