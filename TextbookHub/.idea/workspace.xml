@@ -34,28 +34,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_UserProfile.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Activity_UserProfile.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_UserProfile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.806452">
-              <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.4370861">
+              <caret line="89" column="88" selection-start-line="89" selection-start-column="88" selection-end-line="89" selection-end-column="88" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3254#3296#0" expanded="true" />
-                <element signature="e#3339#4705#0" expanded="true" />
-                <element signature="e#4704#4705#0" expanded="true" />
-                <element signature="e#4750#6099#0" expanded="true" />
-                <element signature="e#6098#6099#0" expanded="true" />
+                <element signature="e#3339#4794#0" expanded="true" />
+                <element signature="e#4793#4794#0" expanded="true" />
+                <element signature="e#4839#6188#0" expanded="true" />
+                <element signature="e#6187#6188#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginActivityController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginActivityController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/LoginActivityController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.192053">
-              <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -1517,8 +1517,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Models/ElasticSearchTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/BaseApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/UserProfileActivityController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_UserProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/LoginActivityController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_UserProfile.java" />
       </list>
     </option>
   </component>
@@ -1918,14 +1918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/UserProfileActivityController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_Login.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -1934,26 +1926,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_UserProfile.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/UserProfileActivityController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.806452">
-          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3254#3296#0" expanded="true" />
-            <element signature="e#3339#4705#0" expanded="true" />
-            <element signature="e#4704#4705#0" expanded="true" />
-            <element signature="e#4750#6099#0" expanded="true" />
-            <element signature="e#6098#6099#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Controllers/LoginActivityController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.192053">
-          <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/cmput301/textbookhub/Views/Activity_UserProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4370861">
+          <caret line="89" column="88" selection-start-line="89" selection-start-column="88" selection-end-line="89" selection-end-column="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3254#3296#0" expanded="true" />
+            <element signature="e#3339#4794#0" expanded="true" />
+            <element signature="e#4793#4794#0" expanded="true" />
+            <element signature="e#4839#6188#0" expanded="true" />
+            <element signature="e#6187#6188#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

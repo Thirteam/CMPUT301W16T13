@@ -87,6 +87,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
                         //TODO:Update user profile
+                        //TODO:Fix app crashes when user login when the changed password
                         //initEditTextValues();
 
                         if(controller.updateExistingUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
