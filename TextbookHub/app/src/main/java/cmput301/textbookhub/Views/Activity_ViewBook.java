@@ -128,6 +128,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                 @Override
                 public void onClick(View v) {
                     controller.startEditBookActivity(context);
+                    finish();
                 }
             });
             this.btn_delete.setOnClickListener(new View.OnClickListener() {

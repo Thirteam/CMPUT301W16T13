@@ -18,8 +18,8 @@ public class MyInventoryActivityController extends BaseController {
     public static MyInventoryActivityController getInstance(String username){
         if(instance == null) {
             instance = new MyInventoryActivityController();
-            instance.initAppUser(username);
         }
+        instance.initAppUser(username);
         return instance;
     }
 

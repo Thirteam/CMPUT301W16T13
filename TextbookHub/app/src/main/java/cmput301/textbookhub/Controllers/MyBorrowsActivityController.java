@@ -13,8 +13,9 @@ public class MyBorrowsActivityController extends BaseController {
     public static MyBorrowsActivityController getInstance(String username){
         if(instance == null) {
             instance = new MyBorrowsActivityController();
-            instance.initAppUser(username);
+
         }
+        instance.initAppUser(username);
         return instance;
     }
 

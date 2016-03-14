@@ -20,8 +20,9 @@ public class EditBookActivityController extends BaseController{
     public static EditBookActivityController getInstance(String username){
         if(instance == null) {
             instance = new EditBookActivityController();
-            instance.initAppUser(username);
+
         }
+        instance.initAppUser(username);
         return instance;
     }
 

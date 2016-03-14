@@ -13,8 +13,9 @@ public class MyBidsActivityController extends BaseController {
     public static MyBidsActivityController getInstance(String username){
         if(instance == null) {
             instance = new MyBidsActivityController();
-            instance.initAppUser(username);
+
         }
+        instance.initAppUser(username);
         return instance;
     }
 

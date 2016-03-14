@@ -25,13 +25,14 @@ public class ViewBookActivityController extends BaseController {
     public static ViewBookActivityController getInstance(String username){
         if(instance == null) {
             instance = new ViewBookActivityController();
-            instance.initAppUser(username);
+
         }
+        instance.initAppUser(username);
         return instance;
     }
 
     public void startEditBookActivity(Context ctx){
-        Intent i = new Intent();
+        Intent i = new Intent(ctx, Activity_EditBook.class);
         Bundle b = new Bundle();
         b.putString(Activity_EditBook.BUNDLE_KEY_BOOK_ID, this.textBook.getID());
         i.putExtra(Activity_EditBook.INTENT_EXTRAS_KEY_BUNDLE, b);

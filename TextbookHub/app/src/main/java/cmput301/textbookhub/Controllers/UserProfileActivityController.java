@@ -23,9 +23,9 @@ public class UserProfileActivityController extends BaseController {
     public static UserProfileActivityController getInstance(String username) {
         if (instance == null) {
             instance = new UserProfileActivityController();
-            if(username != null) {
-                instance.initAppUser(username);
-            }
+        }
+        if(username != null) {
+            instance.initAppUser(username);
         }
         return instance;
     }

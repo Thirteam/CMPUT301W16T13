@@ -233,6 +233,7 @@
                 <ListView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/size_listview_bid_hist"
+                    android:layout_margin="@dimen/padding_element"
                     android:id="@+id/lv_bid_hist">
 
                 </ListView>

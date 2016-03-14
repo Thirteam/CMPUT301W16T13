@@ -27,10 +27,6 @@ import io.searchbox.core.Update;
 public class DataHelper {
     private static JestDroidClient    client;
 
-    private static String QUERY_MATCH_ALL = "{\n" +
-            "  \"query\": { \"match\": {} }\n" +
-            "}";
-
     public static class GetTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
         @Override
         protected ArrayList<TextBook> doInBackground(String... search_strings){
@@ -43,8 +39,6 @@ public class DataHelper {
 
             if (Tools.isStringValid(search_strings[0])){
                 search_string = "{\"query\": {\"match\":{ \"id\": \"" + search_strings[0] + "\"}}}";
-            }else{
-                search_string = QUERY_MATCH_ALL;
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
@@ -103,8 +97,6 @@ public class DataHelper {
 
             if (Tools.isStringValid(search_strings[0])){
                 search_string = "{\"query\": {\"match\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
-            }else{
-                search_string = QUERY_MATCH_ALL;
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.

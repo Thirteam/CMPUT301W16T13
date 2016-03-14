@@ -13,8 +13,9 @@ public class MainActivityController extends BaseController {
     public static MainActivityController getInstance(String username){
         if(instance == null) {
             instance = new MainActivityController();
-            instance.initAppUser(username);
+
         }
+        instance.initAppUser(username);
         return instance;
     }
 
