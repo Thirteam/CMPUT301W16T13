@@ -19,7 +19,7 @@ public class BookShelf {
         this.allBooks = allBooks;
     }
 
-    public void addNewBook(TextBook book){
+    public void addNewTextBook(TextBook book){
         this.allBooks.add(book);
     }
 
