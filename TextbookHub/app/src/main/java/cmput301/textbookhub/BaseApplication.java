@@ -16,5 +16,4 @@ public class BaseApplication extends Application {
     public void setAppUsername(String appUsername) {
         this.appUsername = appUsername;
     }
-
 }

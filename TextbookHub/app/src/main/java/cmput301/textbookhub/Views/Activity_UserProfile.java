@@ -87,8 +87,16 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
                         //TODO:Update user profile
+                        //initEditTextValues();
+
+                        if(controller.updateExistingUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                            ((BaseApplication)getApplication()).setAppUsername(et_username.getText().toString());
+                            Intent intent = new Intent(context, Activity_Main.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                        }
                         //if(controller.registerNewUser(context, et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
-                            finish();
+                            //finish();
                        // }
                     }
                 }

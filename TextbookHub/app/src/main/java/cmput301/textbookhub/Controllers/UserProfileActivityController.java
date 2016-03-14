@@ -60,8 +60,15 @@ public class UserProfileActivityController extends BaseController {
         return false;
     }
 
-    public void updateExistingUser(String username, String password, String email){
-
+    public boolean updateExistingUser(String username, String password, String email){
+        if(Tools.isStringValid(username) && Tools.isStringValid(password) && Tools.isStringValid(email)) {
+            User u = new User(username, password, email);
+            setAppUser(u);
+            DataHelper.AddUserTask t = new DataHelper.AddUserTask();
+            t.execute(u);
+            return true;
+        }
+        return false;
     }
 
 }

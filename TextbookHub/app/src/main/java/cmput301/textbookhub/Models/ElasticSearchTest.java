@@ -19,8 +19,8 @@ import cmput301.textbookhub.Models.User;
  * This is to allow you to reference the method from a non-static context
  *
  * Example:
- ElasticSearchTest est = new ElasticSearchTest();
- est.testAddTextbookTask();
+ * ElasticSearchTest est = new ElasticSearchTest();
+ * est.testAddTextbookTask();
  *
  * That should add 6 textbooks into the test user "Jayden" automatically.
  */
