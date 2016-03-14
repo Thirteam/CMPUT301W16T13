@@ -97,8 +97,10 @@ public abstract class BaseController {
     }
 
     public void initAppUser(String username){
-        if(user == null)
+        if(user == null) {
             user = queryAppUser(username);
+            user.getBookShelf().populateBookShelf(this.queryAllTextbooks());
+        }
     }
 
     public void setAppUser(User u){
@@ -131,6 +133,17 @@ public abstract class BaseController {
             else{
                 return books.get(0);
             }
+        }catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
+
+    public ArrayList<TextBook> queryAllTextbooks(){
+        DataHelper.GetAllTextbookTask t = new DataHelper.GetAllTextbookTask();
+        t.execute(getAppUser().getName());
+        try{
+            ArrayList<TextBook> books = t.get();
+            return books;
         }catch(Exception e){
             throw new RuntimeException();
         }

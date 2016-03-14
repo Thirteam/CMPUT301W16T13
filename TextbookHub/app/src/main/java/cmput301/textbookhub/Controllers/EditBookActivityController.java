@@ -2,6 +2,8 @@ package cmput301.textbookhub.Controllers;
 
 import android.os.AsyncTask;
 
+import java.util.concurrent.ExecutionException;
+
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.TextBook;
 
@@ -24,8 +26,15 @@ public class EditBookActivityController extends BaseController{
     }
 
     public void saveTextBook(TextBook book){
-        AsyncTask<TextBook, Void, Void> execute = new DataHelper.AddTextbookTask();
+        DataHelper.AddTextbookTask execute = new DataHelper.AddTextbookTask();
         execute.execute(book);
+        try {
+            getAppUser().getBookShelf().getAllBooks().addAll(execute.get());
+        } catch(ExecutionException e){
+            e.printStackTrace();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
 }

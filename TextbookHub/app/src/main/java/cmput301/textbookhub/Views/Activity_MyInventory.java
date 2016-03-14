@@ -121,7 +121,6 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
-        inventoryList = this.controller.getAllBooksList();
         adapter.notifyDataSetChanged();
         if (adapter.getCount()==0){
             this.lv_my_books.setVisibility(View.GONE);

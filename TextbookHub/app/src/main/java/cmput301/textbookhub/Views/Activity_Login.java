@@ -66,4 +66,10 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
     public void updateView(){
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        controller.setAppUser(null);
+    }
 }

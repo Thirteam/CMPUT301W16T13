@@ -151,9 +151,12 @@ public class DataHelper {
         }
     }
 
-    public static class AddTextbookTask extends AsyncTask<TextBook, Void, Void> {
+    public static class AddTextbookTask extends AsyncTask<TextBook, Void, ArrayList<TextBook>> {
+
+        private ArrayList<TextBook> books = new ArrayList<>();
+
         @Override
-        protected Void doInBackground(TextBook... textbooks){
+        protected ArrayList<TextBook> doInBackground(TextBook... textbooks){
             verifyClient();
 
             for (int i = 0; i<textbooks.length; i++) {
@@ -162,9 +165,10 @@ public class DataHelper {
                 Index index = new Index.Builder(book).index("thirteam").type("textbook").build();
                 try {
                     DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
+                    if (result != null && result.isSucceeded()) {
                         //Set the ID to tweet that elasticsearch told me it was
                         book.setJid(result.getId());
+                        books.add(book);
                     }else{
                         //TODO add an error message
                         Log.i("TODO", "we actually failed here");
@@ -173,8 +177,10 @@ public class DataHelper {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return this.books;
         }
+
+
     }
 
     public static class GetUserTask extends AsyncTask<String, Void, ArrayList<User>>{

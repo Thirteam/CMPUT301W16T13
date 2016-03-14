@@ -3,6 +3,8 @@ package cmput301.textbookhub;
 import android.os.AsyncTask;
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
+
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.Models.User;
@@ -36,7 +38,7 @@ public class ElasticSearchTest{
         TextBook testBook4 = new TextBook(testUser,"The Great Textbook 5");
         TextBook testBook5 = new TextBook(testUser,"The Great Textbook 6");
 
-        AsyncTask<TextBook, Void, Void> execute = new DataHelper.AddTextbookTask();
+        AsyncTask<TextBook, Void, ArrayList<TextBook>> execute = new DataHelper.AddTextbookTask();
         execute.execute(testBook0, testBook1, testBook2, testBook3, testBook4, testBook5);
 
     }

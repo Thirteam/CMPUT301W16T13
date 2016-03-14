@@ -24,8 +24,6 @@ public class MyInventoryActivityController extends BaseController {
     }
 
     public ArrayList getAllBooksList(){
-        ArrayList<TextBook> books = queryAllTextbooks();
-        getAppUser().getBookShelf().populateBookShelf(books);
         return getAppUser().getBookShelf().getAllBooks();
     }
 
@@ -37,14 +35,5 @@ public class MyInventoryActivityController extends BaseController {
         return getAppUser().getBookShelf().getBorrowedBooks();
     }
 
-    public ArrayList<TextBook> queryAllTextbooks(){
-        DataHelper.GetAllTextbookTask t = new DataHelper.GetAllTextbookTask();
-        t.execute(getAppUser().getName());
-        try{
-            ArrayList<TextBook> books = t.get();
-            return books;
-        }catch(Exception e){
-            throw new RuntimeException();
-        }
-    }
+
 }
