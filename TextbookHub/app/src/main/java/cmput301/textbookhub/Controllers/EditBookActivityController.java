@@ -26,7 +26,6 @@ public class EditBookActivityController extends BaseController{
     public void saveTextBook(TextBook book){
         AsyncTask<TextBook, Void, Void> execute = new DataHelper.AddTextbookTask();
         execute.execute(book);
-        getAppUser().getBookShelf().addNewBook(book);
     }
 
 }
