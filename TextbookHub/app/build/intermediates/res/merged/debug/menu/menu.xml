@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:TextBookHub="http://schemas.android.com/apk/res-auto" >
-
-    <item android:id="@+id/spinner_list_content_type"
-        TextBookHub:showAsAction="ifRoom"
-        android:title="Content Select"
-        TextBookHub:actionViewClass="android.widget.Spinner" />
-</menu><!-- From: file:/afs/ualberta.ca/home/x/u/xuefei1/projects/CMPUT301W16T13/TextbookHub/app/src/main/res/menu/menu.xml -->

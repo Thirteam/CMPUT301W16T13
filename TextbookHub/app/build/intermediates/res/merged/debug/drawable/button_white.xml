@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:state_pressed="true"
-        android:drawable="@color/mat_grey_superlight"></item>
-    <item android:state_focused="true"
-        android:drawable="@color/mat_grey_superlight"></item>
-    <item android:drawable="@color/pure_white"></item>
-</selector><!-- From: file:/afs/ualberta.ca/home/x/u/xuefei1/projects/CMPUT301W16T13/TextbookHub/app/src/main/res/drawable/button_white.xml -->
