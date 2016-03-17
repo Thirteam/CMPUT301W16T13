@@ -16,11 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.UserProfileActivityController;
-import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Tools;
 
 /**
  * Created by Fred on 2016/3/2.
@@ -39,20 +39,21 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private Button btn_save, btn_finish;
     private EditText et_username, et_password, et_email;
 
-    private UserProfileActivityController controller;
+    private UserProfileActivityController activityController;
+    private AppUserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        this.controller = (UserProfileActivityController)ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this, ((BaseApplication) getApplication()).getAppUsername());
+        this.activityController = (UserProfileActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this);
+        this.userController = AppUserController.getInstance();
 
         context = this;
-        // Set your custom view
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        //View view = getSupportActionBar().getCustomView();
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit,
                 null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
@@ -88,17 +89,11 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                     } else {
                         //TODO:Update user profile
                         //TODO:Fix app crashes when user login when the changed password
-                        //initEditTextValues();
 
-                        if(controller.updateExistingUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
-                            ((BaseApplication)getApplication()).setAppUsername(et_username.getText().toString());
-                            Intent intent = new Intent(context, Activity_Main.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                        if(userController.updateExistingUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+
+                            finish();
                         }
-                        //if(controller.registerNewUser(context, et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
-                            //finish();
-                       // }
                     }
                 }
             });
@@ -135,12 +130,17 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: check input data integrity, create new user, go to main page
-                    if(controller.registerNewUser(context, et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
-                        ((BaseApplication)getApplication()).setAppUsername(et_username.getText().toString());
-                        Intent intent = new Intent(context, Activity_Main.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
+                    if(Tools.isStringValid(et_username.getText().toString()) && Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
+                        if(userController.registerNewUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                            Intent intent = new Intent(context, Activity_Main.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                            finish();
+                        }else{
+                            activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.username_exists));
+                        }
+                    }else{
+                        activityController. displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.user_profile_empty));
                     }
                 }
             });
@@ -156,9 +156,9 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     }
 
     private void initEditTextValues() {
-        et_username.setText(this.controller.getAppUser().getName());
-        et_password.setText(this.controller.getAppUser().getPassword());
-        et_email.setText(this.controller.getAppUser().getEmail());
+        et_username.setText(this.userController.getAppUser().getName());
+        et_password.setText(this.userController.getAppUser().getPassword());
+        et_email.setText(this.userController.getAppUser().getEmail());
     }
 
     private void enableEditTexts(){

@@ -2,6 +2,8 @@ package cmput301.textbookhub.Models;
 
 /**
  * Created by xuefei1 on 3/8/16.
+ *
+ * A book can be available or borrowed
  */
 public enum BookStatus {
 

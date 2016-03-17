@@ -7,29 +7,20 @@ import android.os.Bundle;
 import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.Activity_EditBook;
 
 /**
  * Created by Fred on 2016/3/10.
+ *
+ * Each activity controller is dedicated to one activity
  */
-public class ViewBookActivityController extends BaseController {
-
-    private static ViewBookActivityController instance;
+public class ViewBookActivityController extends ActivityController {
 
     private TextBook textBook;
 
-    private ViewBookActivityController() {
-    }
-
-    public static ViewBookActivityController getInstance(String username){
-        if(instance == null) {
-            instance = new ViewBookActivityController();
-
-        }
-        instance.initAppUser(username);
-        return instance;
-    }
+    public ViewBookActivityController() {}
 
     public void startEditBookActivity(Context ctx){
         Intent i = new Intent(ctx, Activity_EditBook.class);
@@ -61,10 +52,10 @@ public class ViewBookActivityController extends BaseController {
         return false;
     }
 
-    public void requestBidUpdate(Context ctx, String bid){
+    public void requestBidUpdate(Context ctx, String bid, User u){
         if(isBidValid(bid)){
             Double new_bid = Double.parseDouble(bid);
-            this.textBook.getBidList().addBid(new Bid(new_bid, getAppUser()));
+            this.textBook.getBidList().addBid(new Bid(new_bid, u));
             //TODO:update the bid
 
         }else{

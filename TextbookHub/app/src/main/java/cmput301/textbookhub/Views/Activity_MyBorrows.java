@@ -1,23 +1,20 @@
 package cmput301.textbookhub.Views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
@@ -31,15 +28,17 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
     private LinearLayout layout_borrows_hint;
     private Context context;
 
-    private MyBorrowsActivityController controller;
+    private MyBorrowsActivityController activityController;
+    private AppUserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_borrows);
 
-        this.controller = (MyBorrowsActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BORROWS, this, ((BaseApplication)getApplication()).getAppUsername());
+        this.activityController = (MyBorrowsActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_MY_BORROWS, this);
+        this.userController = AppUserController.getInstance();
 
         this.context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

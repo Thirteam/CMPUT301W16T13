@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.support.v7.app.ActionBar;
 import android.widget.EditText;
 
-import cmput301.textbookhub.BaseApplication;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.EditBookActivityController;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
@@ -27,7 +27,8 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
 
     private Button btn_save, btn_cancel;
-    private EditBookActivityController controller;
+    private EditBookActivityController activityController;
+    private AppUserController userController;
     private Button btn_add_pic;
     private EditText et_book_name, et_book_edition, et_book_comments,  et_starting_bid;
     private AutoCompleteTextView et_book_category;
@@ -39,9 +40,12 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         setContentView(R.layout.activity_book_edit);
         this.context = this;
 
-        this.controller = (EditBookActivityController)ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this, ((BaseApplication)getApplication()).getAppUsername());
+        //need two controllers for every activity
+        this.activityController = (EditBookActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
+        this.userController = AppUserController.getInstance();
 
+        //customize actionbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit,
                 null);
@@ -50,6 +54,8 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         getSupportActionBar().setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
+
+        //get views
         btn_save = (Button) view.findViewById(R.id.button_save);
         btn_cancel = (Button) view.findViewById(R.id.button_cancel);
         this.btn_add_pic = (Button) findViewById(R.id.button_take_pic);
@@ -66,13 +72,13 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
             public void onClick(View v) {
                 //TODO: save the book
                 if(Tools.isStringValid(et_book_name.getText().toString())) {
-                    TextBook book = new TextBook.Builder(controller.getAppUser(), et_book_name.getText().toString())
+                    TextBook book = new TextBook.Builder(userController.getAppUser(), et_book_name.getText().toString())
                             .addCategory(et_book_category.getText().toString()).addComments(et_book_comments.getText().toString())
-                            .addStartingBid(et_starting_bid.getText().toString(), controller.getAppUser()).addEdition(et_book_edition.getText().toString()).buildTextBook();
-                    controller.saveTextBook(book);
+                            .addStartingBid(et_starting_bid.getText().toString(), userController.getAppUser()).addEdition(et_book_edition.getText().toString()).buildTextBook();
+                    userController.saveTextBook(book);
                     finish();
                 }else{
-                    controller.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));
+                    activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));
                 }
             }
         });
@@ -91,12 +97,10 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     }
 
     @Override
-    public void updateView(){
-
-    }
+    public void updateView(){}
 
     public void initEditBookValues(String id){
-        TextBook book = this.controller.queryTextbook(id);
+        TextBook book = this.activityController.queryTextbook(id);
         this.et_book_name.setText(book.getName());
         book.getBidList().sortBidsByAmount();
         this.et_starting_bid.setText(book.getBidList().getBids().get(

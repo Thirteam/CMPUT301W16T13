@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.LoginActivityController;
 import cmput301.textbookhub.R;
 
@@ -21,14 +21,16 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
     private Button btn_login, btn_register;
     private EditText et_username, et_password;
     private Context context;
-    private LoginActivityController controller;
+    private LoginActivityController activityController;
+    private AppUserController userController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.controller = (LoginActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_LOGIN, this, null);
+        this.activityController = (LoginActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_LOGIN, this);
+        this.userController = AppUserController.getInstance();
 
         btn_login = (Button) findViewById(R.id.button_login);
         btn_register = (Button) findViewById(R.id.button_register);
@@ -39,12 +41,11 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(controller.userAuthSuccess(context, et_username.getText().toString(), et_password.getText().toString())) {
-                    ((BaseApplication)getApplication()).setAppUsername(et_username.getText().toString());
+                if(userController.userAuthSuccess(et_username.getText().toString(), et_password.getText().toString())) {
                     Intent intent = new Intent(context, Activity_Main.class);
                     context.startActivity(intent);
                 }else{
-                    controller.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
+                    activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
                 }
             }
         });
@@ -70,6 +71,6 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
     @Override
     protected void onResume() {
         super.onResume();
-        controller.setAppUser(null);
+        userController.clearAppUser();
     }
 }

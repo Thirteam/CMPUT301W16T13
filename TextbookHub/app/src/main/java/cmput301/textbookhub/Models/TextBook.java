@@ -10,18 +10,7 @@ import io.searchbox.annotations.JestId;
 /**
  * Created by Fred on 2016/3/8.
  */
-public class TextBook implements NamedItem, Syncable, DataBundleObject{
-
-    public static final String BUNDLE_KEY_STR_ID = "TEXTBOOK_ID";
-    public static final String BUNDLE_KEY_STR_BOOKNAME = "TEXTBOOK_NAME";
-    public static final String BUNDLE_KEY_STR_EDITION = "TEXTBOOK_EDITION";
-    public static final String BUNDLE_KEY_STR_COMMENTS = "TEXTBOOK_COMMENTS";
-    public static final String BUNDLE_KEY_STR_OWNER_ID = "TEXTBOOK_OWNER";
-    public static final String BUNDLE_KEY_STR_CATEGORY = "TEXTBOOK_CATEGORY";
-    public static final String BUNDLE_KEY_STR_BORROWER_ID = "TEXTBOOK_BORROWED";
-    public static final String BUNDLE_KEY_LONG_TIMESTAMP = "TEXTBOOK_TIMESTAMP";
-    public static final String BUNDLE_KEY_STRARR_BIDLIST = "TEXTBOOK_BIDLIST";
-    public static final String BUNDLE_KEY_STR_BOOKSTAT = "TEXTBOOK_BOOKSTAT";
+public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
 
     private String id;
     private String bookName;
@@ -153,28 +142,6 @@ public class TextBook implements NamedItem, Syncable, DataBundleObject{
 
     public boolean isUpdateAble(){
         return this.bookStatus != BookStatus.BORROWED;
-    }
-
-    @Override
-    public Bundle generateDataBundle() {
-        Bundle b = new Bundle();
-        b.putString(BUNDLE_KEY_STR_ID, this.id);
-        b.putString(BUNDLE_KEY_STR_BOOKNAME, this.bookName);
-        b.putString(BUNDLE_KEY_STR_OWNER_ID, this.owner.getID());
-        b.putString(BUNDLE_KEY_STR_BOOKSTAT, this.bookStatus.toString());
-        b.putString(BUNDLE_KEY_STR_EDITION, this.edition);
-        b.putString(BUNDLE_KEY_STR_CATEGORY, this.category);
-        b.putString(BUNDLE_KEY_STR_COMMENTS, this.comments);
-        b.putLong(BUNDLE_KEY_LONG_TIMESTAMP, this.timestamp);
-        b.putStringArrayList(BUNDLE_KEY_STRARR_BIDLIST, this.bids.getBidIDStringArray());
-        if(this.borrower != null)
-            b.putString(BUNDLE_KEY_STR_BORROWER_ID, this.borrower.getID());
-        return b;
-    }
-
-    @Override
-    public DataBundleLabel getDataModelLabel() {
-        return DataBundleLabel.TEXTBOOK;
     }
 
     public static class Builder{

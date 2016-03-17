@@ -7,13 +7,4 @@ import android.app.Application;
  */
 public class BaseApplication extends Application {
 
-    private String appUsername = null;
-
-    public String getAppUsername() {
-        return appUsername;
-    }
-
-    public void setAppUsername(String appUsername) {
-        this.appUsername = appUsername;
-    }
 }

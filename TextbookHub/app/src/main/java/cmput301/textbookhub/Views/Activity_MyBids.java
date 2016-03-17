@@ -13,9 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBidsActivityController;
-import cmput301.textbookhub.Models.BidList;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 
@@ -28,15 +28,17 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
     private LinearLayout layout_bids_hint;
     private Context context;
 
-    private MyBidsActivityController controller;
+    private MyBidsActivityController activityController;
+    private AppUserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bids);
 
-        this.controller = (MyBidsActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MY_BIDS, this, ((BaseApplication)getApplication()).getAppUsername());
+        this.activityController = (MyBidsActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_MY_BIDS, this);
+        this.userController = AppUserController.getInstance();
 
         this.context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

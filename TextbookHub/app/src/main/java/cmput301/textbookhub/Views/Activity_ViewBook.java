@@ -15,7 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.ViewBookActivityController;
 import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.R;
@@ -48,7 +49,8 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
 
     private String book_id;
 
-    private ViewBookActivityController controller;
+    private ViewBookActivityController activityController;
+    private AppUserController userController;
 
     private ArrayAdapter bidListAdapter;
 
@@ -62,9 +64,12 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         if(b != null){
             this.book_id = b.getString(BUNDLE_KEY_BOOK_ID);
         }
-        this.controller = (ViewBookActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_VIEW_BOOK, this, ((BaseApplication)getApplication()).getAppUsername());
-        this.controller.setCurrentBook(this.book_id);
+
+        this.activityController = (ViewBookActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_VIEW_BOOK, this);
+        this.userController = AppUserController.getInstance();
+
+        this.activityController.setCurrentBook(this.book_id);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_ok,
                 null);
@@ -83,7 +88,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.btn_owner = (Button) findViewById(R.id.button_owner);
         this.bid_hist = (ListView) findViewById(R.id.lv_bid_hist);
         this.tv_book_status = (TextView) findViewById(R.id.tv_book_status);
-        this.bidListAdapter = new BidHistListAdapter(this.context, R.layout.adapter_bid_list, controller.getCurrentBook().getBidList().getBids());
+        this.bidListAdapter = new BidHistListAdapter(this.context, R.layout.adapter_bid_list, activityController.getCurrentBook().getBidList().getBids());
         this.bid_hist.setAdapter(this.bidListAdapter);
 
         btn_finish = (Button) view.findViewById(R.id.button_ok);
@@ -100,14 +105,14 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     @Override
     public void updateView(){
         this.bidListAdapter.notifyDataSetChanged();
-        this.tv_book_name.setText(this.controller.getCurrentBook().getName());
-        this.tv_book_cat.setText(this.controller.getCurrentBook().getCategory());
-        this.tv_book_comments.setText(this.controller.getCurrentBook().getComments());
-        this.tv_book_edition.setText(this.controller.getCurrentBook().getEdition());
-        this.btn_owner.setText(this.controller.getAppUser().getName());
-        this.tv_book_status.setText(this.controller.getCurrentBook().getBookStatus().toString());
-        if(this.controller.getCurrentBook().getBookStatus().equals(BookStatus.AVAILABLE))
-            this.btn_current_highest_bid.setText(this.controller.getCurrentBook().getBidList().getHighestBid().toString());
+        this.tv_book_name.setText(this.activityController.getCurrentBook().getName());
+        this.tv_book_cat.setText(this.activityController.getCurrentBook().getCategory());
+        this.tv_book_comments.setText(this.activityController.getCurrentBook().getComments());
+        this.tv_book_edition.setText(this.activityController.getCurrentBook().getEdition());
+        this.btn_owner.setText(this.userController.getAppUser().getName());
+        this.tv_book_status.setText(this.activityController.getCurrentBook().getBookStatus().toString());
+        if(this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.AVAILABLE))
+            this.btn_current_highest_bid.setText(this.activityController.getCurrentBook().getBidList().getHighestBid().toString());
     }
 
     private void initActionView(){
@@ -115,26 +120,26 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.owner_bid_action_layout = (LinearLayout) findViewById(R.id.owner_bid_action_layout);
         this.borrower_bid_action_layout.setVisibility(View.VISIBLE);
         this.owner_bid_action_layout.setVisibility(View.VISIBLE);
-        if(this.controller.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
+        if(this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.owner_bid_action_layout.setVisibility(View.GONE);
         }
         //book belong to the user
-        if(this.controller.getCurrentBook().getOwner().getID().equals(this.controller.getAppUser().getID())){
+        if(this.activityController.getCurrentBook().getOwner().getID().equals(this.userController.getAppUser().getID())){
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.btn_edit = (Button) findViewById(R.id.button_edit_item);
             this.btn_delete = (Button) findViewById(R.id.button_delete_item);
             this.btn_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controller.startEditBookActivity(context);
+                    activityController.startEditBookActivity(context);
                     finish();
                 }
             });
             this.btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controller.requestDeleteTextBook(context);
+                    activityController.requestDeleteTextBook(context);
                     finish();
                 }
             });
@@ -145,7 +150,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             this.btn_submit_bid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controller.requestBidUpdate(context, et_bid_amount.getText().toString());
+                    activityController.requestBidUpdate(context, et_bid_amount.getText().toString(), userController.getAppUser());
                 }
             });
         }

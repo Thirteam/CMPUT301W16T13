@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
 
@@ -21,15 +22,17 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private MainActivityController controller;
+    private MainActivityController activityController;
+    private AppUserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.controller  = (MainActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MAIN, this, ((BaseApplication)getApplication()).getAppUsername());
+        this.activityController  = (MainActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_MAIN, this);
+        this.userController = AppUserController.getInstance();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         setupViewPager(viewPager);
@@ -48,8 +51,12 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
         viewPager.setCurrentItem(0);
     }
 
-    public MainActivityController getController() {
-        return controller;
+    public MainActivityController getActivityController() {
+        return activityController;
+    }
+
+    public AppUserController getUserController(){
+        return userController;
     }
 
     @Override

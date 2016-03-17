@@ -18,7 +18,8 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 import cmput301.textbookhub.BaseApplication;
-import cmput301.textbookhub.Controllers.ControllerFactory;
+import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyInventoryActivityController;
 import cmput301.textbookhub.R;
 
@@ -26,13 +27,15 @@ import cmput301.textbookhub.R;
  * Created by Fred on 2016/3/1.
  */
 public class Activity_MyInventory extends AppCompatActivity implements BaseView{
+
     private ListView lv_my_books;
     private LinearLayout layout_inventory_hint;
     private Button btn_new;
     private Context context;
     private ArrayList inventoryList;
 
-    private MyInventoryActivityController controller;
+    private MyInventoryActivityController activityController;
+    private AppUserController userController;
 
     private InventoryListAdapter adapter;
 
@@ -41,14 +44,15 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_inventory);
 
-        this.controller = (MyInventoryActivityController) ControllerFactory.getControllerForView(
-                ControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this, ((BaseApplication)getApplication()).getAppUsername());
+        this.activityController = (MyInventoryActivityController) ActivityControllerFactory.getControllerForView(
+                ActivityControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this);
+        this.userController = AppUserController.getInstance();
 
         context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         lv_my_books = (ListView) findViewById(R.id.lv_inventory);
-        inventoryList = this.controller.getAllBooksList();
+        inventoryList = this.userController.getAllBooksList();
         this.adapter = new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, inventoryList);
         lv_my_books.setAdapter(this.adapter);
         layout_inventory_hint = (LinearLayout) findViewById(R.id.layout_inventory_hint);

@@ -7,13 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import cmput301.textbookhub.Controllers.BaseController;
 import cmput301.textbookhub.Controllers.MainActivityController;
-import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
@@ -37,7 +33,7 @@ public class Fragment_Search extends BaseFragment {
         et_search = (EditText) v.findViewById(R.id.et_search);
         btn_search = (Button) v.findViewById(R.id.btn_search);
         tv_hint.setText(getResources().getString(R.string.new_search));
-        final MainActivityController activityController =  ((Activity_Main) getActivity()).getController();
+        final MainActivityController activityController =  ((Activity_Main) getActivity()).getActivityController();
         this.btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
