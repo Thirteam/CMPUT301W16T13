@@ -15,6 +15,7 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -35,9 +36,12 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private static final String STATUS_VIEW_ONLY = "View";
     private String status = STATUS_VIEW_ONLY;
     private Context context;
+    private String activityType;
 
     private Button btn_save, btn_finish;
     private EditText et_username, et_password, et_email;
+    private TextView tv_username;
+
 
     private UserProfileActivityController activityController;
     private AppUserController userController;
@@ -71,12 +75,15 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
 
     private void initializeView(Bundle extras, View v){
         et_username = (EditText)findViewById(R.id.et_username);
+        tv_username = (TextView)findViewById(R.id.tv_username);
         et_password = (EditText)findViewById(R.id.et_password);
         et_email = (EditText)findViewById(R.id.et_email);
         btn_save = (Button) v.findViewById(R.id.button_save);
         btn_finish = (Button)v.findViewById(R.id.button_cancel);
         btn_finish.setText(getResources().getString(R.string.finish_en));
         if(extras.getString(BUNDLE_KEY_PROFILE_TYPE, BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW).equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
+            this.activityType = BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW;
+            this.updateView();
             btn_save.setText(getResources().getString(R.string.edit_en));
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,9 +96,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                     } else {
                         //TODO:Update user profile
                         //TODO:Fix app crashes when user login when the changed password
-
-                        if(userController.updateExistingUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
-
+                        if(userController.updateExistingUser(et_password.getText().toString(), et_email.getText().toString())) {
                             finish();
                         }
                     }
@@ -126,6 +131,8 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
             initEditTextValues();
             disableEditTexts();
         }else{
+            this.activityType = BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER;
+            this.updateView();
             btn_save.setText(getResources().getString(R.string.register));
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -156,24 +163,28 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     }
 
     private void initEditTextValues() {
-        et_username.setText(this.userController.getAppUser().getName());
+        tv_username.setText(this.userController.getAppUser().getName());
         et_password.setText(this.userController.getAppUser().getPassword());
         et_email.setText(this.userController.getAppUser().getEmail());
     }
 
     private void enableEditTexts(){
-        //et_username.setEnabled(true);
         et_password.setEnabled(true);
         et_email.setEnabled(true);
     }
     private void disableEditTexts(){
-        et_username.setEnabled(false);
         et_password.setEnabled(false);
         et_email.setEnabled(false);
     }
 
     @Override
     public void updateView(){
-
+        if(this.activityType.equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
+            et_username.setVisibility(View.GONE);
+            tv_username.setVisibility(View.VISIBLE);
+        }else {
+            et_username.setVisibility(View.VISIBLE);
+            tv_username.setVisibility(View.GONE);
+        }
     }
 }

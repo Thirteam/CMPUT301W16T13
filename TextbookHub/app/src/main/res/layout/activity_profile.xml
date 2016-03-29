@@ -71,6 +71,17 @@
                 android:textSize="@dimen/textsize_large" />
 
             <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_element"
+                android:layout_marginRight="@dimen/padding_element"
+                android:layout_marginTop="@dimen/padding_line_spacing_medium"
+                android:textColor="@color/mat_grey_superdark"
+                android:text="Username"
+                android:textSize="@dimen/textsize_large" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"

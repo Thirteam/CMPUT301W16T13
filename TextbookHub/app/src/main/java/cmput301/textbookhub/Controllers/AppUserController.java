@@ -72,12 +72,12 @@ public class AppUserController extends BaseController{
         return false;
     }
 
-    public boolean updateExistingUser(String username, String password, String email){
-        if(Tools.isStringValid(username) && Tools.isStringValid(password) && Tools.isStringValid(email)) {
-            User u = new User(username, password, email);
-            setAppUser(u);
-            DataHelper.AddUserTask t = new DataHelper.AddUserTask();
-            t.execute(u);
+    public boolean updateExistingUser(String password, String email){
+        if(Tools.isStringValid(password) && Tools.isStringValid(email)) {
+            getAppUser().setPassword(password);
+            getAppUser().setEmail(email);
+            DataHelper.UpdateUserTask t = new DataHelper.UpdateUserTask();
+            t.execute(getAppUser());
             return true;
         }
         return false;
@@ -102,6 +102,7 @@ public class AppUserController extends BaseController{
                 }
             }
         }catch(Exception e){
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }

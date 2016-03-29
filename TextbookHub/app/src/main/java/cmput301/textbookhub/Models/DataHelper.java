@@ -65,11 +65,10 @@ public class DataHelper {
         }
     }
 
-    public static class UpdateTextbookTask extends AsyncTask<String, Void, Void> {
+    public static class UpdateTextbookTask extends AsyncTask<TextBook, Void, Void> {
         @Override
-        protected Void doInBackground(String... ids){
-            verifyClient();
-            Update update = new Update.Builder(ids[0]).index("thirteam").type("textbook").build();
+        protected Void doInBackground(TextBook... books){
+            Update update = new Update.Builder(books[0]).index("thirteam").type("textbook").build();
             try {
                 DocumentResult result = client.execute(update);
                 if (result.isSucceeded()) {
@@ -77,6 +76,33 @@ public class DataHelper {
                 }else{
                     //TODO add an error message
                     Log.i("TODO", "we actually failed here");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+        @Override
+        protected Void doInBackground(User... users){
+            String script_pass = "{\"doc\":{" +
+                    "\"password\" : \""+users[0].getPassword()+"\"" +
+                    "}}";
+            String script_email = "{\"doc\":{" +
+                    "\"email\" : \""+users[0].getEmail()+"\"" +
+                    "}}";
+            Update update_pass = new Update.Builder(script_pass).index("thirteam").type("user").id(users[0].getJid()).build();
+            Update update_email = new Update.Builder(script_email).index("thirteam").type("user").id(users[0].getJid()).build();
+            try {
+                DocumentResult result_pass = client.execute(update_pass);
+                DocumentResult result_email = client.execute(update_email);
+                if (!result_pass.isSucceeded()) {
+                    Log.i("ERROR", result_pass.getErrorMessage() + script_pass);
+                }
+                if(!result_email.isSucceeded()){
+                    Log.i("ERROR", result_email.getErrorMessage() + script_email);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -233,7 +259,6 @@ public class DataHelper {
                     .addIndex("thirteam")
                     .addType("user")
                     .build();
-
             try {
                 SearchResult execute = client.execute(search);
                 if(execute.isSucceeded()){

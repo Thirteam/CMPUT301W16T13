@@ -9,10 +9,6 @@ import android.support.v7.app.AlertDialog;
 import java.util.ArrayList;
 
 import cmput301.textbookhub.Models.BookStatus;
-import cmput301.textbookhub.Models.DataHelper;
-import cmput301.textbookhub.Models.ElasticSearchQueryException;
-import cmput301.textbookhub.Models.TextBook;
-import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.BaseView;
 
