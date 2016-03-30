@@ -35,6 +35,7 @@ public class DataHelper {
             String search_string = "";
 
             //Start our initial array list (empty)
+
             ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
 
             if (Tools.isStringValid(search_strings[0])){
@@ -210,7 +211,7 @@ public class DataHelper {
 
     public static class AddTextbookTask extends AsyncTask<TextBook, Void, ArrayList<TextBook>> {
 
-        private ArrayList<TextBook> books = new ArrayList<>();
+        private ArrayList<TextBook> books = new ArrayList();
 
         @Override
         protected ArrayList<TextBook> doInBackground(TextBook... textbooks){
@@ -236,8 +237,35 @@ public class DataHelper {
             }
             return this.books;
         }
+    }
 
+    public static class EditTextbookTask extends AsyncTask<TextBook, Void, ArrayList<TextBook>> {
 
+        private ArrayList<TextBook> books = new ArrayList();
+
+        @Override
+        protected ArrayList<TextBook> doInBackground(TextBook... textbooks){
+            verifyClient();
+
+            for (int i = 0; i<textbooks.length; i++) {
+                TextBook book = textbooks[i];
+
+                //The only real difference from Add and Edit is this line including the existing ID
+                Index index = new Index.Builder(book).index("thirteam").type("textbook").id(book.getJid()).build();
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result != null && result.isSucceeded()) {
+                        books.add(book);
+                    }else{
+                        //TODO add an error message
+                        Log.i("TODO", "we actually failed here");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return this.books;
+        }
     }
 
     public static class GetUserTask extends AsyncTask<String, Void, ArrayList<User>>{
