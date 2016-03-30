@@ -45,7 +45,7 @@ public class BorrowedListAdapter extends ArrayAdapter{
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
             ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
-            ((TextView) convertView.findViewById(R.id.tvl_owner)).setText(getItem(position).getOwner().getName());
+            ((TextView) convertView.findViewById(R.id.tvl_owner)).setText(getItem(position).getOwner());
 
         }
         return convertView;

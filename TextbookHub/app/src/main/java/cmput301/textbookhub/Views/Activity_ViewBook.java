@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.ViewBookActivityController;
@@ -120,12 +119,14 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.owner_bid_action_layout = (LinearLayout) findViewById(R.id.owner_bid_action_layout);
         this.borrower_bid_action_layout.setVisibility(View.VISIBLE);
         this.owner_bid_action_layout.setVisibility(View.VISIBLE);
+        //book is currently borrowed
         if(this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.owner_bid_action_layout.setVisibility(View.GONE);
         }
-        //book belong to the user
-        if(this.activityController.getCurrentBook().getOwner().getID().equals(this.userController.getAppUser().getID())){
+        //book belongs to the user
+        String username = this.activityController.getCurrentBook().getOwner();
+        if(this.activityController.queryUser(username).getID().equals(this.userController.getAppUser().getID())){
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.btn_edit = (Button) findViewById(R.id.button_edit_item);
             this.btn_delete = (Button) findViewById(R.id.button_delete_item);
@@ -144,13 +145,14 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                 }
             });
         }else{
+            //book is available and can be bid on
             this.owner_bid_action_layout.setVisibility(View.GONE);
             this.btn_submit_bid = (Button) findViewById(R.id.button_place_bid);
             this.et_bid_amount = (EditText) findViewById(R.id.et_bid_amount);
             this.btn_submit_bid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activityController.requestBidUpdate(context, et_bid_amount.getText().toString(), userController.getAppUser());
+                    activityController.addNewBid(context, et_bid_amount.getText().toString(), userController.getAppUser());
                 }
             });
         }

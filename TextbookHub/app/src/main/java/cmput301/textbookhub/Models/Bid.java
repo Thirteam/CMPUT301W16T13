@@ -11,23 +11,23 @@ public class Bid implements Comparable, UniqueItem<String>{
 
     private String id;
     private Double amount;
-    private User bidder;
+    private String bidder;
     private TextBook textBook;
     private Long timestamp;
 
     public Bid(Double amount, User user){
         this.amount = amount;
-        this.bidder = user;
+        this.bidder = user.getName();
         this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.id = this.bidder.getID() + "_" + this.timestamp.toString();
+        this.id = user.getID() + "_" + this.timestamp.toString();
     }
 
     public Bid(Double amount, User user, TextBook textBook){
         this.amount = amount;
-        this.bidder = user;
+        this.bidder = user.getName();
         this.textBook = textBook;
         this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.id = this.bidder.getID() + "_" + this.timestamp.toString();
+        this.id = user.getID() + "_" + this.timestamp.toString();
     }
 
     public Double getAmount() {
@@ -35,7 +35,7 @@ public class Bid implements Comparable, UniqueItem<String>{
         return amount;
     }
 
-    public User getBidder() {
+    public String getBidder() {
         return bidder;
     }
 

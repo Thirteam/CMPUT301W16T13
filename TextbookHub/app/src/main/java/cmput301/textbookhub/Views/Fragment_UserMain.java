@@ -69,6 +69,10 @@ public class Fragment_UserMain extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        Intent intent = new Intent(getContext(), Activity_Login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        ((Activity_Main)getActivity()).getUserController().saveOfflineUserprofile(getContext(), null);
+                        getContext().startActivity(intent);
                         getActivity().finish();
                     }
                 });

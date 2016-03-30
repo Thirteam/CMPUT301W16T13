@@ -2,11 +2,24 @@ package cmput301.textbookhub.Controllers;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.ElasticSearchQueryException;
+import cmput301.textbookhub.Models.OfflineHelper;
 import cmput301.textbookhub.Models.TextBook;
 import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
@@ -21,6 +34,8 @@ public class AppUserController extends BaseController{
 
     private static AppUserController instance;
     private User user;
+
+    private OfflineHelper offlineHelper = new OfflineHelper();
 
     private AppUserController(){}
 
@@ -83,7 +98,7 @@ public class AppUserController extends BaseController{
         return false;
     }
 
-    public boolean userAuthSuccess(String username, String password){
+    public boolean userAuthSuccess(Context context, String username, String password){
         DataHelper.GetUserTask t = new DataHelper.GetUserTask();
         t.execute(username);
         try{
@@ -96,6 +111,7 @@ public class AppUserController extends BaseController{
             else{
                 if(user.get(0).getPassword().equals(password)) {
                     this.setAppUser(user.get(0));
+                    saveOfflineUserprofile(context, user.get(0));
                     return true;
                 }else{
                     return false;
@@ -107,24 +123,7 @@ public class AppUserController extends BaseController{
         }
     }
 
-    public User queryAppUser(String username){
-        DataHelper.GetUserTask t = new DataHelper.GetUserTask();
-        t.execute(username);
-        try{
-            ArrayList<User> user = t.get();
-            if(user.size() > 1){
-                throw new ElasticSearchQueryException("Query username: "+username+" should only return one result but got "+user.size()+" \n");}
-            else if(user.size() == 0) {
-                throw new ElasticSearchQueryException("No user found?");
-            }
-            else{
-                return user.get(0);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-    }
+
 
     public boolean isUsernameAvailable(String username){
         DataHelper.GetUserTask t = new DataHelper.GetUserTask();
@@ -138,4 +137,17 @@ public class AppUserController extends BaseController{
             throw new RuntimeException();
         }
     }
+
+    public User getOfflineUserProfile(Context ctx) throws NoOfflineUserProfileFoundException{
+        User u = this.offlineHelper.loadUserFromFile(ctx);
+        if(u != null)
+            return u;
+        throw new NoOfflineUserProfileFoundException();
+    }
+
+    public void saveOfflineUserprofile(Context ctx, User u){
+        this.offlineHelper.saveUserToFile(ctx, u);
+    }
+
+    public static class NoOfflineUserProfileFoundException extends Exception{}
 }

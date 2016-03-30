@@ -42,4 +42,23 @@ public abstract class BaseController {
         }
     }
 
+    public User queryUser(String username){
+        DataHelper.GetUserTask t = new DataHelper.GetUserTask();
+        t.execute(username);
+        try{
+            ArrayList<User> user = t.get();
+            if(user.size() > 1){
+                throw new ElasticSearchQueryException("Query username: "+username+" should only return one result but got "+user.size()+" \n");}
+            else if(user.size() == 0) {
+                throw new ElasticSearchQueryException("No user found?");
+            }
+            else{
+                return user.get(0);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
 }

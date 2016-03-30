@@ -11,6 +11,7 @@ import android.widget.EditText;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.LoginActivityController;
+import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 
 /**
@@ -41,9 +42,12 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userController.userAuthSuccess(et_username.getText().toString(), et_password.getText().toString())) {
+
+                if(userController.userAuthSuccess(context, et_username.getText().toString(), et_password.getText().toString())) {
                     Intent intent = new Intent(context, Activity_Main.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
+                    finish();
                 }else{
                     activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
                 }
@@ -61,6 +65,15 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
                 context.startActivity(intent);
             }
         });
+
+        try{
+            User user = userController.getOfflineUserProfile(context);
+            userController.setAppUser(user);
+            Intent intent = new Intent(context, Activity_Main.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+            finish();
+        }catch(AppUserController.NoOfflineUserProfileFoundException e){}
     }
 
     @Override

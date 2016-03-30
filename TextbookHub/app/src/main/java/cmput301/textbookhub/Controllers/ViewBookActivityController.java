@@ -52,7 +52,7 @@ public class ViewBookActivityController extends ActivityController {
         return false;
     }
 
-    public void requestBidUpdate(Context ctx, String bid, User u){
+    public void addNewBid(Context ctx, String bid, User u){
         if(isBidValid(bid)){
             Double new_bid = Double.parseDouble(bid);
             this.textBook.getBidList().addBid(new Bid(new_bid, u));

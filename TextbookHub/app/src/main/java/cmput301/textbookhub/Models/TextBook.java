@@ -18,8 +18,8 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
     private String category;
     private String comments;
 
-    private User owner;
-    private User borrower;
+    private String owner;
+    private String borrower;
 
     private Long timestamp;
 
@@ -31,9 +31,9 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
 
     public TextBook(User owner, String bookName){
         this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.owner = owner;
+        this.owner = owner.getName();
         this.bookName = bookName;
-        this.id = this.owner.getID()+"_"+this.timestamp.toString();
+        this.id = owner.getID()+"_"+this.timestamp.toString();
         this.bids = new BidList();
     }
 
@@ -74,7 +74,7 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
         return bookStatus;
     }
 
-    public User getBorrower() {
+    public String getBorrower() {
         return borrower;
     }
 
@@ -90,12 +90,12 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
         return timestamp;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
     public void setBookBorrowed(User borrower){
-        this.borrower = borrower;
+        this.borrower = borrower.getName();
         this.bookStatus = BookStatus.BORROWED;
     }
 
