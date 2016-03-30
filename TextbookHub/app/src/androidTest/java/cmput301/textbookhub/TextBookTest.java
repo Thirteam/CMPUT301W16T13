@@ -19,6 +19,6 @@ public class TextBookTest extends ActivityInstrumentationTestCase2{
         TextBook book = new TextBook(user,"book");
 
 
-        assertEquals("Book is made successfully", "runqi", book.getOwner().getName());
+        assertEquals("Book is made successfully", "runqi", book.getOwner());
     }
 }
