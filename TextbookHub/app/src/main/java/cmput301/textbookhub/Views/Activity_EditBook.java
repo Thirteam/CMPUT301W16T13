@@ -35,6 +35,9 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     private AutoCompleteTextView et_book_category;
     private Context context;
 
+    //For when we're editting textbook
+    private Textbook bookEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,20 +69,39 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.et_book_edition = (EditText) findViewById(R.id.et_edition);
         this.et_book_comments = (EditText) findViewById(R.id.et_comments);
         this.et_starting_bid = (EditText) findViewById(R.id.et_starting_bid);
-        this.et_book_category.setAdapter( new ArrayAdapter<>(this,
+        this.et_book_category.setAdapter( new ArrayAdapter(this,
                 android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.category_array)));
+
+        if(getIntent().hasExtra(INTENT_EXTRAS_KEY_BUNDLE)){
+            Bundle b = getIntent().getExtras().getBundle(INTENT_EXTRAS_KEY_BUNDLE);
+             bookEdit = initEditBookValues(b.getString(BUNDLE_KEY_BOOK_ID));
+        }
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: save the book
-                if(Tools.isStringValid(et_book_name.getText().toString())) {
-                    Textbook book = new Textbook.Builder(userController.getAppUser(), et_book_name.getText().toString())
-                            .addCategory(et_book_category.getText().toString()).addComments(et_book_comments.getText().toString())
-                            .addStartingBid(et_starting_bid.getText().toString(), userController.getAppUser()).addEdition(et_book_edition.getText().toString()).buildTextBook();
-                    userController.saveTextBook(book);
-                    finish();
-                }else{
-                    activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));
+                if(getIntent().hasExtra(INTENT_EXTRAS_KEY_BUNDLE)){
+                    //If edit window
+                    if (Tools.isStringValid(et_book_name.getText().toString())) {
+                        bookEdit.setBookName(et_book_name.getText().toString());
+                        bookEdit.setCategory(et_book_category.getText().toString());
+                        bookEdit.setEdition(et_book_edition.getText().toString());
+                        bookEdit.setComments(et_book_comments.getText().toString());
+                        userController.editTextBook(bookEdit);
+                        finish();
+                    } else {
+                        activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));
+                    }
+                }else {
+                    if(Tools.isStringValid(et_book_name.getText().toString())) {
+                        Textbook book = new Textbook.Builder(userController.getAppUser(), et_book_name.getText().toString())
+                                .addCategory(et_book_category.getText().toString()).addComments(et_book_comments.getText().toString())
+                                .addStartingBid(et_starting_bid.getText().toString(), userController.getAppUser()).addEdition(et_book_edition.getText().toString()).buildTextBook();
+                        userController.saveTextBook(book);
+                        finish();
+                    }else {
+                        activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));
+                    }
                 }
             }
         });
@@ -103,7 +125,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     @Override
     public void updateView(){}
 
-    public void initEditBookValues(String id){
+    public Textbook initEditBookValues(String id){
         Textbook book = this.activityController.queryTextbook(id);
         this.et_book_name.setText(book.getName());
         book.getBidList().sortBidsByAmount();
@@ -113,5 +135,6 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.et_book_comments.setText(book.getComments());
         this.et_book_edition.setText(book.getEdition());
         this.et_book_category.setText(book.getCategory());
+        return book;
     }
 }

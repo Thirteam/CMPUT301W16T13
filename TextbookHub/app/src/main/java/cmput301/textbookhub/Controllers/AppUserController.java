@@ -90,6 +90,13 @@ public class AppUserController extends BaseController implements NetworkStateObs
             t.execute(book.getJid());
         }
     }
+    public void editTextBook(Textbook book){
+        //This function si nearly identical to the save but will remove the book from the list and re add it.
+        getAppUser().getBookShelf().getAllBooks().remove(book);
+        DataHelper.EditTextbookTask execute = new DataHelper.EditTextbookTask();
+        execute.execute(book);
+        getAppUser().getBookShelf().getAllBooks().add(book);
+    }
 
     public ArrayList getAllPersonalBooks(){
         fillUserBookShelf();
@@ -223,4 +230,5 @@ public class AppUserController extends BaseController implements NetworkStateObs
     }
 
     public static class NoOfflineUserProfileFoundException extends Exception{}
+
 }
