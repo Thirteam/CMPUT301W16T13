@@ -51,30 +51,39 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
         btn_borrows.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(userController.hasServerAccess()) {
+                if (userController.hasServerAccess() && !userController.hasServerAccess()) {
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
+                }else if(!userController.hasInternetAccess(getContext())){
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                }else{
                     Intent intent = new Intent(v.getContext(), Activity_MyBorrows.class);
                     startActivity(intent);
-                }else{
-                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
                 }
             }
         });
         btn_inventory.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(v.getContext(), Activity_MyInventory.class);
-                startActivity(intent);
+                if (userController.hasServerAccess() && !userController.hasServerAccess()) {
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
+                }else {
+                    Intent intent = new Intent(v.getContext(), Activity_MyInventory.class);
+                    startActivity(intent);
+                }
             }
         });
         btn_bids.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(userController.hasInternetAccess(getContext()) && userController.hasServerAccess()) {
+                if (userController.hasServerAccess() && !userController.hasServerAccess()) {
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
+                }else if(!userController.hasInternetAccess(getContext())){
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                }else {
                     Intent intent = new Intent(v.getContext(), Activity_MyBids.class);
                     startActivity(intent);
-                }else{
-                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
                 }
+
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener(){

@@ -68,18 +68,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
             }
         });
 
-        lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(userController.hasServerAccess()) {
-                    Intent i = new Intent(context, Activity_ViewBook.class);
-                    Bundle b = new Bundle();
-                    b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
-                    i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                    startActivity(i);
-                }
-            }
-        });
+        setListviewClickListener();
         userController.loadUserBookShelf();
         initListViewData(0);
         this.updateView();
@@ -175,6 +164,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     public void onInternetDisconnect() {
         userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
+        setListviewClickListener();
         this.layout_inventory_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
             this.lv_my_books.setVisibility(View.GONE);
@@ -189,6 +179,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     public void onInternetConnect() {
         userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
+        setListviewClickListener();
         this.tv_no_conn_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
             this.lv_my_books.setVisibility(View.GONE);
@@ -196,6 +187,40 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         } else {
             this.lv_my_books.setVisibility(View.VISIBLE);
             this.layout_inventory_hint.setVisibility(View.GONE);
+        }
+    }
+
+    private void setListviewClickListener(){
+        if(this.userController.hasInternetAccess(this)){
+            lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (userController.hasInternetAccess(context) && !userController.hasServerAccess()) {
+                        return;
+                    } else if (!userController.hasInternetAccess(context)) {
+                        return;
+                    }
+                    Intent i = new Intent(context, Activity_ViewBook.class);
+                    Bundle b = new Bundle();
+                    b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
+                    i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
+                    startActivity(i);
+                }
+            });
+        }else{
+            lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (userController.hasInternetAccess(context)) {
+                        return;
+                    }
+                    Intent i = new Intent(context, Activity_ViewBook.class);
+                    Bundle b = new Bundle();
+                    b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
+                    i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
+                    startActivity(i);
+                }
+            });
         }
     }
 

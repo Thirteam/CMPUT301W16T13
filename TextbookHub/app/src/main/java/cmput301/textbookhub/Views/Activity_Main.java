@@ -1,10 +1,12 @@
 package cmput301.textbookhub.Views;
 
+import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
 
     private MainActivityController activityController;
     private AppUserController userController;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,16 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(getResources().getString(R.string.offline_title));
+        b.setMessage(getResources().getString(R.string.offline_content));
+        b.setPositiveButton(getResources().getString(R.string.ok_en), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = b.create();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -60,11 +73,12 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
 
     @Override
     public void onInternetConnect() {
+        dialog.dismiss();
     }
 
     @Override
     public void onInternetDisconnect() {
-        this.activityController.displayNotificationDialog(this, getResources().getString(R.string.offline_title), getResources().getString(R.string.offline_content));
+        dialog.show();
     }
 
     @Override

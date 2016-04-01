@@ -124,7 +124,12 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     public void updateView(){}
 
     public Textbook initEditBookValues(String id){
-        Textbook book = this.activityController.queryTextbook(id);
+        Textbook book;
+        if(userController.hasInternetAccess(this)) {
+            book = this.userController.queryTextbook(id);
+        }else{
+            book = this.userController.getOfflineBookByID(id);
+        }
         this.et_book_name.setText(book.getName());
         book.getBidList().sortBidsByAmount();
         this.et_starting_bid.setText(book.getBidList().getBids().get(

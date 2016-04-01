@@ -24,11 +24,8 @@ public class BidListTest extends ActivityInstrumentationTestCase2 {
         User user1 = new User("fred","123",bs1);
         User user2 = new User("Runqi","1234",bs2);
         Textbook tb = new Textbook(user1,"BOOK1");
-        Bid bid = new Bid(100.00, user2, tb);
 
         BidList bl = new BidList();
 
-
-        assertEquals("The textbook can be add in bidlist",0,bl.getBids().indexOf(bid)+1);
     }
 }

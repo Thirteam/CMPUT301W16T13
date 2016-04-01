@@ -131,7 +131,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         }
         //book belongs to the user
         String username = this.activityController.getCurrentBook().getOwner();
-        if(this.activityController.queryUser(username).getID().equals(this.userController.getAppUser().getID())){
+        if(!this.activityController.hasInternetAccess(context) || this.activityController.queryUser(username).getID().equals(this.userController.getAppUser().getID())){
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.btn_edit = (Button) findViewById(R.id.button_edit_item);
             this.btn_delete = (Button) findViewById(R.id.button_delete_item);
