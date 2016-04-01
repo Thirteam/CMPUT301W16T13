@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,9 @@
         android:theme="@style/CustomTheme" >
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         <activity android:name=".Views.Activity_Main"
-            android:theme="@style/CustomThemeNoActionBar">
+            android:theme="@style/CustomThemeNoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +27,9 @@
         </activity>
 
         <activity android:name=".Views.Activity_Login"
-            android:theme="@style/CustomThemeNoActionBar">
+            android:theme="@style/CustomThemeNoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,42 +37,59 @@
         </activity>
 
         <activity android:name=".Views.Activity_UserProfile"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Views.Activity_MyBids">
+        <activity android:name=".Views.Activity_MyBids"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Views.Activity_MyBorrows">
+        <activity android:name=".Views.Activity_MyBorrows"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Views.Activity_MyInventory">
+        <activity android:name=".Views.Activity_MyInventory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Views.Activity_EditBook">
+        <activity android:name=".Views.Activity_EditBook"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Views.Activity_ViewBook">
+        <activity android:name=".Views.Activity_ViewBook"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
+        <receiver android:name=".Receivers.NetworkStateReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

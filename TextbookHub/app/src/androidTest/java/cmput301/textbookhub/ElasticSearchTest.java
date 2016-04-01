@@ -1,12 +1,11 @@
 package cmput301.textbookhub;
 
 import android.os.AsyncTask;
-import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
 
 import cmput301.textbookhub.Models.DataHelper;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 
 /**
@@ -31,14 +30,14 @@ public class ElasticSearchTest{
     public void testAddTextbookTask(){
 
         User testUser = new User("Jayden", "12345");
-        TextBook testBook0 = new TextBook(testUser,"The Great Textbook");
-        TextBook testBook1 = new TextBook(testUser,"The Great Textbook 2");
-        TextBook testBook2 = new TextBook(testUser,"The Great Textbook 3");
-        TextBook testBook3 = new TextBook(testUser,"The Great Textbook 4");
-        TextBook testBook4 = new TextBook(testUser,"The Great Textbook 5");
-        TextBook testBook5 = new TextBook(testUser,"The Great Textbook 6");
+        Textbook testBook0 = new Textbook(testUser,"The Great Textbook");
+        Textbook testBook1 = new Textbook(testUser,"The Great Textbook 2");
+        Textbook testBook2 = new Textbook(testUser,"The Great Textbook 3");
+        Textbook testBook3 = new Textbook(testUser,"The Great Textbook 4");
+        Textbook testBook4 = new Textbook(testUser,"The Great Textbook 5");
+        Textbook testBook5 = new Textbook(testUser,"The Great Textbook 6");
 
-        AsyncTask<TextBook, Void, ArrayList<TextBook>> execute = new DataHelper.AddTextbookTask();
+        AsyncTask<Textbook, Void, ArrayList<Textbook>> execute = new DataHelper.AddTextbookTask();
         execute.execute(testBook0, testBook1, testBook2, testBook3, testBook4, testBook5);
 
     }

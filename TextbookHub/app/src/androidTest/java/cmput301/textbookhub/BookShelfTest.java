@@ -3,7 +3,7 @@ package cmput301.textbookhub;
 import android.test.ActivityInstrumentationTestCase2;
 
 import cmput301.textbookhub.Models.BookShelf;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 
 /**
@@ -15,7 +15,7 @@ public class BookShelfTest extends ActivityInstrumentationTestCase2 {
     public void testAddPersonalBook(){
         BookShelf bs = new BookShelf();
         User user = new User("runqi","1234",bs);
-        TextBook pb = new TextBook(user,"book");
+        Textbook pb = new Textbook(user,"book");
 
         user.getBookShelf().addNewTextBook(pb);
 

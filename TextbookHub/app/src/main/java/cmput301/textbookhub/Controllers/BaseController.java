@@ -1,9 +1,13 @@
 package cmput301.textbookhub.Controllers;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.ArrayList;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.ElasticSearchQueryException;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 
 /**
@@ -13,11 +17,11 @@ import cmput301.textbookhub.Models.User;
  */
 public abstract class BaseController {
 
-    public TextBook queryTextbook(String id){
+    public Textbook queryTextbook(String id){
         DataHelper.GetTextbookTask t = new DataHelper.GetTextbookTask();
         t.execute(id);
         try{
-            ArrayList<TextBook> books = t.get();
+            ArrayList<Textbook> books = t.get();
             if(books.size() > 1){
                 throw new ElasticSearchQueryException("Query book: "+id+" should only return one result but got "+books.size()+" \n");}
             else if(books.size() == 0){
@@ -31,11 +35,11 @@ public abstract class BaseController {
         }
     }
 
-    public ArrayList<TextBook> queryAllTextbooks(String username){
+    public ArrayList<Textbook> queryAllTextbooks(String username){
         DataHelper.GetAllTextbookTask t = new DataHelper.GetAllTextbookTask();
         t.execute(username);
         try{
-            ArrayList<TextBook> books = t.get();
+            ArrayList<Textbook> books = t.get();
             return books;
         }catch(Exception e){
             throw new RuntimeException();
@@ -59,6 +63,13 @@ public abstract class BaseController {
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    public boolean hasInternetAccess(Context ctx) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

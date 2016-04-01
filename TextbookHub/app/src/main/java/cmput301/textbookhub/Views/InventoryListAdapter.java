@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 
 /**
@@ -20,9 +20,9 @@ public class InventoryListAdapter extends ArrayAdapter{
 
     private Context ctx;
     private int layoutResID;
-    private ArrayList<TextBook> data;
+    private ArrayList<Textbook> data;
 
-    public InventoryListAdapter(Context context, int layoutResourceId, ArrayList<TextBook> data){
+    public InventoryListAdapter(Context context, int layoutResourceId, ArrayList<Textbook> data){
         super(context, layoutResourceId, data);
         this.data = data;
         this.ctx = context;
@@ -35,7 +35,7 @@ public class InventoryListAdapter extends ArrayAdapter{
     }
 
     @Override
-    public TextBook getItem(int position) {
+    public Textbook getItem(int position) {
         return data.get(position);
     }
 
@@ -44,9 +44,9 @@ public class InventoryListAdapter extends ArrayAdapter{
         if(convertView == null) {
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
-            ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
-            ((TextView) convertView.findViewById(R.id.tvl_status)).setText(getItem(position).getBookStatus().toString());
         }
+        ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(data.get(position).getName());
+        ((TextView) convertView.findViewById(R.id.tvl_status)).setText(data.get(position).getBookStatus().toString());
         return convertView;
     }
 }

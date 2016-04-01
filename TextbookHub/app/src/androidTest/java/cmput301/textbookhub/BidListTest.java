@@ -2,12 +2,10 @@ package cmput301.textbookhub;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import java.util.ArrayList;
-
 import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.BidList;
 import cmput301.textbookhub.Models.BookShelf;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 
 /**
@@ -25,7 +23,7 @@ public class BidListTest extends ActivityInstrumentationTestCase2 {
         BookShelf bs2 = new BookShelf();
         User user1 = new User("fred","123",bs1);
         User user2 = new User("Runqi","1234",bs2);
-        TextBook tb = new TextBook(user1,"BOOK1");
+        Textbook tb = new Textbook(user1,"BOOK1");
         Bid bid = new Bid(100.00, user2, tb);
 
         BidList bl = new BidList();

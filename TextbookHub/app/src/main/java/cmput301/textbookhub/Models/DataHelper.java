@@ -27,15 +27,15 @@ import io.searchbox.core.Update;
 public class DataHelper {
     private static JestDroidClient    client;
 
-    public static class GetTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
+    public static class GetTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
         @Override
-        protected ArrayList<TextBook> doInBackground(String... search_strings){
+        protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
 
             String search_string = "";
 
             //Start our initial array list (empty)
-            ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
+            ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
 
             if (Tools.isStringValid(search_strings[0])){
                 search_string = "{\"query\": {\"match\":{ \"id\": \"" + search_strings[0] + "\"}}}";
@@ -51,7 +51,7 @@ public class DataHelper {
                 SearchResult execute = client.execute(search);
                 if(execute.isSucceeded()){
                     //Search our list of tweets
-                    List<TextBook> returned_books = execute.getSourceAsObjectList(TextBook.class);
+                    List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
                     textbooks.addAll(returned_books);
                 }else{
                     //TODO add an error message
@@ -65,9 +65,9 @@ public class DataHelper {
         }
     }
 
-    public static class UpdateTextbookTask extends AsyncTask<TextBook, Void, Void> {
+    public static class UpdateTextbookTask extends AsyncTask<Textbook, Void, Void> {
         @Override
-        protected Void doInBackground(TextBook... books){
+        protected Void doInBackground(Textbook... books){
             Update update = new Update.Builder(books[0]).index("thirteam").type("textbook").build();
             try {
                 DocumentResult result = client.execute(update);
@@ -111,15 +111,15 @@ public class DataHelper {
         }
     }
 
-    public static class SearchTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
+    public static class SearchTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
         @Override
-        protected ArrayList<TextBook> doInBackground(String... search_strings){
+        protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
 
             String search_string = "";
 
             //Start our initial array list (empty)
-            ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
+            ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
 
             for(String key:search_strings) {
                 if (Tools.isStringValid(search_strings[0])) {
@@ -136,7 +136,7 @@ public class DataHelper {
                     SearchResult execute = client.execute(search);
                     if (execute.isSucceeded()) {
                         //Search our list of tweets
-                        List<TextBook> returned_books = execute.getSourceAsObjectList(TextBook.class);
+                        List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
                         textbooks.addAll(returned_books);
                     } else {
                         //TODO add an error message
@@ -150,18 +150,18 @@ public class DataHelper {
         }
     }
 
-    public static class GetAllTextbookTask extends AsyncTask<String, Void, ArrayList<TextBook>>{
+    public static class GetAllTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
         @Override
-        protected ArrayList<TextBook> doInBackground(String... search_strings){
+        protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
 
             String search_string = "";
 
             //Start our initial array list (empty)
-            ArrayList<TextBook> textbooks =  new ArrayList<TextBook>();
+            ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
 
             if (Tools.isStringValid(search_strings[0])){
-                search_string = "{\"query\": {\"match\":{ \"owner.username\": \"" + search_strings[0] + "\"}}}";
+                search_string = "{\"query\": {\"match\":{ \"owner\": \"" + search_strings[0] + "\"}}}";
             }
 
             //Note: I'm making a huge assumption here, that only the first search term will be used.
@@ -174,7 +174,7 @@ public class DataHelper {
                 SearchResult execute = client.execute(search);
                 if(execute.isSucceeded()){
                     //Search our list of tweets
-                    List<TextBook> returned_books = execute.getSourceAsObjectList(TextBook.class);
+                    List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
                     textbooks.addAll(returned_books);
                 }else{
                     //TODO add an error message
@@ -195,11 +195,8 @@ public class DataHelper {
             Delete del = new Delete.Builder(ids[0]).index("thirteam").type("textbook").build();
             try {
                 DocumentResult result = client.execute(del);
-                if (result.isSucceeded()) {
-
-                }else{
-                    //TODO add an error message
-                    Log.i("TODO", "we actually failed here");
+                if (!result.isSucceeded()) {
+                    Log.i("ERROR DELETING TEXTBOOK", result.getErrorMessage());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -208,16 +205,16 @@ public class DataHelper {
         }
     }
 
-    public static class AddTextbookTask extends AsyncTask<TextBook, Void, ArrayList<TextBook>> {
+    public static class AddTextbookTask extends AsyncTask<Textbook, Void, ArrayList<Textbook>> {
 
-        private ArrayList<TextBook> books = new ArrayList<>();
+        private ArrayList<Textbook> books = new ArrayList<>();
 
         @Override
-        protected ArrayList<TextBook> doInBackground(TextBook... textbooks){
+        protected ArrayList<Textbook> doInBackground(Textbook... textbooks){
             verifyClient();
 
             for (int i = 0; i<textbooks.length; i++) {
-                TextBook book = textbooks[i];
+                Textbook book = textbooks[i];
 
                 Index index = new Index.Builder(book).index("thirteam").type("textbook").build();
                 try {
@@ -228,7 +225,9 @@ public class DataHelper {
                         books.add(book);
                     }else{
                         //TODO add an error message
-                        Log.i("TODO", "we actually failed here");
+                        if (!result.isSucceeded()) {
+                            Log.i("ERROR ADDING TEXTBOOK", result.getErrorMessage());
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

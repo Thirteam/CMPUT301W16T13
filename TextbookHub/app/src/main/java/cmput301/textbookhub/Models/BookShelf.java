@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class BookShelf {
 
-    private ArrayList<TextBook> allBooks;
+    private ArrayList<Textbook> allBooks;
 
 
     public BookShelf(){
@@ -15,21 +15,21 @@ public class BookShelf {
 
     }
 
-    public BookShelf(ArrayList<TextBook> allBooks){
+    public BookShelf(ArrayList<Textbook> allBooks){
         this.allBooks = allBooks;
     }
 
-    public void addNewTextBook(TextBook book){
+    public void addNewTextBook(Textbook book){
         this.allBooks.add(book);
     }
 
-    public ArrayList<TextBook> getAllBooks() {
+    public ArrayList<Textbook> getAllBooks() {
         return allBooks;
     }
 
-    public ArrayList<TextBook> getBorrowedBooks() {
+    public ArrayList<Textbook> getBorrowedBooks() {
         ArrayList rv = new ArrayList<>();
-        for(TextBook t : allBooks){
+        for(Textbook t : allBooks){
             if(t.getBookStatus().equals(BookStatus.BORROWED)){
                 rv.add(t);
             }
@@ -37,9 +37,9 @@ public class BookShelf {
         return rv;
     }
 
-    public ArrayList<TextBook> getAvailableBooks() {
+    public ArrayList<Textbook> getAvailableBooks() {
         ArrayList rv = new ArrayList<>();
-        for(TextBook t : allBooks){
+        for(Textbook t : allBooks){
             if(!t.getBookStatus().equals(BookStatus.BORROWED)){
                 rv.add(t);
             }
@@ -47,7 +47,8 @@ public class BookShelf {
         return rv;
     }
 
-    public void populateBookShelf(ArrayList<TextBook> allBooks){
-        this.allBooks = allBooks;
+    public void populateBookShelf(ArrayList<Textbook> allBooks){
+        this.allBooks.clear();
+        this.allBooks.addAll(allBooks);
     }
 }

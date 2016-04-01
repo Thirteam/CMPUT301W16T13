@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import cmput301.textbookhub.Models.DataHelper;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 
 /**
  * Created by Fred on 2016/3/10.
  */
 public class MainActivityController extends ActivityController {
 
-    private ArrayList<TextBook> searchResult;
+    private ArrayList<Textbook> searchResult;
 
     public MainActivityController() {}
 
-    public ArrayList<TextBook> getCurrSearchResult(){
+    public ArrayList<Textbook> getCurrSearchResult(){
         if(this.searchResult == null){
             this.searchResult = new ArrayList<>();
         }
@@ -25,7 +25,7 @@ public class MainActivityController extends ActivityController {
     public ArrayList initNewSearch(String s){
         DataHelper.SearchTextbookTask t = new DataHelper.SearchTextbookTask();
         t.execute(s);
-        ArrayList<TextBook> rv = new ArrayList();
+        ArrayList<Textbook> rv = new ArrayList();
         try{
             rv.addAll(t.get());
         }catch(ExecutionException e){

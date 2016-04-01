@@ -94,11 +94,14 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_save.setText(getResources().getString(R.string.save_en));
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
-                        //TODO:Update user profile
-                        //TODO:Fix app crashes when user login when the changed password
-                        if(userController.updateExistingUser(et_password.getText().toString(), et_email.getText().toString())) {
-                            finish();
-                        }
+
+                            if (Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
+                                userController.updateExistingUser(et_password.getText().toString(), et_email.getText().toString());
+                                finish();
+                            } else {
+                                activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.invalid_user_profile));
+                            }
+
                     }
                 }
             });
@@ -137,17 +140,17 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Tools.isStringValid(et_username.getText().toString()) && Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
-                        if(userController.registerNewUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                    if (Tools.isStringValid(et_username.getText().toString()) && Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
+                        if (userController.registerNewUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
                             Intent intent = new Intent(context, Activity_Main.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             context.startActivity(intent);
                             finish();
-                        }else{
+                        } else {
                             activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.username_exists));
                         }
-                    }else{
-                        activityController. displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.user_profile_empty));
+                    } else {
+                        activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.user_profile_empty));
                     }
                 }
             });
@@ -179,12 +182,18 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
-        if(this.activityType.equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
+        if (this.activityType.equals(BUNDLE_CONTENT_ACTIVITY_TYPE_VIEW)){
             et_username.setVisibility(View.GONE);
             tv_username.setVisibility(View.VISIBLE);
         }else {
             et_username.setVisibility(View.VISIBLE);
             tv_username.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        userController.saveOfflineCommands();
     }
 }

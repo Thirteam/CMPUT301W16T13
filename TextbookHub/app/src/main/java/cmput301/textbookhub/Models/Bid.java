@@ -1,7 +1,5 @@
 package cmput301.textbookhub.Models;
 
-import android.os.Bundle;
-
 import java.util.Calendar;
 
 /**
@@ -12,22 +10,13 @@ public class Bid implements Comparable, UniqueItem<String>{
     private String id;
     private Double amount;
     private String bidder;
-    private TextBook textBook;
-    private Long timestamp;
+    private String timestamp;
 
     public Bid(Double amount, User user){
         this.amount = amount;
         this.bidder = user.getName();
-        this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.id = user.getID() + "_" + this.timestamp.toString();
-    }
-
-    public Bid(Double amount, User user, TextBook textBook){
-        this.amount = amount;
-        this.bidder = user.getName();
-        this.textBook = textBook;
-        this.timestamp = Calendar.getInstance().getTimeInMillis();
-        this.id = user.getID() + "_" + this.timestamp.toString();
+        this.timestamp = new Long(Calendar.getInstance().getTimeInMillis()).toString();
+        this.id = user.getID() + "_BID_" + this.timestamp;
     }
 
     public Double getAmount() {
@@ -39,11 +28,7 @@ public class Bid implements Comparable, UniqueItem<String>{
         return bidder;
     }
 
-    public TextBook getTextBook() {
-        return textBook;
-    }
-
-    public Long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 

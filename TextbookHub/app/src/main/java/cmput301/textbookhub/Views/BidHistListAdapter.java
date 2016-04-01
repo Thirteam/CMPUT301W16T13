@@ -44,8 +44,8 @@ public class BidHistListAdapter extends ArrayAdapter{
         if(convertView == null) {
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
-            ((TextView) convertView.findViewById(R.id.tvl_bid_amount)).setText(getItem(position).getAmount().toString());
         }
+        ((TextView) convertView.findViewById(R.id.tvl_bid_amount)).setText(getItem(position).getAmount().toString());
         return convertView;
     }
 }

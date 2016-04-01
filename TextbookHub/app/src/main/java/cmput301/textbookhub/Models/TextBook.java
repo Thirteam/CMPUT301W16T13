@@ -1,7 +1,5 @@
 package cmput301.textbookhub.Models;
 
-import android.os.Bundle;
-
 import java.util.Calendar;
 
 import cmput301.textbookhub.Tools;
@@ -10,7 +8,7 @@ import io.searchbox.annotations.JestId;
 /**
  * Created by Fred on 2016/3/8.
  */
-public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
+public class Textbook implements NamedItem, UniqueItem<String>{
 
     private String id;
     private String bookName;
@@ -21,29 +19,23 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
     private String owner;
     private String borrower;
 
-    private Long timestamp;
+    private String timestamp;
 
     private BidList bids;
 
     private BookStatus bookStatus = BookStatus.AVAILABLE;
 
-    private SyncStatus syncStatus = SyncStatus.SYNCED;
-
-    public TextBook(User owner, String bookName){
-        this.timestamp = Calendar.getInstance().getTimeInMillis();
+    public Textbook(User owner, String bookName){
+        this.timestamp = new Long(Calendar.getInstance().getTimeInMillis()).toString();
         this.owner = owner.getName();
         this.bookName = bookName;
-        this.id = owner.getID()+"_"+this.timestamp.toString();
+        this.id = owner.getID()+"_BOOK_"+this.timestamp;
         this.bids = new BidList();
     }
 
     @JestId
     protected String jid;
 
-    @Override
-    public void onSync() {
-
-    }
 
     @Override
     public String getName() {
@@ -60,16 +52,6 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
         this.id = id;
     }
 
-    @Override
-    public SyncStatus getSyncStatus() {
-        return syncStatus;
-    }
-
-    @Override
-    public void setSyncStatus(SyncStatus status) {
-        this.syncStatus = syncStatus;
-    }
-
     public BookStatus getBookStatus() {
         return bookStatus;
     }
@@ -84,10 +66,6 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
 
     public String getEdition() {
         return edition;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
     }
 
     public String getOwner() {
@@ -146,36 +124,36 @@ public class TextBook implements NamedItem, Syncable, UniqueItem<String>{
 
     public static class Builder{
 
-        private TextBook textBook;
+        private Textbook textbook;
 
         public Builder(User owner, String name){
-            this.textBook = new TextBook(owner, name);
+            this.textbook = new Textbook(owner, name);
         }
 
-        public TextBook buildTextBook(){
-            return this.textBook;
+        public Textbook buildTextBook(){
+            return this.textbook;
         }
 
         public Builder addComments(String comments){
             if(Tools.isStringValid(comments))
-                this.textBook.setComments(comments);
+                this.textbook.setComments(comments);
             return this;
         }
 
         public Builder addEdition(String edition){
             if(Tools.isStringValid(edition))
-                this.textBook.setEdition(edition);
+                this.textbook.setEdition(edition);
             return this;
         }
 
         public Builder addCategory(String category){
             if(Tools.isStringValid(category))
-                this.textBook.setCategory(category);
+                this.textbook.setCategory(category);
             return this;
         }
 
         public Builder addStartingBid(String amount, User user){
-            this.textBook.addBid(new Bid(Double.parseDouble(amount), user));
+            this.textbook.addBid(new Bid(Double.parseDouble(amount), user));
             return this;
         }
 

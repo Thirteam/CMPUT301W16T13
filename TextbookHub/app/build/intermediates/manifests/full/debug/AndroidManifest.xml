@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="cmput301.textbookhub.BaseApplication"
@@ -24,6 +25,8 @@
 
         <activity
             android:name="cmput301.textbookhub.Views.Activity_Main"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/CustomThemeNoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +34,8 @@
         </activity>
         <activity
             android:name="cmput301.textbookhub.Views.Activity_Login"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/CustomThemeNoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,36 +45,59 @@
         </activity>
         <activity
             android:name="cmput301.textbookhub.Views.Activity_UserProfile"
-            android:noHistory="true" >
+            android:configChanges="orientation"
+            android:noHistory="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="cmput301.textbookhub.Views.Activity_MyBids" >
+        <activity
+            android:name="cmput301.textbookhub.Views.Activity_MyBids"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="cmput301.textbookhub.Views.Activity_MyBorrows" >
+        <activity
+            android:name="cmput301.textbookhub.Views.Activity_MyBorrows"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="cmput301.textbookhub.Views.Activity_MyInventory" >
+        <activity
+            android:name="cmput301.textbookhub.Views.Activity_MyInventory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="cmput301.textbookhub.Views.Activity_EditBook" >
+        <activity
+            android:name="cmput301.textbookhub.Views.Activity_EditBook"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="cmput301.textbookhub.Views.Activity_ViewBook" >
+        <activity
+            android:name="cmput301.textbookhub.Views.Activity_ViewBook"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="cmput301.textbookhub.Receivers.NetworkStateReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

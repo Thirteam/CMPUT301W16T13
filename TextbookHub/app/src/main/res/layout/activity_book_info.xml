@@ -293,7 +293,7 @@
                 android:layout_marginRight="@dimen/padding_element"
                 android:textColor="@color/mat_grey_superdark"
                 android:paddingTop="@dimen/padding_line_spacing_small"
-                android:text="This is the category of the book"
+                android:text="N/A"
                 android:textSize="@dimen/textsize_large" />
 
             <TextView
@@ -318,7 +318,7 @@
                 android:layout_marginRight="@dimen/padding_element"
                 android:textColor="@color/mat_grey_superdark"
                 android:paddingTop="@dimen/padding_line_spacing_small"
-                android:text="This is the edition of the book"
+                android:text="N/A"
                 android:textSize="@dimen/textsize_large" />
 
             <TextView
@@ -343,7 +343,7 @@
                 android:layout_marginRight="@dimen/padding_element"
                 android:textColor="@color/mat_grey_superdark"
                 android:paddingTop="@dimen/padding_line_spacing_small"
-                android:text="This is the comments of the book"
+                android:text="No comments"
                 android:textSize="@dimen/textsize_large" />
 
         </LinearLayout>

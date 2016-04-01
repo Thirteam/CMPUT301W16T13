@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 
 /**
@@ -30,6 +30,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
     private MyBorrowsActivityController activityController;
     private AppUserController userController;
+    private BorrowedListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
         lv_my_borrows = (ListView) findViewById(R.id.lv_borrowed);
         lv_my_borrows.setVisibility(View.GONE);
         //TODO:modify adapter input data
-        lv_my_borrows.setAdapter( new BorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, new ArrayList<TextBook>()));
+        adapter = new BorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, new ArrayList<Textbook>());
+        lv_my_borrows.setAdapter(adapter);
         layout_borrows_hint = (LinearLayout) findViewById(R.id.layout_borrows_hint);
         lv_my_borrows.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
                 startActivity(i);
             }
         });
+        this.updateView();
     }
 
     @Override
@@ -73,6 +76,16 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
+        this.adapter.notifyDataSetChanged();
+        this.lv_my_borrows.setAdapter(this.adapter);
 
+        if(this.lv_my_borrows.getAdapter().getCount() == 0) {
+            this.layout_borrows_hint.setVisibility(View.VISIBLE);
+            this.lv_my_borrows.setVisibility(View.GONE);
+        }else{
+            this.layout_borrows_hint.setVisibility(View.GONE);
+            this.lv_my_borrows.setVisibility(View.VISIBLE);
+        }
     }
+
 }

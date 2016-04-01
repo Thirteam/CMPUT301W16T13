@@ -2,54 +2,34 @@ package cmput301.textbookhub.Controllers;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
+import cmput301.textbookhub.Models.OfflineCommandList;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.ElasticSearchQueryException;
 import cmput301.textbookhub.Models.OfflineHelper;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.OfflineNewTextbookCommand;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
-import cmput301.textbookhub.R;
-import cmput301.textbookhub.Tools;
+import cmput301.textbookhub.Receivers.NetworkStateObserver;
+import cmput301.textbookhub.Receivers.NetworkStateManager;
 
 /**
  * Created by Fred on 2016/3/16.
  *
  * Controller responsible for maintaining usr info throughout the life of the APP, uses singleton design pattern
  */
-public class AppUserController extends BaseController{
+public class AppUserController extends BaseController implements NetworkStateObserver{
 
     private static AppUserController instance;
     private User user;
-
     private OfflineHelper offlineHelper = new OfflineHelper();
+    private Context context;
 
-    private AppUserController(){}
+    private OfflineCommandList commandList = new OfflineCommandList();
 
-    public void setAppUser(User u){
-        this.user = u;
-        user.getBookShelf().populateBookShelf(this.queryAllTextbooks(user.getName()));
-    }
-
-    public User getAppUser(){
-        return user;
-    }
-
-    public void clearAppUser(){
-        user = null;
+    private AppUserController(){
+        NetworkStateManager.getInstance().addControllerObserver(this);
     }
 
     public static AppUserController getInstance(){
@@ -58,21 +38,71 @@ public class AppUserController extends BaseController{
         return instance;
     }
 
-    public void saveTextBook(TextBook book){
-        DataHelper.AddTextbookTask execute = new DataHelper.AddTextbookTask();
-        execute.execute(book);
-        getAppUser().getBookShelf().getAllBooks().add(book);
+    public void setAppContext(Context ctx){
+        this.context = ctx;
     }
 
-    public ArrayList getAllBooksList(){
+    public void setAppUser(User u){
+        this.user = u;
+        executeOfflineCommands();
+        //fillUserBookShelf();
+    }
+
+    private void fillUserBookShelf(){
+        if(hasInternetAccess(context)) {
+            user.getBookShelf().populateBookShelf(this.queryAllTextbooks(user.getName()));
+        }else{
+            ArrayList list = getOfflineBookList(user.getName());
+            user.getBookShelf().populateBookShelf(list);
+        }
+    }
+
+    public User getAppUser(){
+        return user;
+    }
+
+    public void addNewOfflineBookCommand(OfflineNewTextbookCommand c){
+        this.commandList.addOfflineBookCommand(c);
+    }
+
+    public void clearAppUser(){
+        user = null;
+    }
+
+    public void saveTextBook(Textbook book){
+        getAppUser().getBookShelf().getAllBooks().add(book);
+        if(hasInternetAccess(context)) {
+            DataHelper.AddTextbookTask execute = new DataHelper.AddTextbookTask();
+            execute.execute(book);
+        }else{
+            addNewOfflineBookCommand(new OfflineNewTextbookCommand(book));
+            saveOfflineCommands();
+        }
+
+    }
+
+    public void requestDeleteTextBook(Textbook book){
+        getAppUser().getBookShelf().getAllBooks().remove(book);
+        if(commandList.contains(book.getID())) {
+            commandList.removeCommandByID(book.getID());
+        }else{
+            DataHelper.DeleteTextbookTask t = new DataHelper.DeleteTextbookTask();
+            t.execute(book.getJid());
+        }
+    }
+
+    public ArrayList getAllPersonalBooks(){
+        fillUserBookShelf();
         return getAppUser().getBookShelf().getAllBooks();
     }
 
-    public ArrayList getAvailableBooksList(){
+    public ArrayList getAvailableBooks(){
+        fillUserBookShelf();
         return getAppUser().getBookShelf().getAvailableBooks();
     }
 
-    public ArrayList getBorrowedBooksList(){
+    public ArrayList getBorrowedPersonalBooks(){
+        fillUserBookShelf();
         return getAppUser().getBookShelf().getBorrowedBooks();
     }
 
@@ -87,18 +117,21 @@ public class AppUserController extends BaseController{
         return false;
     }
 
-    public boolean updateExistingUser(String password, String email){
-        if(Tools.isStringValid(password) && Tools.isStringValid(email)) {
-            getAppUser().setPassword(password);
-            getAppUser().setEmail(email);
+    public void updateExistingUser(String password, String email){
+        getAppUser().setPassword(password);
+        getAppUser().setEmail(email);
+        //make sure to update the local copy as well
+        this.offlineHelper.saveUserToFile(context, getAppUser());
+        if(hasInternetAccess(context)) {
             DataHelper.UpdateUserTask t = new DataHelper.UpdateUserTask();
             t.execute(getAppUser());
-            return true;
+        }else{
+            this.commandList.setUpdateUserFlag();
         }
-        return false;
+
     }
 
-    public boolean userAuthSuccess(Context context, String username, String password){
+    public boolean userAuthSuccess(String username, String password){
         DataHelper.GetUserTask t = new DataHelper.GetUserTask();
         t.execute(username);
         try{
@@ -111,7 +144,6 @@ public class AppUserController extends BaseController{
             else{
                 if(user.get(0).getPassword().equals(password)) {
                     this.setAppUser(user.get(0));
-                    saveOfflineUserprofile(context, user.get(0));
                     return true;
                 }else{
                     return false;
@@ -122,8 +154,6 @@ public class AppUserController extends BaseController{
             throw new RuntimeException();
         }
     }
-
-
 
     public boolean isUsernameAvailable(String username){
         DataHelper.GetUserTask t = new DataHelper.GetUserTask();
@@ -138,15 +168,58 @@ public class AppUserController extends BaseController{
         }
     }
 
-    public User getOfflineUserProfile(Context ctx) throws NoOfflineUserProfileFoundException{
-        User u = this.offlineHelper.loadUserFromFile(ctx);
+    public void loadOfflineCommands(){
+        this.commandList = this.offlineHelper.loadCommandsFromFile(context);
+    }
+
+    public void saveOfflineCommands(){
+        this.offlineHelper.saveCommandsToFile(context, commandList);
+    }
+
+    public User getOfflineUserProfile() throws NoOfflineUserProfileFoundException{
+        User u = this.offlineHelper.loadUserFromFile(context);
         if(u != null)
             return u;
         throw new NoOfflineUserProfileFoundException();
     }
 
-    public void saveOfflineUserprofile(Context ctx, User u){
-        this.offlineHelper.saveUserToFile(ctx, u);
+    public void saveOfflineUserProfile(){
+        this.offlineHelper.saveUserToFile(context, getAppUser());
+    }
+
+    @Override
+    public void onInternetConnect() {
+        executeOfflineCommands();
+        fillUserBookShelf();
+    }
+
+    @Override
+    public void onInternetDisconnect() {
+        fillUserBookShelf();
+    }
+
+    public void executeOfflineCommands(){
+        if(hasInternetAccess(context)) {
+            if (this.commandList.hasPendingCommands()) {
+                this.commandList.uploadAllOfflineBooks();
+                saveOfflineCommands();
+            }
+            if(this.commandList.needToUpdateUser()){
+                this.updateExistingUser(getAppUser().getPassword(), getAppUser().getEmail());
+                this.commandList.clearUpdateUserFlag();
+            }
+        }
+    }
+
+
+    private ArrayList<Textbook> getOfflineBookList(String username){
+        ArrayList<Textbook> rv = new ArrayList();
+        for(OfflineNewTextbookCommand c:commandList.getBookCommands()){
+            if(c.getRelatedBook().getOwner().equals(username)){
+                rv.add(c.getRelatedBook());
+            }
+        }
+        return rv;
     }
 
     public static class NoOfflineUserProfileFoundException extends Exception{}

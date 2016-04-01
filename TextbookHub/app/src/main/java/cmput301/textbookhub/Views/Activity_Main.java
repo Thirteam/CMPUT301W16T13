@@ -11,13 +11,14 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Receivers.NetworkStateObserver;
+import cmput301.textbookhub.Receivers.NetworkStateManager;
 
-public class Activity_Main extends AppCompatActivity implements BaseView{
+public class Activity_Main extends AppCompatActivity implements BaseView, NetworkStateObserver{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -38,11 +39,10 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         BaseFragment frag_search = new Fragment_Search();
         BaseFragment frag_main = new Fragment_UserMain();
         adapter.addFragment(frag_search, frag_search.getFragmentLabel());
@@ -55,13 +55,23 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
         return activityController;
     }
 
-    public AppUserController getUserController(){
-        return userController;
+    @Override
+    public void updateView(){}
+
+    @Override
+    public void onInternetConnect() {
     }
 
     @Override
-    public void updateView(){
+    public void onInternetDisconnect() {
+        this.activityController.displayNotificationDialog(this, getResources().getString(R.string.offline_title), getResources().getString(R.string.offline_content));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userController.saveOfflineUserProfile();
+        NetworkStateManager.getInstance().addViewObserver(this);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -87,9 +97,20 @@ public class Activity_Main extends AppCompatActivity implements BaseView{
             mFragmentTitleList.add(title);
         }
 
+        public Fragment getFragmentAt(int index) {
+            return mFragmentList.get(index);
+        }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //userController.saveOfflineCommands();
+        userController.saveOfflineUserProfile();
     }
 }

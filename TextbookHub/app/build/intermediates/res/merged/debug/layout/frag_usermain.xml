@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginRight="@dimen/margin_separator"
+
                 android:id="@+id/button_mybids"
                 android:background="@drawable/button_white"
                 android:clickable="true"
@@ -141,7 +141,6 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginRight="@dimen/margin_separator"
                 android:id="@+id/button_myborrows"
                 android:background="@drawable/button_white"
                 android:clickable="true"

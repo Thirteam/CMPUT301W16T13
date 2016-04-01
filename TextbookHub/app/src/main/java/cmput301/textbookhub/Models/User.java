@@ -9,14 +9,12 @@ import io.searchbox.annotations.JestId;
 /**
  * Created by Fred on 2016/3/8.
  */
-public class User implements NamedItem, Syncable, UniqueItem<String>{
+public class User implements NamedItem, UniqueItem<String>{
 
     private String username;
     private String password;
     private String email;
     private Long timestamp;
-
-    private SyncStatus syncStatus = SyncStatus.SYNCED;
 
     private BookShelf bookShelf;
 
@@ -61,21 +59,6 @@ public class User implements NamedItem, Syncable, UniqueItem<String>{
 
     @JestId
     protected String jid;
-
-    @Override
-    public void onSync() {
-
-    }
-
-    @Override
-    public void setSyncStatus(SyncStatus status) {
-        this.syncStatus = status;
-    }
-
-    @Override
-    public SyncStatus getSyncStatus() {
-        return this.syncStatus;
-    }
 
     @Override
     public String getName() {

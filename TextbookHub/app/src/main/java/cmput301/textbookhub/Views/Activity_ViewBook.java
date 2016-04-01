@@ -82,7 +82,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.tv_book_name = (TextView) findViewById(R.id.tv_book_name);
         this.tv_book_cat = (TextView) findViewById(R.id.tv_book_cat);
         this.tv_book_comments = (TextView) findViewById(R.id.tv_book_comments);
-        this.tv_book_edition = (TextView) findViewById(R.id.tv_book_cat);
+        this.tv_book_edition = (TextView) findViewById(R.id.tv_book_edition);
         this.btn_current_highest_bid = (Button) findViewById(R.id.btn_current_highest_bid);
         this.btn_owner = (Button) findViewById(R.id.button_owner);
         this.bid_hist = (ListView) findViewById(R.id.lv_bid_hist);
@@ -140,7 +140,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             this.btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activityController.requestDeleteTextBook(context);
+                    userController.requestDeleteTextBook(activityController.getCurrentBook());
                     finish();
                 }
             });

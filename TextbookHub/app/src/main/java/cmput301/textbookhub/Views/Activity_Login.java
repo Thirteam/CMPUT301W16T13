@@ -42,48 +42,50 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(userController.userAuthSuccess(context, et_username.getText().toString(), et_password.getText().toString())) {
-                    Intent intent = new Intent(context, Activity_Main.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent);
-                    finish();
-                }else{
-                    activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
+                if(activityController.hasInternetAccess(context)) {
+                    if(userController.userAuthSuccess(et_username.getText().toString(), et_password.getText().toString())) {
+                        Intent intent = new Intent(context, Activity_Main.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                        finish();
+                    }else{
+                        activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
+                    }
+                }else {
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_conn));
                 }
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener(){
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Activity_UserProfile.class);
-                Bundle b = new Bundle();
-                b.putString(Activity_UserProfile.BUNDLE_KEY_PROFILE_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER);
-                intent.putExtra(Activity_UserProfile.INTENT_EXTRAS_KEY_BUNDLE, b);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                if (activityController.hasInternetAccess(context)) {
+                    Intent intent = new Intent(context, Activity_UserProfile.class);
+                    Bundle b = new Bundle();
+                    b.putString(Activity_UserProfile.BUNDLE_KEY_PROFILE_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER);
+                    intent.putExtra(Activity_UserProfile.INTENT_EXTRAS_KEY_BUNDLE, b);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
+                } else {
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_conn));
+                }
             }
         });
 
         try{
-            User user = userController.getOfflineUserProfile(context);
+            User user = userController.getOfflineUserProfile();
             userController.setAppUser(user);
             Intent intent = new Intent(context, Activity_Main.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
             finish();
         }catch(AppUserController.NoOfflineUserProfileFoundException e){}
+
     }
 
     @Override
     public void updateView(){
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        userController.clearAppUser();
-    }
 }

@@ -431,6 +431,7 @@
     <string name="finish_en">Finish</string>
     <string name="invalid_bid_entered">Invalid Bid Entered.</string>
     <string name="invalid_book_name">Invalid Book Name Entered.</string>
+    <string name="invalid_user_profile">Password or Email Invalid</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="logout_warning">Are you sure you want to logout?</string>
@@ -442,9 +443,15 @@
     <string name="no_bids">See a book you want? Bid fearlessly!</string>
     <string name="no_borrowed_book">Want to borrow a book? Search for it!</string>
     <string name="no_en">No</string>
-    <string name="no_inventory_book">Have a book to available? Click New!</string>
+    <string name="no_inventory_book">Have a book to lend? Click New!</string>
     <string name="no_result_found">Nothing Found? No Way!</string>
     <string name="nothing_here">There is nothing here!</string>
+    <string name="offline_content">No internet connection found, only limited features will be available</string>
+    <string name="offline_new_book">New book(s) will be uploaded to the server later when there is a connection</string>
+    <string name="offline_new_profile">Changes will be uploaded to the server later when there is a connection</string>
+    <string name="offline_no_conn">No internet connection found</string>
+    <string name="offline_not_available">This feature cannot be used in offline mode</string>
+    <string name="offline_title">Offline Mode</string>
     <string name="ok_en">Ok</string>
     <string name="owner">Owner</string>
     <string name="owner_">Owner: (click to view profile)</string>

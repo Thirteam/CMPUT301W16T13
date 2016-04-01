@@ -26,12 +26,7 @@ public abstract class ActivityController extends BaseController{
         this.views = new ArrayList<>();
     }
 
-    public boolean isNetworkAvailable(Context ctx) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 
     public BookStatus findBookStatus(String name) throws IllegalArgumentException{
         for(BookStatus status : BookStatus.values()){

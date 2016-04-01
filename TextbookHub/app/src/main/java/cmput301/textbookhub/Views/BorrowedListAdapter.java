@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 
 /**
@@ -20,9 +20,9 @@ public class BorrowedListAdapter extends ArrayAdapter{
 
     private Context ctx;
     private int layoutResID;
-    private ArrayList<TextBook> data;
+    private ArrayList<Textbook> data;
 
-    public BorrowedListAdapter(Context context, int layoutResourceId, ArrayList<TextBook> data){
+    public BorrowedListAdapter(Context context, int layoutResourceId, ArrayList<Textbook> data){
         super(context, layoutResourceId, data);
         this.data = data;
         this.ctx = context;
@@ -35,7 +35,7 @@ public class BorrowedListAdapter extends ArrayAdapter{
     }
 
     @Override
-    public TextBook getItem(int position) {
+    public Textbook getItem(int position) {
         return data.get(position);
     }
 
@@ -44,10 +44,9 @@ public class BorrowedListAdapter extends ArrayAdapter{
         if(convertView == null) {
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
-            ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
-            ((TextView) convertView.findViewById(R.id.tvl_owner)).setText(getItem(position).getOwner());
-
         }
+        ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
+        ((TextView) convertView.findViewById(R.id.tvl_owner)).setText(getItem(position).getOwner());
         return convertView;
     }
 }

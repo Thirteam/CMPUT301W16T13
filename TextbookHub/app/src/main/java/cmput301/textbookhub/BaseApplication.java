@@ -2,9 +2,20 @@ package cmput301.textbookhub;
 
 import android.app.Application;
 
+import cmput301.textbookhub.Controllers.AppUserController;
+
 /**
  * Created by Fred on 2016/3/13.
  */
 public class BaseApplication extends Application {
+
+    AppUserController userController;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        userController = AppUserController.getInstance();
+        userController.setAppContext(getApplicationContext());
+        userController.loadOfflineCommands();
+    }
 
 }

@@ -14,7 +14,8 @@ import android.widget.EditText;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.EditBookActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.OfflineNewTextbookCommand;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
@@ -72,7 +73,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
             public void onClick(View v) {
                 //TODO: save the book
                 if(Tools.isStringValid(et_book_name.getText().toString())) {
-                    TextBook book = new TextBook.Builder(userController.getAppUser(), et_book_name.getText().toString())
+                    Textbook book = new Textbook.Builder(userController.getAppUser(), et_book_name.getText().toString())
                             .addCategory(et_book_category.getText().toString()).addComments(et_book_comments.getText().toString())
                             .addStartingBid(et_starting_bid.getText().toString(), userController.getAppUser()).addEdition(et_book_edition.getText().toString()).buildTextBook();
                     userController.saveTextBook(book);
@@ -94,13 +95,16 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
             Bundle b = getIntent().getExtras().getBundle(INTENT_EXTRAS_KEY_BUNDLE);
             initEditBookValues(b.getString(BUNDLE_KEY_BOOK_ID));
         }
+
+        if(!activityController.hasInternetAccess(context))
+            activityController.displayNotificationDialog(context, context.getResources().getString(R.string.offline_title), context.getResources().getString(R.string.offline_new_book));
     }
 
     @Override
     public void updateView(){}
 
     public void initEditBookValues(String id){
-        TextBook book = this.activityController.queryTextbook(id);
+        Textbook book = this.activityController.queryTextbook(id);
         this.et_book_name.setText(book.getName());
         book.getBidList().sortBidsByAmount();
         this.et_starting_bid.setText(book.getBidList().getBids().get(

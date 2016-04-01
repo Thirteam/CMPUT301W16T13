@@ -10,24 +10,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import cmput301.textbookhub.Controllers.AppUserController;
+import cmput301.textbookhub.Controllers.MainActivityController;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Receivers.NetworkStateObserver;
+import cmput301.textbookhub.Receivers.NetworkStateManager;
+
 /**
  * Created by Fred on 2016/2/29.
  */
-public class Fragment_UserMain extends BaseFragment {
+public class Fragment_UserMain extends BaseFragment implements NetworkStateObserver{
 
     private LinearLayout btn_profile, btn_inventory, btn_bids, btn_borrows;
     private Button btn_logout;
+    AppUserController userController;
+    MainActivityController activityController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View v = inflater.inflate(R.layout.frag_usermain, null);
+        userController = AppUserController.getInstance();
         btn_profile = (LinearLayout) v.findViewById(R.id.button_userprofile);
         btn_inventory = (LinearLayout) v.findViewById(R.id.button_myinventory);
         btn_bids = (LinearLayout) v.findViewById(R.id.button_mybids);
         btn_borrows = (LinearLayout) v.findViewById(R.id.button_myborrows);
         btn_logout = (Button) v.findViewById(R.id.button_logout);
+        activityController = ((Activity_Main)getActivity()).getActivityController();
+        toggleView();
         btn_profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -41,8 +51,12 @@ public class Fragment_UserMain extends BaseFragment {
         btn_borrows.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(v.getContext(), Activity_MyBorrows.class);
-                startActivity(intent);
+                if(userController.hasInternetAccess(getContext())) {
+                    Intent intent = new Intent(v.getContext(), Activity_MyBorrows.class);
+                    startActivity(intent);
+                }else{
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                }
             }
         });
         btn_inventory.setOnClickListener(new View.OnClickListener(){
@@ -55,8 +69,12 @@ public class Fragment_UserMain extends BaseFragment {
         btn_bids.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(v.getContext(), Activity_MyBids.class);
-                startActivity(intent);
+                if(userController.hasInternetAccess(getContext())) {
+                    Intent intent = new Intent(v.getContext(), Activity_MyBids.class);
+                    startActivity(intent);
+                }else{
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                }
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener(){
@@ -71,7 +89,8 @@ public class Fragment_UserMain extends BaseFragment {
                         dialog.dismiss();
                         Intent intent = new Intent(getContext(), Activity_Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        ((Activity_Main)getActivity()).getUserController().saveOfflineUserprofile(getContext(), null);
+                        userController.clearAppUser();
+                        userController.saveOfflineUserProfile();
                         getContext().startActivity(intent);
                         getActivity().finish();
                     }
@@ -86,6 +105,40 @@ public class Fragment_UserMain extends BaseFragment {
             }
         });
         return v;
+    }
+
+    @Deprecated
+    public void toggleView(){
+        if(userController.hasInternetAccess(getContext())) {
+            btn_bids.setEnabled(true);
+            btn_borrows.setEnabled(true);
+        }else{
+            btn_bids.setEnabled(false);
+            btn_borrows.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        NetworkStateManager.getInstance().addViewObserver(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onInternetConnect() {
+        btn_bids.setEnabled(true);
+        btn_borrows.setEnabled(true);
+    }
+
+    @Override
+    public void onInternetDisconnect() {
+        btn_bids.setEnabled(false);
+        btn_borrows.setEnabled(false);
     }
 
     @Override

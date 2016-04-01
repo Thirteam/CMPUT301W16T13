@@ -14,25 +14,30 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyInventoryActivityController;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Receivers.NetworkStateObserver;
+import cmput301.textbookhub.Receivers.NetworkStateManager;
 
 /**
  * Created by Fred on 2016/3/1.
  */
-public class Activity_MyInventory extends AppCompatActivity implements BaseView{
+public class Activity_MyInventory extends AppCompatActivity implements BaseView, NetworkStateObserver{
 
     private ListView lv_my_books;
     private LinearLayout layout_inventory_hint;
     private Button btn_new;
     private Context context;
+    private TextView tv_no_conn_hint;
     private ArrayList inventoryList;
+    Spinner spinner;
 
     private MyInventoryActivityController activityController;
     private AppUserController userController;
@@ -52,10 +57,8 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         lv_my_books = (ListView) findViewById(R.id.lv_inventory);
-        inventoryList = this.userController.getAllBooksList();
-        this.adapter = new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, inventoryList);
-        lv_my_books.setAdapter(this.adapter);
         layout_inventory_hint = (LinearLayout) findViewById(R.id.layout_inventory_hint);
+        tv_no_conn_hint = (TextView) findViewById(R.id.tv_no_conn_hint);
         btn_new = (Button) findViewById(R.id.button_new);
         btn_new.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +78,6 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
                 startActivity(i);
             }
         });
-        this.updateView();
     }
 
     @Override
@@ -89,23 +91,38 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
         }
     }
 
+    private void initListViewData(int code){
+        if (code == 1) {
+            inventoryList = userController.getAvailableBooks();
+        } else if (code == 2) {
+            inventoryList = userController.getBorrowedPersonalBooks();
+        } else {
+            inventoryList = userController.getAllPersonalBooks();
+        }
+        resetAdapter();
+    }
+
+    private void resetAdapter(){
+        this.adapter = new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, inventoryList);
+        this.lv_my_books.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.spinner_list_content_type);
-        final Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        spinner = (Spinner) MenuItemCompat.getActionView(item);
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<String>(
                 this, R.layout.spinner_row, R.id.custom_spinner_text, getResources().getStringArray(R.array.inventory_list_content_array)){
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-
                 return view;
-
             }
         };
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(spinner_adapter);
         spinner.setSelection(0);
         spinner.setPopupBackgroundDrawable(getResources().getDrawable(R.drawable.button_indigo));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -113,6 +130,8 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Change the content of the listview when spinner selection changes
                 int index = parent.getSelectedItemPosition();
+                initListViewData(index);
+                updateView();
             }
 
             @Override
@@ -120,17 +139,54 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
                 //Must select one
             }
         });
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public void updateView(){
-        adapter.notifyDataSetChanged();
-        this.lv_my_books.setAdapter(adapter);
-        if (adapter.getCount()==0){
+        if(this.activityController.hasInternetAccess(this)){
+            this.tv_no_conn_hint.setVisibility(View.GONE);
+            if (this.adapter.getCount() == 0) {
+                this.lv_my_books.setVisibility(View.GONE);
+                this.layout_inventory_hint.setVisibility(View.VISIBLE);
+            } else {
+                this.lv_my_books.setVisibility(View.VISIBLE);
+                this.layout_inventory_hint.setVisibility(View.GONE);
+            }
+        } else {
+            this.layout_inventory_hint.setVisibility(View.GONE);
+            if (this.adapter.getCount() == 0) {
+                this.lv_my_books.setVisibility(View.GONE);
+                this.tv_no_conn_hint.setVisibility(View.VISIBLE);
+            } else {
+                this.lv_my_books.setVisibility(View.VISIBLE);
+                this.tv_no_conn_hint.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void onInternetDisconnect() {
+        initListViewData(spinner.getSelectedItemPosition());
+        this.layout_inventory_hint.setVisibility(View.GONE);
+        if (this.adapter.getCount() == 0) {
+            this.lv_my_books.setVisibility(View.GONE);
+            this.tv_no_conn_hint.setVisibility(View.VISIBLE);
+        } else {
+            this.lv_my_books.setVisibility(View.VISIBLE);
+            this.tv_no_conn_hint.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onInternetConnect() {
+        initListViewData(spinner.getSelectedItemPosition());
+        this.tv_no_conn_hint.setVisibility(View.GONE);
+        if (this.adapter.getCount() == 0) {
             this.lv_my_books.setVisibility(View.GONE);
             this.layout_inventory_hint.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             this.lv_my_books.setVisibility(View.VISIBLE);
             this.layout_inventory_hint.setVisibility(View.GONE);
         }
@@ -139,6 +195,15 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView{
     @Override
     protected void onResume() {
         super.onResume();
+        initListViewData(0);
         this.updateView();
+        NetworkStateManager.getInstance().addViewObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //userController.saveOfflineCommands();
+        NetworkStateManager.getInstance().removeViewObserver(this);
     }
 }

@@ -37,11 +37,22 @@
         >
     </ListView>
     <TextView
+        android:id="@+id/tv_no_conn_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/offline_not_available"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:textSize="@dimen/textsize_title_large"
+        android:textColor="@color/mat_grey_dark"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/tv_search_hint"
-        android:text="@string/no_result_found"
+        android:text="@string/new_search"
         android:gravity="center"
         android:textSize="@dimen/textsize_title_large"
         android:visibility="visible"/>

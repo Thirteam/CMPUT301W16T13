@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBidsActivityController;
-import cmput301.textbookhub.Models.TextBook;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 
 /**
@@ -30,6 +30,7 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
 
     private MyBidsActivityController activityController;
     private AppUserController userController;
+    private BidListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
         lv_my_bids = (ListView) findViewById(R.id.lv_my_bids);
         lv_my_bids.setVisibility(View.GONE);
         layout_bids_hint = (LinearLayout) findViewById(R.id.layout_bids_hint);
-        lv_my_bids.setAdapter(new BidListAdapter(this.context, R.layout.adapter_book_bid, new ArrayList<TextBook>()));
+        adapter = new BidListAdapter(this.context, R.layout.adapter_book_bid, new ArrayList<Textbook>());
+        lv_my_bids.setAdapter(adapter);
         lv_my_bids.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -57,7 +59,7 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
                 startActivity(i);
             }
         });
-
+        this.updateView();
     }
 
     @Override
@@ -73,6 +75,15 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
-
+        this.adapter.notifyDataSetChanged();
+        this.lv_my_bids.setAdapter(this.adapter);
+        if(this.lv_my_bids.getAdapter().getCount() == 0) {
+            this.layout_bids_hint.setVisibility(View.VISIBLE);
+            this.lv_my_bids.setVisibility(View.GONE);
+        }else{
+            this.layout_bids_hint.setVisibility(View.GONE);
+            this.lv_my_bids.setVisibility(View.VISIBLE);
+        }
     }
+
 }

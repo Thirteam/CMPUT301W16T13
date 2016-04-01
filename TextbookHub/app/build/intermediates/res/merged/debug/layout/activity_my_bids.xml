@@ -32,11 +32,9 @@
             android:id="@+id/tv_bids_hint"
             android:text="@string/no_bids"
             android:gravity="center"
-            android:layout_centerHorizontal="true"
             android:textSize="@dimen/textsize_title_medium"
             android:layout_marginTop="@dimen/padding_line_spacing_small"
-            android:textColor="@color/mat_grey_dark"
-            android:layout_below="@id/tv_nothing_here"/>
+            android:textColor="@color/mat_grey_dark" />
 
     </LinearLayout>
 

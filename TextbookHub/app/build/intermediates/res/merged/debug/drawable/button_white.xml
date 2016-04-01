@@ -5,5 +5,8 @@
         android:drawable="@color/mat_grey_superlight"></item>
     <item android:state_focused="true"
         android:drawable="@color/mat_grey_superlight"></item>
-    <item android:drawable="@color/pure_white"></item>
+    <item android:state_enabled="true"
+        android:drawable="@color/pure_white"></item>
+    <item android:state_enabled="false"
+        android:drawable="@color/mat_grey_superlight"></item>
 </selector><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/drawable/button_white.xml -->

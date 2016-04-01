@@ -51,7 +51,7 @@
     <string name="no_result_found">Nothing Found? No Way!</string>
     <string name="no_bids">See a book you want? Bid fearlessly!</string>
     <string name="no_borrowed_book">Want to borrow a book? Search for it!</string>
-    <string name="no_inventory_book">Have a book to available? Click New!</string>
+    <string name="no_inventory_book">Have a book to lend? Click New!</string>
     <string name="new_book">+ New</string>
 
     <string name="discard_changes">Discard Changes</string>
@@ -70,6 +70,14 @@
     <string name="auth_failure">Wrong Username or Password</string>
     <string name="username_exists">Username Already Exists</string>
     <string name="user_profile_empty">Username or Password or Email cannot be Empty</string>
+    <string name="invalid_user_profile">Password or Email Invalid</string>
+
+    <string name="offline_title">Offline Mode</string>
+    <string name="offline_content">No internet connection found, only limited features will be available</string>
+    <string name="offline_not_available">This feature cannot be used in offline mode</string>
+    <string name="offline_new_book">New book(s) will be uploaded to the server later when there is a connection</string>
+    <string name="offline_new_profile">Changes will be uploaded to the server later when there is a connection</string>
+    <string name="offline_no_conn">No internet connection found</string>
 
     <string name="book_status_">Book Status:</string>
 
