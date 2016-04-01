@@ -65,25 +65,6 @@ public class DataHelper {
         }
     }
 
-    public static class UpdateTextbookTask extends AsyncTask<Textbook, Void, Void> {
-        @Override
-        protected Void doInBackground(Textbook... books){
-            Update update = new Update.Builder(books[0]).index("thirteam").type("textbook").build();
-            try {
-                DocumentResult result = client.execute(update);
-                if (result.isSucceeded()) {
-
-                }else{
-                    //TODO add an error message
-                    Log.i("TODO", "we actually failed here");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
     public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
         @Override
         protected Void doInBackground(User... users){
@@ -108,6 +89,28 @@ public class DataHelper {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+    public static class TestServerConnectionTask  extends AsyncTask<Void, Void, Boolean>{
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            verifyClient();
+            Search search = new Search.Builder("{\"query\": {}").addIndex("thirteam").addType("textbook").build();
+            try {
+                SearchResult execute = client.execute(search);
+                if (execute.isSucceeded()) {
+                    //Search our list of tweets
+                    return true;
+                } else {
+                    //TODO add an error message
+                    Log.i("SERVER CONNECTION ERR", execute.getErrorMessage());
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
@@ -248,8 +251,11 @@ public class DataHelper {
             for (int i = 0; i<textbooks.length; i++) {
                 Textbook book = textbooks[i];
                 //The only real difference from Add and Edit is this line including the existing ID
-                Index index = new Index.Builder(book).index("thirteam").type("textbook").id(book.getJid()).build();
+                Delete del = new Delete.Builder(book.getJid()).index("thirteam").type("textbook").build();
+                book.setJid(null);
+                Index index = new Index.Builder(book).index("thirteam").type("textbook").build();
                 try {
+                    client.execute(del);
                     DocumentResult result = client.execute(index);
                     if (result != null && result.isSucceeded()) {
                         books.add(book);

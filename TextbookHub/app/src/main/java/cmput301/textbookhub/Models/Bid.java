@@ -39,7 +39,7 @@ public class Bid implements Comparable, UniqueItem<String>{
 
     @Override
     public String toString() {
-        return "$"+this.amount.toString();
+        return this.amount.toString();
     }
 
     @Override

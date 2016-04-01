@@ -15,8 +15,18 @@ public class BookShelf {
 
     }
 
-    public BookShelf(ArrayList<Textbook> allBooks){
-        this.allBooks = allBooks;
+    public void removeBook(Textbook book){
+        if(this.allBooks.contains(book)){
+            this.allBooks.remove(book);
+        }
+        int i = 0;
+        for(Textbook b: this.allBooks){
+            if(b.getID().equals(book.getID())){
+                this.allBooks.remove(i);
+                break;
+            }
+            i++;
+        }
     }
 
     public void addNewTextBook(Textbook book){

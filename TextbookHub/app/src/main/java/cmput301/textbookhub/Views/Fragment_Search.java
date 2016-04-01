@@ -43,7 +43,7 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
         this.btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userController.hasInternetAccess(getContext())) {
+                if(userController.hasInternetAccess(getContext()) && userController.hasServerAccess()) {
                     if (Tools.isStringValid(et_search.getText().toString())) {
                         adapter.clear();
                         adapter.addAll(activityController.initNewSearch(et_search.getText().toString()));

@@ -31,6 +31,7 @@ public abstract class BaseController {
                 return books.get(0);
             }
         }catch(Exception e){
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }
@@ -42,6 +43,7 @@ public abstract class BaseController {
             ArrayList<Textbook> books = t.get();
             return books;
         }catch(Exception e){
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }
@@ -70,6 +72,18 @@ public abstract class BaseController {
                 = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    //Warning: this method could take a long time to return
+    public boolean hasServerAccess(){
+        DataHelper.TestServerConnectionTask t = new DataHelper.TestServerConnectionTask();
+        t.execute();
+        try{
+            return t.get();
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

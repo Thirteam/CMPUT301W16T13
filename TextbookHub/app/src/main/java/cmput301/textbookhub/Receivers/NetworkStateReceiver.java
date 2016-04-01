@@ -11,8 +11,6 @@ public class NetworkStateReceiver extends BroadcastReceiver {
 
     private NetworkStateManager manager = NetworkStateManager.getInstance();
 
-
-
     @Override
     public void onReceive(Context context, Intent intent) {
         manager.onNetworkStateChange(context);

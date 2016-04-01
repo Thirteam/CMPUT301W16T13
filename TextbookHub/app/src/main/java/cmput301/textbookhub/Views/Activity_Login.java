@@ -42,7 +42,7 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(activityController.hasInternetAccess(context)) {
+                if(activityController.hasServerAccess()) {
                     if(userController.userAuthSuccess(et_username.getText().toString(), et_password.getText().toString())) {
                         Intent intent = new Intent(context, Activity_Main.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -52,7 +52,7 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
                         activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.auth_failure));
                     }
                 }else {
-                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_conn));
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_server));
                 }
             }
         });
@@ -60,7 +60,7 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activityController.hasInternetAccess(context)) {
+                if (activityController.hasServerAccess()) {
                     Intent intent = new Intent(context, Activity_UserProfile.class);
                     Bundle b = new Bundle();
                     b.putString(Activity_UserProfile.BUNDLE_KEY_PROFILE_TYPE, Activity_UserProfile.BUNDLE_CONTENT_ACTIVITY_TYPE_REGISTER);
@@ -68,7 +68,7 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                 } else {
-                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_conn));
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_server));
                 }
             }
         });

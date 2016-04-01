@@ -67,8 +67,13 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.activityController = (ViewBookActivityController) ActivityControllerFactory.getControllerForView(
                 ActivityControllerFactory.FactoryCatalog.ACTIVITY_VIEW_BOOK, this);
         this.userController = AppUserController.getInstance();
+        //which book are we viewing?
+        if(activityController.hasInternetAccess(this)) {
+            this.activityController.setCurrentBook(this.book_id);
+        }else{
+            this.activityController.setCurrentBook(this.userController.getOfflineBookByID(this.book_id));
+        }
 
-        this.activityController.setCurrentBook(this.book_id);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_ok,
                 null);

@@ -77,8 +77,8 @@
     <string name="offline_not_available">This feature cannot be used in offline mode</string>
     <string name="offline_new_book">New book(s) will be uploaded to the server later when there is a connection</string>
     <string name="offline_new_profile">Changes will be uploaded to the server later when there is a connection</string>
+    <string name="offline_no_server">Cannot connect to server</string>
     <string name="offline_no_conn">No internet connection found</string>
-
     <string name="book_status_">Book Status:</string>
 
     <string name="search_en">Search</string>

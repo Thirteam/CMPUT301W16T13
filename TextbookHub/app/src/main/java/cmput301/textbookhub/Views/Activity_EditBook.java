@@ -48,11 +48,9 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.activityController = (EditBookActivityController) ActivityControllerFactory.getControllerForView(
                 ActivityControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
         this.userController = AppUserController.getInstance();
-
         //customize actionbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit,
-                null);
+        View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_edit, null);
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(view, layoutParams);

@@ -45,10 +45,10 @@ public class AppUserController extends BaseController implements NetworkStateObs
     public void setAppUser(User u){
         this.user = u;
         executeOfflineCommands();
-        //fillUserBookShelf();
+        //loadUserBookShelf();
     }
 
-    private void fillUserBookShelf(){
+    public void loadUserBookShelf(){
         if(hasInternetAccess(context)) {
             user.getBookShelf().populateBookShelf(this.queryAllTextbooks(user.getName()));
         }else{
@@ -70,7 +70,7 @@ public class AppUserController extends BaseController implements NetworkStateObs
     }
 
     public void saveTextBook(Textbook book){
-        getAppUser().getBookShelf().getAllBooks().add(book);
+        getAppUser().getBookShelf().addNewTextBook(book);
         if(hasInternetAccess(context)) {
             DataHelper.AddTextbookTask execute = new DataHelper.AddTextbookTask();
             execute.execute(book);
@@ -82,9 +82,10 @@ public class AppUserController extends BaseController implements NetworkStateObs
     }
 
     public void requestDeleteTextBook(Textbook book){
-        getAppUser().getBookShelf().getAllBooks().remove(book);
+        getAppUser().getBookShelf().removeBook(book);
         if(commandList.contains(book.getID())) {
             commandList.removeCommandByID(book.getID());
+            saveOfflineCommands();
         }else{
             DataHelper.DeleteTextbookTask t = new DataHelper.DeleteTextbookTask();
             t.execute(book.getJid());
@@ -92,24 +93,28 @@ public class AppUserController extends BaseController implements NetworkStateObs
     }
     public void editTextBook(Textbook book){
         //This function si nearly identical to the save but will remove the book from the list and re add it.
-        getAppUser().getBookShelf().getAllBooks().remove(book);
-        DataHelper.EditTextbookTask execute = new DataHelper.EditTextbookTask();
-        execute.execute(book);
-        getAppUser().getBookShelf().getAllBooks().add(book);
+        getAppUser().getBookShelf().removeBook(book);
+        if(hasInternetAccess(context)) {
+            DataHelper.EditTextbookTask execute = new DataHelper.EditTextbookTask();
+            execute.execute(book);
+        }else{
+            commandList.updateCommandByID(book.getID(), new OfflineNewTextbookCommand(book));
+        }
+        getAppUser().getBookShelf().addNewTextBook(book);
     }
 
     public ArrayList getAllPersonalBooks(){
-        fillUserBookShelf();
+        //loadUserBookShelf();
         return getAppUser().getBookShelf().getAllBooks();
     }
 
     public ArrayList getAvailableBooks(){
-        fillUserBookShelf();
+        //loadUserBookShelf();
         return getAppUser().getBookShelf().getAvailableBooks();
     }
 
     public ArrayList getBorrowedPersonalBooks(){
-        fillUserBookShelf();
+        //loadUserBookShelf();
         return getAppUser().getBookShelf().getBorrowedBooks();
     }
 
@@ -194,15 +199,19 @@ public class AppUserController extends BaseController implements NetworkStateObs
         this.offlineHelper.saveUserToFile(context, getAppUser());
     }
 
+    public Textbook getOfflineBookByID(String id){
+        return this.commandList.getCommandByID(id).getRelatedBook();
+    }
+
     @Override
     public void onInternetConnect() {
         executeOfflineCommands();
-        fillUserBookShelf();
+        loadUserBookShelf();
     }
 
     @Override
     public void onInternetDisconnect() {
-        fillUserBookShelf();
+        loadUserBookShelf();
     }
 
     public void executeOfflineCommands(){

@@ -47,7 +47,7 @@ public class OfflineCommandList {
         }
     }
 
-    private void updateCommandByID(String id, OfflineNewTextbookCommand c){
+    public void updateCommandByID(String id, OfflineNewTextbookCommand c){
         removeCommandByID(id);
         addOfflineBookCommand(c);
     }

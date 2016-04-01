@@ -35,6 +35,10 @@ public class ViewBookActivityController extends ActivityController {
         this.textbook = queryTextbook(id);
     }
 
+    public void setCurrentBook(Textbook book){
+        this.textbook = book;
+    }
+
     public Textbook getCurrentBook(){
         return this.textbook;
     }

@@ -71,13 +71,18 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(context, Activity_ViewBook.class);
-                Bundle b = new Bundle();
-                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
-                i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                startActivity(i);
+                if(userController.hasServerAccess()) {
+                    Intent i = new Intent(context, Activity_ViewBook.class);
+                    Bundle b = new Bundle();
+                    b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
+                    i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
+                    startActivity(i);
+                }
             }
         });
+        userController.loadUserBookShelf();
+        initListViewData(0);
+        this.updateView();
     }
 
     @Override
@@ -105,7 +110,6 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     private void resetAdapter(){
         this.adapter = new InventoryListAdapter(this.context, R.layout.adapter_book_inventory, inventoryList);
         this.lv_my_books.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
 
@@ -130,6 +134,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Change the content of the listview when spinner selection changes
                 int index = parent.getSelectedItemPosition();
+                userController.loadUserBookShelf();
                 initListViewData(index);
                 updateView();
             }
@@ -168,6 +173,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
 
     @Override
     public void onInternetDisconnect() {
+        userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
         this.layout_inventory_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
@@ -181,6 +187,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
 
     @Override
     public void onInternetConnect() {
+        userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
         this.tv_no_conn_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
@@ -197,13 +204,13 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         super.onResume();
         initListViewData(0);
         this.updateView();
+        //Toast.makeText(this, "Size:"+adapter.getCount(), Toast.LENGTH_LONG).show();
         NetworkStateManager.getInstance().addViewObserver(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //userController.saveOfflineCommands();
         NetworkStateManager.getInstance().removeViewObserver(this);
     }
 }

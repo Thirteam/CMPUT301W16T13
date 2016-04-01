@@ -51,11 +51,11 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
         btn_borrows.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(userController.hasInternetAccess(getContext())) {
+                if(userController.hasServerAccess()) {
                     Intent intent = new Intent(v.getContext(), Activity_MyBorrows.class);
                     startActivity(intent);
                 }else{
-                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
                 }
             }
         });
@@ -69,11 +69,11 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
         btn_bids.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(userController.hasInternetAccess(getContext())) {
+                if(userController.hasInternetAccess(getContext()) && userController.hasServerAccess()) {
                     Intent intent = new Intent(v.getContext(), Activity_MyBids.class);
                     startActivity(intent);
                 }else{
-                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_not_available));
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.offline_no_server));
                 }
             }
         });
