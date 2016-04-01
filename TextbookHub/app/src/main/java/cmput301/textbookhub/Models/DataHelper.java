@@ -96,7 +96,7 @@ public class DataHelper {
         @Override
         protected Boolean doInBackground(Void... params) {
             verifyClient();
-            Search search = new Search.Builder("{\"query\": {}").addIndex("thirteam").addType("textbook").build();
+            Search search = new Search.Builder("{\"query\":{\"match_all\": {} }}").addIndex("thirteam").addType("textbook").build();
             try {
                 SearchResult execute = client.execute(search);
                 if (execute.isSucceeded()) {

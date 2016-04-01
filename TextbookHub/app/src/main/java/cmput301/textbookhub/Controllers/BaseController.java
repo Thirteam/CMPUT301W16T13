@@ -74,7 +74,7 @@ public abstract class BaseController {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    //Warning: this method could take a long time to return
+    //Warning: this method could take a long time to return, use with great caution
     public boolean hasServerAccess(){
         DataHelper.TestServerConnectionTask t = new DataHelper.TestServerConnectionTask();
         t.execute();
