@@ -124,7 +124,6 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
             lv_search_result.setVisibility(View.INVISIBLE);
             tv_no_conn_hint.setVisibility(View.VISIBLE);
         }
-        //Toast.makeText(getContext(), "VIS:"+this.tv_hint.getVisibility()+"=="+View.VISIBLE, Toast.LENGTH_LONG).show();
     }
 
     @Override
