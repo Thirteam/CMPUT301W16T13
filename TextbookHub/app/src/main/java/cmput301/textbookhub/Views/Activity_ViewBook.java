@@ -1,24 +1,33 @@
 package cmput301.textbookhub.Views;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.support.v7.app.ActionBar;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.ViewBookActivityController;
+import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.BookStatus;
+import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Tools;
 
 /**
  * Created by Fred on 2016/3/2.
@@ -30,20 +39,23 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
 
     private Button btn_finish;
     private Button btn_delete;
-    private  Button btn_edit;
-    private  Button btn_submit_bid;
-    private  TextView tv_book_name;
-    private  TextView tv_book_edition;
-    private  TextView tv_book_cat;
-    private  TextView tv_book_comments;
-    private  TextView tv_book_status;
-    private  EditText et_bid_amount;
-    private  Button btn_current_highest_bid;
-    private  Button btn_owner;
-    private  LinearLayout borrower_bid_action_layout;
-    private  LinearLayout owner_bid_action_layout;
-    private  LinearLayout bid_section;
-    private  ListView bid_hist;
+    private Button btn_edit;
+    private Button btn_submit_bid;
+    private Button btn_return_book;
+    private Button btn_trade_location;
+    private TextView tv_book_name;
+    private TextView tv_book_edition;
+    private TextView tv_book_cat;
+    private TextView tv_book_comments;
+    private TextView tv_book_status;
+    private EditText et_bid_amount;
+    private Button btn_current_highest_bid;
+    private Button btn_owner;
+    private LinearLayout borrower_bid_action_layout;
+    private LinearLayout owner_bid_action_layout;
+    private LinearLayout bid_section;
+    private LinearLayout borrowed_section_layout;
+    private EmbeddedListView lv_bid_hist;
     private Context context;
 
     private String book_id;
@@ -51,7 +63,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     private ViewBookActivityController activityController;
     private AppUserController userController;
 
-    private ArrayAdapter bidListAdapter;
+    private ArrayAdapter<Bid> bidListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +102,10 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.tv_book_edition = (TextView) findViewById(R.id.tv_book_edition);
         this.btn_current_highest_bid = (Button) findViewById(R.id.btn_current_highest_bid);
         this.btn_owner = (Button) findViewById(R.id.button_owner);
-        this.bid_hist = (ListView) findViewById(R.id.lv_bid_hist);
+        this.lv_bid_hist = (EmbeddedListView) findViewById(R.id.lv_bid_hist);
         this.tv_book_status = (TextView) findViewById(R.id.tv_book_status);
         this.bidListAdapter = new BidHistListAdapter(this.context, R.layout.adapter_bid_list, activityController.getCurrentBook().getBidList().getBids());
-        this.bid_hist.setAdapter(this.bidListAdapter);
-
+        this.lv_bid_hist.setAdapter(this.bidListAdapter);
         btn_finish = (Button) view.findViewById(R.id.button_ok);
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,32 +117,78 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         updateView();
     }
 
+
+
     @Override
     public void updateView(){
-        this.bidListAdapter.notifyDataSetChanged();
+        bidListAdapter.notifyDataSetChanged();
         this.tv_book_name.setText(this.activityController.getCurrentBook().getName());
         this.tv_book_cat.setText(this.activityController.getCurrentBook().getCategory());
         this.tv_book_comments.setText(this.activityController.getCurrentBook().getComments());
         this.tv_book_edition.setText(this.activityController.getCurrentBook().getEdition());
-        this.btn_owner.setText(this.userController.getAppUser().getName());
+        this.btn_owner.setText(this.activityController.getCurrentBook().getOwner());
         this.tv_book_status.setText(this.activityController.getCurrentBook().getBookStatus().toString());
-        if(this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.AVAILABLE))
+        if(!this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
             this.btn_current_highest_bid.setText(this.activityController.getCurrentBook().getBidList().getHighestBid().toString());
+        }
     }
 
     private void initActionView(){
         this.borrower_bid_action_layout = (LinearLayout) findViewById(R.id.borrower_bid_action_layout);
         this.owner_bid_action_layout = (LinearLayout) findViewById(R.id.owner_bid_action_layout);
+        this.borrowed_section_layout = (LinearLayout) findViewById(R.id.borrower_return_layout);
         this.borrower_bid_action_layout.setVisibility(View.VISIBLE);
         this.owner_bid_action_layout.setVisibility(View.VISIBLE);
+        this.borrowed_section_layout.setVisibility(View.VISIBLE);
+        initOwnerButton();
+        //book may or may not belong to the current user
         //book is currently borrowed
+        String username = this.activityController.getCurrentBook().getOwner();
         if(this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.owner_bid_action_layout.setVisibility(View.GONE);
+            this.bid_section.setVisibility(View.GONE);
+            if(IamTheOwnerOfThisBook(username)) {
+                this.borrowed_section_layout.setVisibility(View.GONE);
+            }else{
+                this.borrowed_section_layout.setVisibility(View.VISIBLE);
+                this.btn_return_book = (Button) findViewById(R.id.button_return);
+                this.btn_trade_location = (Button) findViewById(R.id.button_location);
+                this.btn_return_book.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!activityController.hasInternetAccess(context)) {
+                            activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_server));
+                            finish();
+                        }
+                        activityController.setBookReturned();
+                        activityController.updateCurrentTextbook();
+                        Intent i = getIntent();
+                        i.putExtra(Activity_MyBorrows.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
+                        setResult(RESULT_OK, i);
+                        finish();//On activity result is needed
+                    }
+                });
+                this.btn_trade_location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!activityController.hasInternetAccess(context)) {
+                            activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_server));
+                            finish();
+                        }
+                        //launch map activity
+
+                    }
+                });
+            }
+            return;
         }
         //book belongs to the user
-        String username = this.activityController.getCurrentBook().getOwner();
-        if(!this.activityController.hasInternetAccess(context) || this.activityController.queryUser(username).getID().equals(this.userController.getAppUser().getID())){
+        //user can edit or delete this book
+        initHighestBidButton();
+        this.borrowed_section_layout.setVisibility(View.GONE);
+        if(!this.activityController.hasInternetAccess(context) || IamTheOwnerOfThisBook(username)){
+            this.bid_section.setVisibility(View.VISIBLE);
             this.borrower_bid_action_layout.setVisibility(View.GONE);
             this.btn_edit = (Button) findViewById(R.id.button_edit_item);
             this.btn_delete = (Button) findViewById(R.id.button_delete_item);
@@ -150,17 +207,115 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                 }
             });
         }else{
+            //book does not belong to the current user
             //book is available and can be bid on
+            this.bid_section.setVisibility(View.VISIBLE);
             this.owner_bid_action_layout.setVisibility(View.GONE);
             this.btn_submit_bid = (Button) findViewById(R.id.button_place_bid);
             this.et_bid_amount = (EditText) findViewById(R.id.et_bid_amount);
             this.btn_submit_bid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activityController.addNewBid(context, et_bid_amount.getText().toString(), userController.getAppUser());
+                    if (!activityController.hasInternetAccess(context)) {
+                        activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.offline_no_server));
+                        finish();
+                        return;
+                    }
+                    if (activityController.isBidValid(et_bid_amount.getText().toString())) {
+                        Double d = Double.parseDouble(et_bid_amount.getText().toString());
+                        Bid b = new Bid( new Double(Tools.roundDecimal(2, d)), userController.getAppUser());
+                        activityController.addNewValidBid(b);
+                        activityController.updateCurrentTextbook();
+                        et_bid_amount.getText().clear();
+                        activityController.clearOnScreenKsyboard((Activity_ViewBook) context);
+                        updateView();
+                    } else {
+                        activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.invalid_bid_entered));
+                    }
+
                 }
             });
         }
+    }
+
+    private void initOwnerButton(){
+        this.btn_owner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User u = activityController.getOwnerInfo();
+                makeOwnerInfoDialog(u).show();
+            }
+        });
+    }
+
+    private void initHighestBidButton(){
+        this.btn_current_highest_bid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeBidInfoDialog(activityController.getCurrentBook().getBookHighestBidAmount().toString(), activityController.getCurrentBook().getBidList().getHighestBid().getBidder(), activityController.getCurrentBook().getBidList().getHighestBid().getTimestamp()).show();
+            }
+        });
+    }
+
+    private boolean IamTheOwnerOfThisBook(String username){
+        return this.activityController.queryUser(username).getID().equals(this.userController.getAppUser().getID());
+    }
+
+    private AlertDialog makeOwnerInfoDialog(User u){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_owner_info, null);
+        dialogBuilder.setView(dialogView);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(u.getTimestamp());
+        String date = formatter.format(c.getTime());
+        ((TextView) dialogView.findViewById(R.id.tv_username)).setText(u.getName());
+        ((TextView) dialogView.findViewById(R.id.tv_email)).setText(u.getEmail());
+        ((TextView) dialogView.findViewById(R.id.tv_member_since)).setText(date);
+        dialogBuilder.setTitle(getResources().getString(R.string.title_owner_info));
+        dialogBuilder.setPositiveButton(getResources().getString(R.string.ok_en), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        return dialogBuilder.create();
+    }
+
+    private AlertDialog makeBidInfoDialog(String amount, String username, String time){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_bid_info, null);
+        dialogBuilder.setView(dialogView);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(new Long(time));
+        String date = formatter.format(c.getTime());
+        ((TextView) dialogView.findViewById(R.id.tv_username)).setText(username);
+        ((TextView) dialogView.findViewById(R.id.tv_bid_amount)).setText(amount);
+        ((TextView) dialogView.findViewById(R.id.tv_date)).setText(date);
+        dialogBuilder.setTitle(getResources().getString(R.string.title_bid_info));
+        dialogBuilder.setNegativeButton(getResources().getString(R.string.finish_en), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        if(IamTheOwnerOfThisBook(this.activityController.getCurrentBook().getOwner())) {
+            dialogBuilder.setPositiveButton(getResources().getString(R.string.accept_bid), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    dialog.dismiss();
+                    if (activityController.isBidderValid()) {
+                        //accept this bid
+                        activityController.setBookBorrowed();
+                        userController.updateExistingPersonalTextbook(activityController.getCurrentBook());
+                        finish();
+                    } else {
+                        activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.error_own_bid));
+                    }
+                }
+            });
+        }
+        return dialogBuilder.create();
     }
 
 }

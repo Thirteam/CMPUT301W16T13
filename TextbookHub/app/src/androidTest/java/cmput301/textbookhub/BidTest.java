@@ -21,10 +21,9 @@ public class BidTest extends ActivityInstrumentationTestCase2 {
         User user1 = new User("fred","123",bs1);
         User user2 = new User("runqi","1234",bs2);
         Textbook tb = new Textbook(user1,"BOOK1");
-        Bid bid = new Bid(100.00, user2, tb);
+        Bid bid = new Bid(100.00, user2);
 
         assertEquals("bid amount is correct",100.00,bid.getAmount());
         assertEquals("bidder is correct","runqi",bid.getBidder());
-        assertEquals("textbook is correct",tb, bid.getTextbook());
     }
 }

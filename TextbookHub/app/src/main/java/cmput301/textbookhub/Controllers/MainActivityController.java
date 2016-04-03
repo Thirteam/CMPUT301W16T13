@@ -28,6 +28,7 @@ public class MainActivityController extends ActivityController {
         ArrayList<Textbook> rv = new ArrayList();
         try{
             rv.addAll(t.get());
+            this.searchResult = rv;
         }catch(ExecutionException e){
             e.printStackTrace();
         }catch (InterruptedException e){

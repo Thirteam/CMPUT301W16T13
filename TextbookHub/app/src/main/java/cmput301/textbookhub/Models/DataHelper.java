@@ -55,7 +55,7 @@ public class DataHelper {
                     textbooks.addAll(returned_books);
                 }else{
                     //TODO add an error message
-                    Log.i("TODO", "we actually failed here");
+                    Log.i("ERROR GETTING TEXTBOOK", execute.getErrorMessage());
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -143,7 +143,7 @@ public class DataHelper {
                         textbooks.addAll(returned_books);
                     } else {
                         //TODO add an error message
-                        Log.i("TODO", "we actually failed here");
+                        Log.i("ERROR SEARCH", execute.getErrorMessage());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -161,7 +161,7 @@ public class DataHelper {
             String search_string = "";
 
             //Start our initial array list (empty)
-            ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
+            ArrayList<Textbook> textbooks =  new ArrayList<>();
 
             if (Tools.isStringValid(search_strings[0])){
                 search_string = "{\"query\": {\"match\":{ \"owner\": \"" + search_strings[0] + "\"}}}";
@@ -181,7 +181,80 @@ public class DataHelper {
                     textbooks.addAll(returned_books);
                 }else{
                     //TODO add an error message
-                    Log.i("TODO", "we actually failed here");
+                    Log.i("ERROR GETTING ALL", execute.getErrorMessage());
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return textbooks;
+        }
+    }
+
+    public static class GetBiddedTextbookByBidderTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+        @Override
+        protected ArrayList<Textbook> doInBackground(String... search_strings){
+            verifyClient();
+
+            String search_string = "";
+
+            //Start our initial array list (empty)
+            ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
+            search_string = "{\"query\":{\"filtered\":{\"query\": {\"term\":{ \"bids.bidList.bidder\":\"" + search_strings[0] +"\"}}, \"filter\":{\"not\":{\"term\":{\"owner\":\""+search_strings[0]+"\"}}}}}}";
+
+            //Note: I'm making a huge assumption here, that only the first search term will be used.
+            Search search = new Search.Builder(search_string)
+                    .addIndex("thirteam")
+                    .addType("textbook")
+                    .build();
+
+            try {
+                SearchResult execute = client.execute(search);
+                if(execute.isSucceeded()){
+                    //Search our list of tweets
+                    List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
+                    textbooks.addAll(returned_books);
+                }else{
+                    //TODO add an error message
+                    Log.i("ERROR GETTING BY BIDDER", execute.getErrorMessage());
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return textbooks;
+        }
+    }
+
+    public static class GetTextbookByBorrowerTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+        @Override
+        protected ArrayList<Textbook> doInBackground(String... search_strings){
+            verifyClient();
+
+            String search_string = "";
+
+            //Start our initial array list (empty)
+            ArrayList<Textbook> textbooks =  new ArrayList<>();
+
+            if (Tools.isStringValid(search_strings[0])){
+                search_string = "{\"query\": {\"term\":{ \"borrower\": \"" + search_strings[0] + "\"}}}";
+            }
+
+            //Note: I'm making a huge assumption here, that only the first search term will be used.
+            Search search = new Search.Builder(search_string)
+                    .addIndex("thirteam")
+                    .addType("textbook")
+                    .build();
+
+            try {
+                SearchResult execute = client.execute(search);
+                if(execute.isSucceeded()){
+                    //Search our list of tweets
+                    List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
+                    textbooks.addAll(returned_books);
+                }else{
+                    //TODO add an error message
+                    Log.i("ERR GETTING BY BORROWER", execute.getErrorMessage());
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -240,7 +313,9 @@ public class DataHelper {
         }
     }
 
-    public static class EditTextbookTask extends AsyncTask<Textbook, Void, ArrayList<Textbook>> {
+
+
+    public static class UpdateTextbookTask extends AsyncTask<Textbook, Void, ArrayList<Textbook>> {
 
         private ArrayList<Textbook> books = new ArrayList();
 
@@ -298,7 +373,7 @@ public class DataHelper {
                     users.addAll(userList);
                 }else{
                     //TODO add an error message
-                    Log.i("TODO", "we actually failed here");
+                    Log.i("ERROR GETTING USER", execute.getErrorMessage());
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -324,7 +399,7 @@ public class DataHelper {
                         user.setJid(result.getId());
                     }else{
                         //TODO add an error message
-                        Log.i("TODO", "we actually failed here");
+                        Log.i("ERROR ADDING USER", result.getErrorMessage());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -341,7 +416,6 @@ public class DataHelper {
             //2. If it doesn't make it
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/");
             DroidClientConfig config = builder.build();
-
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();

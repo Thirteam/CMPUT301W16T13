@@ -17,7 +17,7 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     private String comments;
 
     private String owner;
-    private String borrower;
+    private String borrower = "";
 
     private String timestamp;
 
@@ -72,8 +72,8 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return owner;
     }
 
-    public void setBookBorrowed(User borrower){
-        this.borrower = borrower.getName();
+    public void setBookBorrowed(String borrower){
+        this.borrower = borrower;
         this.bookStatus = BookStatus.BORROWED;
     }
 
@@ -85,40 +85,44 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         this.category = category;
     }
 
-    public void setBookAvailable(){
-        this.borrower = null;
-        this.bookStatus = BookStatus.AVAILABLE;
-    }
-
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
 
     public void setComments(String comments) {
-        if(this.bookStatus != BookStatus.BORROWED)
-            this.comments = comments;
+        this.comments = comments;
     }
 
     public void setEdition(String edition) {
-        if(this.bookStatus != BookStatus.BORROWED)
-            this.edition = edition;
-    }
-
-    public void setBids(BidList bids) {
-        if(this.bookStatus != BookStatus.BORROWED)
-            this.bids = bids;
+        this.edition = edition;
     }
 
     public void addBid(Bid bid){
-        if(this.bookStatus != BookStatus.BORROWED)
-            this.bids.addBid(bid);
+        this.bids.addBid(bid);
+    }
+
+    public void clearAllBids(){
+        this.bids.clearAllBids();
+    }
+
+    public void setBookReturned(){
+        this.borrower = "";
+        this.bookStatus = BookStatus.AVAILABLE;
+    }
+
+    public void setBookStatus(BookStatus status){
+        this.bookStatus = status;
     }
 
     public BidList getBidList() {
         return bids;
     }
 
-    public boolean isUpdateAble(){
+    public Double getBookHighestBidAmount(){
+        return bids.getHighestBid().getAmount();
+    }
+
+    public boolean canUpdate(){
         return this.bookStatus != BookStatus.BORROWED;
     }
 
@@ -153,6 +157,11 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         }
 
         public Builder addStartingBid(String amount, User user){
+            try{
+                Double.parseDouble(amount);
+            }catch (Exception e){
+                amount = "0.0";
+            }
             this.textbook.addBid(new Bid(Double.parseDouble(amount), user));
             return this;
         }

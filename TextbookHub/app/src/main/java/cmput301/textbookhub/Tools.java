@@ -8,4 +8,9 @@ public class Tools {
     public static boolean isStringValid(String s){
         return (s != null && !s.isEmpty());
     }
+
+    public static String roundDecimal(int place, Double num){
+        String format_str = "%."+String.valueOf(place)+"f";
+        return String.format(format_str, num);
+    }
 }

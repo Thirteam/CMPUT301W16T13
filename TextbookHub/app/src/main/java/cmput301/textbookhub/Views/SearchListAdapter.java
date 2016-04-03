@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 
@@ -44,13 +45,10 @@ public class SearchListAdapter extends ArrayAdapter{
         if(convertView == null) {
             LayoutInflater inflater = ((Activity) ctx).getLayoutInflater();
             convertView = inflater.inflate(layoutResID, parent, false);
-
         }
-
+        BookStatus status = getItem(position).getBookStatus();
         ((TextView) convertView.findViewById(R.id.tvl_book_name)).setText(getItem(position).getName());
-        ((TextView) convertView.findViewById(R.id.tvl_status)).setText(getItem(position).getBookStatus().toString());
-        //TODO: not ready yet
-        //((TextView) convertView.findViewById(R.id.tvl_current_highest_bid)).setText(getItem(position).getBidList().getHighestBid().toString());
+        ((TextView) convertView.findViewById(R.id.tvl_status)).setText(status.toString());
         return convertView;
     }
 }

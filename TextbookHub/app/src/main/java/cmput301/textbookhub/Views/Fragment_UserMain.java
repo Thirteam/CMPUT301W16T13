@@ -116,7 +116,6 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
         return v;
     }
 
-    @Deprecated
     public void toggleView(){
         if(userController.hasInternetAccess(getContext())) {
             btn_bids.setEnabled(true);

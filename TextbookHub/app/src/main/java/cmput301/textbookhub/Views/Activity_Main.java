@@ -111,10 +111,6 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
             mFragmentTitleList.add(title);
         }
 
-        public Fragment getFragmentAt(int index) {
-            return mFragmentList.get(index);
-        }
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);

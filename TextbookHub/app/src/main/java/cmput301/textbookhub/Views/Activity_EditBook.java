@@ -14,7 +14,6 @@ import android.widget.EditText;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.EditBookActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
-import cmput301.textbookhub.Models.OfflineNewTextbookCommand;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
@@ -85,7 +84,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
                         bookEdit.setCategory(et_book_category.getText().toString());
                         bookEdit.setEdition(et_book_edition.getText().toString());
                         bookEdit.setComments(et_book_comments.getText().toString());
-                        userController.editTextBook(bookEdit);
+                        userController.updateExistingPersonalTextbook(bookEdit);
                         finish();
                     } else {
                         activityController.displayNotificationDialog(context, getResources().getString(R.string.error), getResources().getString(R.string.invalid_book_name));

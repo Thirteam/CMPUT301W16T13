@@ -26,8 +26,10 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_Main"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomThemeNoActionBar" >
+            android:theme="@style/CustomThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -35,8 +37,10 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_Login"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomThemeNoActionBar" >
+            android:theme="@style/CustomThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,6 +50,7 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_UserProfile"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:noHistory="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -55,6 +60,7 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_MyBids"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +69,7 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_MyBorrows"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,6 +78,7 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_MyInventory"
             android:configChanges="orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,7 +87,9 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_EditBook"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -87,7 +97,9 @@
         <activity
             android:name="cmput301.textbookhub.Views.Activity_ViewBook"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

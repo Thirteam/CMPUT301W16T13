@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import cmput301.textbookhub.Models.Bid;
+import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Tools;
 import cmput301.textbookhub.Views.Activity_EditBook;
 
 /**
@@ -43,22 +45,52 @@ public class ViewBookActivityController extends ActivityController {
         return this.textbook;
     }
 
-    private boolean isBidValid(String bid){
-        Double b = Double.parseDouble(bid);
-        if(this.textbook.getBidList().getHighestBid().getAmount() < b){
-            return true;
+    public boolean isBidValid(String bid) {
+
+        try{
+            Double b = Double.parseDouble(bid);
+            b = new Double(Tools.roundDecimal(2, b));
+            if (this.textbook.getBidList().getHighestBid().getAmount() < b) {
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
-    public void addNewBid(Context ctx, String bid, User u){
-        if(isBidValid(bid)){
-            Double new_bid = Double.parseDouble(bid);
-            this.textbook.getBidList().addBid(new Bid(new_bid, u));
-            //TODO:update the bid
-
-        }else{
-            displayNotificationDialog(ctx, ctx.getResources().getString(R.string.error), ctx.getResources().getString(R.string.invalid_bid_entered));
+    public boolean isBidderValid(){
+        if(this.textbook.getOwner().equals(this.textbook.getBidList().getHighestBid().getBidder())){
+            return false;
         }
+        return true;
+    }
+
+    public void addNewValidBid(Bid b){
+        this.textbook.addBid(b);
+        this.textbook.setBookStatus(BookStatus.BIDDED);
+    }
+
+    private void clearAndResetBids(){
+        this.textbook.clearAllBids();
+        this.textbook.addBid(new Bid(0.0, queryUser(this.textbook.getOwner())));
+    }
+
+    public User getOwnerInfo(){
+        return queryUser(this.textbook.getOwner());
+    }
+
+    public void setBookBorrowed(){
+        this.textbook.setBookBorrowed(this.textbook.getBidList().getHighestBid().getBidder());
+        this.clearAndResetBids();
+    }
+
+    public void setBookReturned(){
+        this.textbook.setBookReturned();
+    }
+
+    public void updateCurrentTextbook(){
+        updateTextbookOnServer(this.textbook);
     }
 }

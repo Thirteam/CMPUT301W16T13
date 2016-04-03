@@ -1,15 +1,17 @@
 package cmput301.textbookhub.Views;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,11 +20,15 @@ import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
+import cmput301.textbookhub.Receivers.NetworkStateManager;
+import cmput301.textbookhub.Receivers.NetworkStateObserver;
 
 /**
  * Created by Fred on 2016/3/1.
  */
-public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
+public class Activity_MyBorrows extends AppCompatActivity implements BaseView, NetworkStateObserver{
+
+    public static String ACTIVITY_RESULT_KEY_BOOK_ID = "BOOK_ID";
 
     private ListView lv_my_borrows;
     private LinearLayout layout_borrows_hint;
@@ -30,7 +36,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
     private MyBorrowsActivityController activityController;
     private AppUserController userController;
-    private BorrowedListAdapter adapter;
+    private MyBorrowedListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +53,27 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
         lv_my_borrows = (ListView) findViewById(R.id.lv_borrowed);
         lv_my_borrows.setVisibility(View.GONE);
         //TODO:modify adapter input data
-        adapter = new BorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, new ArrayList<Textbook>());
+        adapter = new MyBorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, activityController.getBooksIBorrowed(userController.getAppUser().getName()));
         lv_my_borrows.setAdapter(adapter);
         layout_borrows_hint = (LinearLayout) findViewById(R.id.layout_borrows_hint);
         lv_my_borrows.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (userController.hasInternetAccess(context) && !userController.hasServerAccess()) {
+                    return;
+                } else if (!userController.hasInternetAccess(context)) {
+                    return;
+                }
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
-                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((BorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID());
+                b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((MyBorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID());
                 i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
-        this.updateView();
+        adapter = new MyBorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, activityController.getBooksIBorrowed(userController.getAppUser().getName()));
+        this.lv_my_borrows.setAdapter(this.adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -76,9 +89,6 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
 
     @Override
     public void updateView(){
-        this.adapter.notifyDataSetChanged();
-        this.lv_my_borrows.setAdapter(this.adapter);
-
         if(this.lv_my_borrows.getAdapter().getCount() == 0) {
             this.layout_borrows_hint.setVisibility(View.VISIBLE);
             this.lv_my_borrows.setVisibility(View.GONE);
@@ -86,6 +96,56 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView{
             this.layout_borrows_hint.setVisibility(View.GONE);
             this.lv_my_borrows.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            String book_id = data.getStringExtra(ACTIVITY_RESULT_KEY_BOOK_ID);
+            if(book_id!=null){
+                refreshListViewData(book_id);
+            }else{
+                Log.i("ON RESULT FAILED", "NO ID FOUND");
+            }
+        }
+    }
+
+    private void refreshListViewData(String id){
+        this.adapter.removeByID(id);
+        this.adapter.notifyDataSetChanged();
+        updateView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateView();
+        NetworkStateManager.getInstance().addViewObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        NetworkStateManager.getInstance().removeViewObserver(this);
+    }
+
+    @Override
+    public void onInternetConnect() {}
+
+    @Override
+    public void onInternetDisconnect() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(getResources().getString(R.string.error));
+        dialog.setMessage(getResources().getString(R.string.offline_not_available));
+        dialog.setPositiveButton(getResources().getString(R.string.ok_en), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.show();
     }
 
 }

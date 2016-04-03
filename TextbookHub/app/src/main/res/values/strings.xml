@@ -27,7 +27,6 @@
     <string name="current_highest_">Current Highest Bid:</string>
     <string name="current_bid_">Current Highest Bid: (click to view detail)</string>
     <string name="bid_history_">Bid History:</string>
-    <string name="bid_count">\ bid(s) were placed for this item</string>
     <string name="place_bid">Place Bid</string>
     <string name="accept_bid">Accept Bid</string>
     <string name="decline_bid">Decline Bid</string>
@@ -48,7 +47,7 @@
     <string name="my_inventory">My Inventory</string>
 
     <string name="nothing_here">There is nothing here!</string>
-    <string name="no_result_found">Nothing Found? No Way!</string>
+    <string name="no_result_found">No result(s) found</string>
     <string name="no_bids">See a book you want? Bid fearlessly!</string>
     <string name="no_borrowed_book">Want to borrow a book? Search for it!</string>
     <string name="no_inventory_book">Have a book to lend? Click New!</string>
@@ -65,7 +64,7 @@
     <string name="take_pictures">+ Picture</string>
 
     <string name="error">Error</string>
-    <string name="invalid_bid_entered">Invalid Bid Entered.</string>
+    <string name="invalid_bid_entered">Invalid bid entered, please enter a bid higher than the current bid</string>
     <string name="invalid_book_name">Invalid Book Name Entered.</string>
     <string name="auth_failure">Wrong Username or Password</string>
     <string name="username_exists">Username Already Exists</string>
@@ -80,9 +79,17 @@
     <string name="offline_no_server">Cannot connect to server</string>
     <string name="offline_no_conn">No internet connection found</string>
     <string name="book_status_">Book Status:</string>
-
+    <string name="member_since_">Member Since:</string>
+    <string name="amount_">Amount:</string>
+    <string name="bid_placed_by_">Placed by:</string>
+    <string name="date_placed_">Date Placed:</string>
+    <string name="title_owner_info">Owner Info</string>
+    <string name="title_bid_info">Bid Info</string>
+    <string name="return_book">Return Book</string>
+    <string name="location">Trade Location</string>
     <string name="search_en">Search</string>
-
+    <string name="error_own_bid">You cannot accept your own bid!</string>
+    <string name="oops">OOPS!</string>
     <string name="profile_cap">USER INFO</string>
     <string-array name="category_array">
         <item>English</item>

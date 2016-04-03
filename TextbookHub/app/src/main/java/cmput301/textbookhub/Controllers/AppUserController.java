@@ -91,12 +91,11 @@ public class AppUserController extends BaseController implements NetworkStateObs
             t.execute(book.getJid());
         }
     }
-    public void editTextBook(Textbook book){
-        //This function si nearly identical to the save but will remove the book from the list and re add it.
+    public void updateExistingPersonalTextbook(Textbook book){
+        //This function is nearly identical to the save but will remove the book from the list and re add it.
         getAppUser().getBookShelf().removeBook(book);
         if(hasInternetAccess(context)) {
-            DataHelper.EditTextbookTask execute = new DataHelper.EditTextbookTask();
-            execute.execute(book);
+            updateTextbookOnServer(book);
         }else{
             commandList.updateCommandByID(book.getID(), new OfflineNewTextbookCommand(book));
         }

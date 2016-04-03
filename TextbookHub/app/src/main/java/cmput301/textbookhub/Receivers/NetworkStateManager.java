@@ -18,7 +18,8 @@ public class NetworkStateManager{
     private NetworkStateManager(){}
 
     public void addControllerObserver(NetworkStateObserver observer){
-        this.controllerObservers.add(observer);
+        if(!controllerObservers.contains(observer))
+            this.controllerObservers.add(observer);
     }
 
     public void addViewObserver(NetworkStateObserver observer){

@@ -15,10 +15,6 @@ public class BidList {
         this.bidList = new ArrayList<>();
     }
 
-    public BidList(ArrayList bidList){
-        this.bidList = bidList;
-    }
-
     public ArrayList<Bid> getBids() {
         return bidList;
     }
@@ -54,5 +50,9 @@ public class BidList {
     public void addBid(Bid b){
         this.bidList.add(b);
         this.sortBidsByAmount();
+    }
+
+    public void clearAllBids(){
+        this.bidList.clear();
     }
 }

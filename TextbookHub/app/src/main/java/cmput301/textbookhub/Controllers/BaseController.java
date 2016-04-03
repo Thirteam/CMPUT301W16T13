@@ -86,4 +86,9 @@ public abstract class BaseController {
         }
     }
 
+    public void updateTextbookOnServer(Textbook b){
+        DataHelper.UpdateTextbookTask execute = new DataHelper.UpdateTextbookTask();
+        execute.execute(b);
+    }
+
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:paddingTop="@dimen/padding_line_spacing_medium"
+    android:paddingEnd="@dimen/padding_title"
+    android:paddingLeft="@dimen/padding_title"
+    android:paddingRight="@dimen/padding_title"
+    android:paddingStart="@dimen/padding_title"
+    android:text="@string/username_"
+    android:textColor="@color/mat_grey_superdark"
+    android:textSize="@dimen/textsize_large"
+    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_element"
+        android:layout_marginRight="@dimen/padding_element"
+        android:textColor="@color/mat_grey_superdark"
+        android:paddingTop="@dimen/padding_line_spacing_small"
+        android:text="xylove6"
+        android:textSize="@dimen/textsize_large" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:paddingTop="@dimen/padding_line_spacing_medium"
+        android:paddingEnd="@dimen/padding_title"
+        android:paddingLeft="@dimen/padding_title"
+        android:paddingRight="@dimen/padding_title"
+        android:paddingStart="@dimen/padding_title"
+        android:text="@string/email_"
+        android:textColor="@color/mat_grey_superdark"
+        android:textSize="@dimen/textsize_large"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_element"
+        android:layout_marginRight="@dimen/padding_element"
+        android:textColor="@color/mat_grey_superdark"
+        android:paddingTop="@dimen/padding_line_spacing_small"
+        android:text="xylove6@yahoo.ca"
+        android:textSize="@dimen/textsize_large" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:paddingTop="@dimen/padding_line_spacing_medium"
+        android:paddingEnd="@dimen/padding_title"
+        android:paddingLeft="@dimen/padding_title"
+        android:paddingRight="@dimen/padding_title"
+        android:paddingStart="@dimen/padding_title"
+        android:text="@string/member_since_"
+        android:textColor="@color/mat_grey_superdark"
+        android:textSize="@dimen/textsize_large"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_member_since"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_element"
+        android:layout_marginRight="@dimen/padding_element"
+        android:textColor="@color/mat_grey_superdark"
+        android:paddingTop="@dimen/padding_line_spacing_small"
+        android:text="2015-01-04"
+        android:textSize="@dimen/textsize_large" />
+
+</LinearLayout>

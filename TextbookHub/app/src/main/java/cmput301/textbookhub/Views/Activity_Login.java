@@ -81,7 +81,8 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
             context.startActivity(intent);
             finish();
         }catch(AppUserController.NoOfflineUserProfileFoundException e){}
-
+        et_username.clearFocus();
+        et_password.clearFocus();
     }
 
     @Override
