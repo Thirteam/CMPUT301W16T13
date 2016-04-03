@@ -115,7 +115,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             public void onClick(View v) {
                 Intent i = getIntent();
                 Log.i("SETRESULT", "broadcast id");
-                i.putExtra(Activity_MyInventory.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
+                i.putExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
                 setResult(RESULT_OK, i);
                 finish();
             }
@@ -171,7 +171,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                         activityController.setBookReturned();
                         activityController.updateCurrentTextbook();
                         Intent i = getIntent();
-                        i.putExtra(Activity_MyBorrows.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
+                        i.putExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
                         setResult(RESULT_OK, i);
                         finish();//On activity result is needed
                     }

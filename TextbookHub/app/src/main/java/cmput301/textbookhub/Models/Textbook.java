@@ -1,5 +1,11 @@
 package cmput301.textbookhub.Models;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import cmput301.textbookhub.Tools;
@@ -24,6 +30,8 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     private String timestamp;
 
     private BidList bids;
+
+    private ArrayList<String> pictures = new ArrayList<>();
 
     private BookStatus bookStatus = BookStatus.AVAILABLE;
 
@@ -180,6 +188,36 @@ public class Textbook implements NamedItem, UniqueItem<String>{
             return this;
         }
 
+    }
+
+    public ArrayList<Bitmap>getPictures(){
+        ArrayList<Bitmap> rv = new ArrayList<>();
+        for(String pic:this.pictures){
+            rv.add(convertStringToBitmap(pic));
+        }
+        return rv;
+    }
+
+    public void addPicture(Bitmap pic){
+        String str = convertBitmapToString(pic);
+        this.pictures.add(str);
+    }
+
+    public void removePictureAt(int idx){
+        this.pictures.remove(idx);
+    }
+
+    private Bitmap convertStringToBitmap(String pic){
+        byte[] decodeString = Base64.decode(pic, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
+    }
+
+    public String convertBitmapToString(Bitmap picture){
+        picture = Tools.getResizedBitmap(picture, 500);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        picture.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] b = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
     public ViewStatus getViewStatus() {

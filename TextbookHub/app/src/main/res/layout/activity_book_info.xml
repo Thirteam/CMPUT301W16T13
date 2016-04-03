@@ -135,16 +135,15 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/padding_line_spacing_large"
-            android:paddingTop="@dimen/padding_line_spacing_medium"
+            android:paddingTop="@dimen/padding_line_spacing_small"
             >
 
-           <!--  <ImageView
+            <ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_import_borrows_black_24dp"
-                android:adjustViewBounds="true"
-                android:layout_margin="100dp"/>
--->
+                android:id="@+id/vp_pictures"
+                />
+
             <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
