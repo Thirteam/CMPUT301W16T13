@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +38,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
 
     public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
     public static final String INTENT_EXTRAS_KEY_BUNDLE = "BUNDLE";
+    public static final String ACTIVITY_RESULT_KEY_BOOK_ID = "BOOK_ID";
 
     private Button btn_finish;
     private Button btn_delete;
@@ -110,6 +113,10 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = getIntent();
+                Log.i("SETRESULT", "broadcast id");
+                i.putExtra(Activity_MyInventory.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
+                setResult(RESULT_OK, i);
                 finish();
             }
         });
@@ -187,6 +194,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         //user can edit or delete this book
         initHighestBidButton();
         this.borrowed_section_layout.setVisibility(View.GONE);
+        this.activityController.updateViewStatus();
         if(!this.activityController.hasInternetAccess(context) || IamTheOwnerOfThisBook(username)){
             this.bid_section.setVisibility(View.VISIBLE);
             this.borrower_bid_action_layout.setVisibility(View.GONE);
@@ -195,15 +203,52 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             this.btn_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activityController.startEditBookActivity(context);
-                    finish();
+                    if(activityController.getCurrentBook().hasValidBids()) {
+                        AlertDialog.Builder b = new AlertDialog.Builder(context);
+                        b.setTitle(getResources().getString(R.string.warning));
+                        b.setMessage(getResources().getString(R.string.edit_warning));
+                        b.setPositiveButton(getResources().getString(R.string.yes_en), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                activityController.startEditBookActivity(context);
+                                finish();
+                            }
+                        });
+                        b.setNegativeButton(getResources().getString(R.string.cancel_en), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        b.show();
+                    }else {
+                        activityController.startEditBookActivity(context);
+                        finish();
+                    }
                 }
             });
             this.btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    userController.requestDeleteTextBook(activityController.getCurrentBook());
-                    finish();
+                    AlertDialog.Builder b = new AlertDialog.Builder(context);
+                    b.setTitle(getResources().getString(R.string.warning));
+                    b.setMessage(getResources().getString(R.string.delete_confirm));
+                    b.setPositiveButton(getResources().getString(R.string.yes_en), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            userController.requestDeleteTextBook(activityController.getCurrentBook());
+                            finish();
+                        }
+                    });
+                    b.setNegativeButton(getResources().getString(R.string.cancel_en), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    b.show();
                 }
             });
         }else{
@@ -223,12 +268,13 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                     }
                     if (activityController.isBidValid(et_bid_amount.getText().toString())) {
                         Double d = Double.parseDouble(et_bid_amount.getText().toString());
-                        Bid b = new Bid( new Double(Tools.roundDecimal(2, d)), userController.getAppUser());
+                        Bid b = new Bid( Double.valueOf(Tools.roundDecimal(2, d)), userController.getAppUser());
                         activityController.addNewValidBid(b);
                         activityController.updateCurrentTextbook();
                         et_bid_amount.getText().clear();
                         activityController.clearOnScreenKsyboard((Activity_ViewBook) context);
                         updateView();
+                        Toast.makeText(context, context.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                     } else {
                         activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.invalid_bid_entered));
                     }

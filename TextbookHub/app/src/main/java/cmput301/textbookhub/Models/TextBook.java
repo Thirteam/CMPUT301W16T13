@@ -16,6 +16,8 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     private String category;
     private String comments;
 
+    private String start_bid_amount;
+
     private String owner;
     private String borrower = "";
 
@@ -24,6 +26,8 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     private BidList bids;
 
     private BookStatus bookStatus = BookStatus.AVAILABLE;
+
+    private ViewStatus viewStatus = ViewStatus.NO_NEW_BID;
 
     public Textbook(User owner, String bookName){
         this.timestamp = new Long(Calendar.getInstance().getTimeInMillis()).toString();
@@ -105,9 +109,22 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         this.bids.clearAllBids();
     }
 
+    public void setStartingBidAmount(String bid){
+        this.start_bid_amount = bid;
+    }
+
+    public String getStartBidAmount() {
+        return start_bid_amount;
+    }
+
     public void setBookReturned(){
         this.borrower = "";
         this.bookStatus = BookStatus.AVAILABLE;
+        this.viewStatus = ViewStatus.NO_NEW_BID;
+    }
+
+    public boolean hasValidBids(){
+        return this.bids.getBids().size() > 1;
     }
 
     public void setBookStatus(BookStatus status){
@@ -120,10 +137,6 @@ public class Textbook implements NamedItem, UniqueItem<String>{
 
     public Double getBookHighestBidAmount(){
         return bids.getHighestBid().getAmount();
-    }
-
-    public boolean canUpdate(){
-        return this.bookStatus != BookStatus.BORROWED;
     }
 
     public static class Builder{
@@ -163,9 +176,22 @@ public class Textbook implements NamedItem, UniqueItem<String>{
                 amount = "0.0";
             }
             this.textbook.addBid(new Bid(Double.parseDouble(amount), user));
+            this.textbook.setStartingBidAmount(amount);
             return this;
         }
 
+    }
+
+    public ViewStatus getViewStatus() {
+        return this.viewStatus;
+    }
+
+    public void flagValidNewBidAdded() {
+        this.viewStatus = ViewStatus.HAS_NEW_BID;
+    }
+
+    public void flagAllBidsViewed() {
+        this.viewStatus = ViewStatus.NO_NEW_BID;
     }
 
     public String getJid() {

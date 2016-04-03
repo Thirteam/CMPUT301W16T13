@@ -330,6 +330,7 @@
     <dimen name="notification_subtext_size">12dp</dimen>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
+    <dimen name="notify_rect_width">16dp</dimen>
     <dimen name="padding_around_text">5dp</dimen>
     <dimen name="padding_element">26dp</dimen>
     <dimen name="padding_inside">8dp</dimen>
@@ -426,9 +427,11 @@
     <string name="current_highest_">Current Highest Bid:</string>
     <string name="date_placed_">Date Placed:</string>
     <string name="decline_bid">Decline Bid</string>
+    <string name="delete_confirm">Are you sure?</string>
     <string name="delete_item">Delete Item</string>
     <string name="discard_changes">Discard Changes</string>
     <string name="edit_en">Edit</string>
+    <string name="edit_warning">Edit this textbook will remove all the current bids, proceed?</string>
     <string name="email">Email</string>
     <string name="email_">Email:</string>
     <string name="error">Error</string>
@@ -481,6 +484,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="success">Success</string>
     <string name="take_pictures">+ Picture</string>
     <string name="title_bid_info">Bid Info</string>
     <string name="title_logout">Logout</string>
@@ -492,6 +496,7 @@
     <string name="username_exists">Username Already Exists</string>
     <string name="username_hint">Please enter a unique username</string>
     <string name="userprofile">User Profile</string>
+    <string name="warning">Warning</string>
     <string name="yes_en">Yes</string>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>

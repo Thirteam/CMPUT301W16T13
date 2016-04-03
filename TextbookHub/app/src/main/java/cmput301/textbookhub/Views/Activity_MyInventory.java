@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,7 +68,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
             }
         });
 
-        setListviewClickListener();
+        setListViewClickListener();
         userController.loadUserBookShelf();
         initListViewData(0);
         this.updateView();
@@ -164,7 +164,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     public void onInternetDisconnect() {
         userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
-        setListviewClickListener();
+        setListViewClickListener();
         this.layout_inventory_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
             this.lv_my_books.setVisibility(View.GONE);
@@ -179,7 +179,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     public void onInternetConnect() {
         userController.loadUserBookShelf();
         initListViewData(spinner.getSelectedItemPosition());
-        setListviewClickListener();
+        setListViewClickListener();
         this.tv_no_conn_hint.setVisibility(View.GONE);
         if (this.adapter.getCount() == 0) {
             this.lv_my_books.setVisibility(View.GONE);
@@ -190,7 +190,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         }
     }
 
-    private void setListviewClickListener(){
+    private void setListViewClickListener(){
         if(this.userController.hasInternetAccess(this)){
             lv_my_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -204,7 +204,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
                     Bundle b = new Bundle();
                     b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
                     i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                    startActivity(i);
+                    startActivityForResult(i, 0);
                 }
             });
         }else{
@@ -237,5 +237,15 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     protected void onPause() {
         super.onPause();
         NetworkStateManager.getInstance().removeViewObserver(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            String book_to_clear_indicator = data.getStringExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID);
+            Log.i("CLEAR", "INDICATOR");
+            adapter.clearIndicator(book_to_clear_indicator);
+        }
     }
 }

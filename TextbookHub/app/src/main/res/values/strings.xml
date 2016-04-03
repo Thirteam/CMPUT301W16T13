@@ -91,6 +91,10 @@
     <string name="error_own_bid">You cannot accept your own bid!</string>
     <string name="oops">OOPS!</string>
     <string name="profile_cap">USER INFO</string>
+    <string name="success">Success</string>
+    <string name="warning">Warning</string>
+    <string name="delete_confirm">Are you sure?</string>
+    <string name="edit_warning">Edit this textbook will remove all the current bids, proceed?</string>
     <string-array name="category_array">
         <item>English</item>
         <item>Business</item>

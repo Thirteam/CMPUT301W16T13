@@ -13,4 +13,13 @@ public class Tools {
         String format_str = "%."+String.valueOf(place)+"f";
         return String.format(format_str, num);
     }
+
+    public static boolean isDouble(String in){
+        try{
+            Double.parseDouble(in);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }

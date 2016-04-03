@@ -4,7 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
+import cmput301.textbookhub.Models.Bid;
+import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.ElasticSearchQueryException;
 import cmput301.textbookhub.Models.Textbook;
@@ -89,6 +94,11 @@ public abstract class BaseController {
     public void updateTextbookOnServer(Textbook b){
         DataHelper.UpdateTextbookTask execute = new DataHelper.UpdateTextbookTask();
         execute.execute(b);
+    }
+
+    public void clearAndResetBids(Textbook b){
+        b.clearAllBids();
+        b.addBid(new Bid(Double.parseDouble(b.getStartBidAmount()), queryUser(b.getOwner())));
     }
 
 }

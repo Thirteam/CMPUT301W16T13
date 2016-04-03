@@ -28,8 +28,6 @@ import cmput301.textbookhub.Receivers.NetworkStateObserver;
  */
 public class Activity_MyBorrows extends AppCompatActivity implements BaseView, NetworkStateObserver{
 
-    public static String ACTIVITY_RESULT_KEY_BOOK_ID = "BOOK_ID";
-
     private ListView lv_my_borrows;
     private LinearLayout layout_borrows_hint;
     private Context context;
@@ -102,7 +100,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            String book_id = data.getStringExtra(ACTIVITY_RESULT_KEY_BOOK_ID);
+            String book_id = data.getStringExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID);
             if(book_id!=null){
                 refreshListViewData(book_id);
             }else{

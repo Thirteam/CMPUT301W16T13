@@ -7,8 +7,8 @@ public enum ViewStatus {
 
     //TODO: don't know if this enum is required
 
-    VIEWED("VIEWED"),
-    NEW("NEW");
+    HAS_NEW_BID("HAS_NEW_BID"),
+    NO_NEW_BID("NO_NEW_BID");
 
     private final String name;
 

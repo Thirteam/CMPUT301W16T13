@@ -61,4 +61,12 @@ public class BookShelf {
         this.allBooks.clear();
         this.allBooks.addAll(allBooks);
     }
+
+    public boolean someBookHasNewBids(){
+        for(Textbook b:this.allBooks){
+            if(b.getViewStatus().equals(ViewStatus.HAS_NEW_BID))
+                return true;
+        }
+        return false;
+    }
 }

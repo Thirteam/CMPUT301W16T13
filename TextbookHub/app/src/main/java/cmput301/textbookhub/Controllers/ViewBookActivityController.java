@@ -9,6 +9,7 @@ import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
+import cmput301.textbookhub.Models.ViewStatus;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 import cmput301.textbookhub.Views.Activity_EditBook;
@@ -70,11 +71,11 @@ public class ViewBookActivityController extends ActivityController {
     public void addNewValidBid(Bid b){
         this.textbook.addBid(b);
         this.textbook.setBookStatus(BookStatus.BIDDED);
+        this.textbook.flagValidNewBidAdded();
     }
 
     private void clearAndResetBids(){
-        this.textbook.clearAllBids();
-        this.textbook.addBid(new Bid(0.0, queryUser(this.textbook.getOwner())));
+        clearAndResetBids(this.textbook);
     }
 
     public User getOwnerInfo(){
@@ -82,6 +83,7 @@ public class ViewBookActivityController extends ActivityController {
     }
 
     public void setBookBorrowed(){
+        this.textbook.flagAllBidsViewed();
         this.textbook.setBookBorrowed(this.textbook.getBidList().getHighestBid().getBidder());
         this.clearAndResetBids();
     }
@@ -92,5 +94,12 @@ public class ViewBookActivityController extends ActivityController {
 
     public void updateCurrentTextbook(){
         updateTextbookOnServer(this.textbook);
+    }
+
+    public void updateViewStatus(){
+        if(this.textbook.getViewStatus().equals(ViewStatus.HAS_NEW_BID)) {
+            this.textbook.flagAllBidsViewed();
+            updateCurrentTextbook();
+        }
     }
 }

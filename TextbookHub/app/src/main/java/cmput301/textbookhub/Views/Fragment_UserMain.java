@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -22,6 +24,7 @@ import cmput301.textbookhub.Receivers.NetworkStateManager;
 public class Fragment_UserMain extends BaseFragment implements NetworkStateObserver{
 
     private LinearLayout btn_profile, btn_inventory, btn_bids, btn_borrows;
+    private ImageView iv_inventory;
     private Button btn_logout;
     AppUserController userController;
     MainActivityController activityController;
@@ -35,6 +38,7 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
         btn_inventory = (LinearLayout) v.findViewById(R.id.button_myinventory);
         btn_bids = (LinearLayout) v.findViewById(R.id.button_mybids);
         btn_borrows = (LinearLayout) v.findViewById(R.id.button_myborrows);
+        iv_inventory = (ImageView) v.findViewById(R.id.iv_inventory);
         btn_logout = (Button) v.findViewById(R.id.button_logout);
         activityController = ((Activity_Main)getActivity()).getActivityController();
         toggleView();
@@ -129,6 +133,13 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
     @Override
     public void onResume() {
         super.onResume();
+        if(userController.newBidsOnMyBooks()){
+            iv_inventory.setImageResource(R.mipmap.ic_inventory_new_bid_black_24dp);
+            Log.i("SETTING BACKGROUND", "Resource");
+        }else{
+            iv_inventory.setImageResource(R.mipmap.ic_inventory_black_24dp);
+            Log.i("NOT SETTING BACKGROUND", "Resource");
+        }
         NetworkStateManager.getInstance().addViewObserver(this);
     }
 

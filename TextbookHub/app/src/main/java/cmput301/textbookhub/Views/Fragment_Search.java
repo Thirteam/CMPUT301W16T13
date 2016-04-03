@@ -100,6 +100,14 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 0){
+            String id = data.getStringExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID);
+        }
+    }
+
     public void toggleView(){
         activityController.clearOnScreenKsyboard(getActivity());
         if(userController.hasInternetAccess(getContext())) {

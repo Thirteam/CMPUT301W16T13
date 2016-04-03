@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.OfflineCommandList;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.ElasticSearchQueryException;
@@ -94,6 +95,7 @@ public class AppUserController extends BaseController implements NetworkStateObs
     public void updateExistingPersonalTextbook(Textbook book){
         //This function is nearly identical to the save but will remove the book from the list and re add it.
         getAppUser().getBookShelf().removeBook(book);
+        clearAndResetBids(book);
         if(hasInternetAccess(context)) {
             updateTextbookOnServer(book);
         }else{
@@ -140,6 +142,11 @@ public class AppUserController extends BaseController implements NetworkStateObs
             this.commandList.setUpdateUserFlag();
         }
 
+    }
+
+    public boolean newBidsOnMyBooks(){
+        this.loadUserBookShelf();
+        return this.getAppUser().getBookShelf().someBookHasNewBids();
     }
 
     public boolean userAuthSuccess(String username, String password){
@@ -225,7 +232,6 @@ public class AppUserController extends BaseController implements NetworkStateObs
             }
         }
     }
-
 
     private ArrayList<Textbook> getOfflineBookList(String username){
         ArrayList<Textbook> rv = new ArrayList();

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.EditBookActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
+import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
@@ -84,6 +85,11 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
                         bookEdit.setCategory(et_book_category.getText().toString());
                         bookEdit.setEdition(et_book_edition.getText().toString());
                         bookEdit.setComments(et_book_comments.getText().toString());
+                        bookEdit.setBookStatus(BookStatus.AVAILABLE);
+                        if(Tools.isDouble(et_starting_bid.getText().toString()))
+                            bookEdit.setStartingBidAmount(et_starting_bid.getText().toString());
+                        else
+                            bookEdit.setStartingBidAmount("0.0");
                         userController.updateExistingPersonalTextbook(bookEdit);
                         finish();
                     } else {
