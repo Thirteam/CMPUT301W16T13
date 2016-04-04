@@ -457,7 +457,6 @@ public class DataHelper {
                 Textbook book = textbooks[i];
                 //The only real difference from Add and Edit is this line including the existing ID
                 Delete del = new Delete.Builder(book.getJid()).index("thirteam").type("textbook").build();
-                book.setJid(null);
                 Index index = new Index.Builder(book).index("thirteam").type("textbook").build();
                 try {
                     client.execute(del);
