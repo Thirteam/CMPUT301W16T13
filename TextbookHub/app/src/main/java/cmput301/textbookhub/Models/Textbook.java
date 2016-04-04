@@ -232,7 +232,6 @@ public class Textbook implements NamedItem, UniqueItem<String>{
 
     }
 
-<<<<<<< HEAD
     public Double getLat() {
         return lat;
     }
@@ -249,13 +248,11 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         this.lon = lon;
     }
 
-=======
     /**
      * <code>getPictures</code> returns the pictures for the specified <code>Textbook</code>
      *
      * @return an ArrayList of pictures
      */
->>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     public ArrayList<Bitmap>getPictures(){
         ArrayList<Bitmap> rv = new ArrayList<>();
         for(String pic:this.pictures){
@@ -264,25 +261,20 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return rv;
     }
 
-<<<<<<< HEAD
     public void clearAllPictures(){
         this.pictures.clear();
     }
 
-=======
     /**
      * <code>addPicture</code> adds a picture to the <code>Textbook</code>
      *
      * @param pic the picture to be added
      */
->>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     public void addPicture(Bitmap pic){
         String str = convertBitmapToString(pic);
         this.pictures.add(str);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * <code>removePictureAt</code> removes the picture from the <code>Textbook</code> at the specified index
      *
@@ -298,7 +290,6 @@ public class Textbook implements NamedItem, UniqueItem<String>{
      * @param pic the <code>String</code> to be converted
      * @return the bitmap result
      */
->>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     private Bitmap convertStringToBitmap(String pic){
         byte[] decodeString = Base64.decode(pic, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
