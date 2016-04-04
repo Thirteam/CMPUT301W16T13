@@ -7,6 +7,13 @@ import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.Models.Textbook;
 
 /**
+ * <code>MainActivityController</code> the controller of <code>Activity_Main</code>
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/10
+ * @see ActivityController
+ * @see cmput301.textbookhub.Views.Activity_Main
+ *
  * Created by Fred on 2016/3/10.
  */
 public class MainActivityController extends ActivityController {

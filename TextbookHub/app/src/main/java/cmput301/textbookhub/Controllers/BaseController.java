@@ -16,9 +16,13 @@ import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 
 /**
- * Created by Fred on 2016/3/17.
+ * <code>BaseController</code> class responsible for interacting with ElasticSearch.
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/17
+ * @see DataHelper
  *
- * Base controller class responsible for interacting with elastic search
+ * Created by Fred on 2016/3/17.
  */
 public abstract class BaseController {
 

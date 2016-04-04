@@ -16,9 +16,13 @@ import cmput301.textbookhub.Receivers.NetworkStateObserver;
 import cmput301.textbookhub.Receivers.NetworkStateManager;
 
 /**
- * Created by Fred on 2016/3/16.
+ * <code>AppUserController</code> responsible for maintaining usr info throughout the life of the APP, uses singleton design pattern
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/10
+ * @see BaseController
  *
- * Controller responsible for maintaining usr info throughout the life of the APP, uses singleton design pattern
+ * Created by Fred on 2016/3/16.
  */
 public class AppUserController extends BaseController implements NetworkStateObserver{
 
