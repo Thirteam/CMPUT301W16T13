@@ -1,6 +1,12 @@
 package cmput301.textbookhub.Models;
 
 /**
+ * <code>ViewStatus</code>
+ *
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/08
+ *
  * Created by Fred on 2016/3/8.
  */
 public enum ViewStatus {

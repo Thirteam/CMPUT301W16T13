@@ -5,6 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 
 /**
+ * <code>NetworkStateReceiver</code>
+ *
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/31
+ * @see NetworkStateManager
+ * @see NetworkStateObserver
+ *
  * Created by Fred on 2016/3/31.
  */
 public class NetworkStateReceiver extends BroadcastReceiver {
