@@ -14,7 +14,10 @@ import io.searchbox.annotations.JestId;
 /**
  * <code>Textbook</code> is the item user own or borrowed. It is can also be bid on.
  * Textbooks can be find by searching through the database.
- * 
+ *
+ * @author Thirteam
+ * @version 1.1
+ * @since 2016/03/08
  * Created by Fred on 2016/3/8.
  */
 public class Textbook implements NamedItem, UniqueItem<String>{
