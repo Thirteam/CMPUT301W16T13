@@ -22,17 +22,24 @@ public class ActivityControllerFactory {
         ACTIVITY_MY_INVENTORY,
         ACTIVITY_USER_PROFILE,
         ACTIVITY_VIEW_BOOK,
-        ACTIVITY_MAP
+        ACTIVITY_MAP,
+        ACTIVITY_AROUND_ME
     }
 
+    /**
+     * Return the requested activity controller instance
+     * @param catalog
+     * @param v
+     * @return
+     */
     public static ActivityController getControllerForView(FactoryCatalog catalog, BaseView v){
         ActivityController controller;
         switch(catalog){
             case ACTIVITY_EDIT_BOOK:
-                controller = new EditBookActivityController();
+                controller = new ActivityController() {};
                 break;
             case ACTIVITY_LOGIN:
-                controller = new LoginActivityController();
+                controller = new ActivityController() {};
                 break;
             case ACTIVITY_MAIN:
                 controller = new MainActivityController();
@@ -44,16 +51,19 @@ public class ActivityControllerFactory {
                 controller = new MyBorrowsActivityController();
                 break;
             case ACTIVITY_MY_INVENTORY:
-                controller = new MyInventoryActivityController();
+                controller = new ActivityController() {};
                 break;
             case ACTIVITY_USER_PROFILE:
-                controller = new UserProfileActivityController();
+                controller = new ActivityController() {};
                 break;
             case ACTIVITY_VIEW_BOOK:
                 controller = new ViewBookActivityController();
                 break;
             case ACTIVITY_MAP:
-                controller = new MapActivityController();
+                controller = new ActivityController() {};
+                break;
+            case ACTIVITY_AROUND_ME:
+                controller = new ActivityController() {};
                 break;
             default:
                 controller = new ActivityController(){};

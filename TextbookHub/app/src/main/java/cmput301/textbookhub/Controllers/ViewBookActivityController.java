@@ -3,6 +3,7 @@ package cmput301.textbookhub.Controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.BookStatus;
@@ -101,6 +102,7 @@ public class ViewBookActivityController extends ActivityController {
 
     public void updateCurrentTextbook(){
         updateTextbookOnServer(this.textbook);
+        Log.i("JID is", "ID:" + textbook.getJid());
     }
 
     public void updateViewStatus(){

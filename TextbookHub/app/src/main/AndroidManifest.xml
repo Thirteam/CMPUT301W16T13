@@ -108,6 +108,16 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".Views.Activity_AroundMe"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
 
         <receiver android:name=".Receivers.NetworkStateReceiver" >
             <intent-filter>

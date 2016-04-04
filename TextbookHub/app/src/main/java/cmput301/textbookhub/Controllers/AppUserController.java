@@ -6,6 +6,10 @@ import android.util.Log;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import cmput301.textbookhub.GPSTracker;
 import cmput301.textbookhub.Models.BookStatus;
@@ -18,6 +22,7 @@ import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.Receivers.NetworkStateObserver;
 import cmput301.textbookhub.Receivers.NetworkStateManager;
+import cmput301.textbookhub.Tools;
 
 /**
  * <code>AppUserController</code> responsible for maintaining usr info throughout the life of the APP, uses singleton design pattern
@@ -253,6 +258,40 @@ public class AppUserController extends BaseController implements NetworkStateObs
                 this.commandList.clearUpdateUserFlag();
             }
         }
+    }
+
+    public ArrayList<Textbook> getBooksAroundMe(){
+        DataHelper.SearchTextbookTask t = new DataHelper.SearchTextbookTask();
+        t.execute("");
+        LatLng loc = getCurrUserLocation();
+        try{
+            ArrayList<Textbook> tmp = t.get();
+            ArrayList<Textbook> rv = new ArrayList<>();
+            final HashMap<Textbook, Double> map = new HashMap<>();
+            if(tmp.size() == 0)
+                Log.i("EMPTY RV", "NO BOOK AROUND?");
+            for(Textbook b : tmp){
+                Double dist = Tools.calculateDistanceInMeters(b.getLat(),b.getLon(),loc.getLatitude(), loc.getLongitude());
+                if(dist<10000.0) {
+                    if (!b.getOwner().equals(getAppUser().getName()) && !b.getBookStatus().equals(BookStatus.BORROWED)) {
+                        rv.add(b);
+                        map.put(b, dist);
+                    }
+                }
+            }
+            Collections.sort(rv, new Comparator<Textbook>() {
+                @Override
+                public int compare(Textbook lhs, Textbook rhs) {
+                    return map.get(lhs).compareTo(map.get(rhs));
+                }
+            });
+            return rv;
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }catch (ExecutionException e){
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     private ArrayList<Textbook> getOfflineBookList(String username){

@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
-import cmput301.textbookhub.Controllers.LoginActivityController;
 import cmput301.textbookhub.Models.User;
 import cmput301.textbookhub.R;
 
@@ -22,14 +22,14 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
     private Button btn_login, btn_register;
     private EditText et_username, et_password;
     private Context context;
-    private LoginActivityController activityController;
+    private ActivityController activityController;
     private AppUserController userController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.activityController = (LoginActivityController) ActivityControllerFactory.getControllerForView(
+        this.activityController = ActivityControllerFactory.getControllerForView(
                 ActivityControllerFactory.FactoryCatalog.ACTIVITY_LOGIN, this);
         this.userController = AppUserController.getInstance();
 

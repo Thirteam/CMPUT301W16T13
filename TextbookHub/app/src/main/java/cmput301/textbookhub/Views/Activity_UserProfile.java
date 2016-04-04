@@ -17,9 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
-import cmput301.textbookhub.Controllers.UserProfileActivityController;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Tools;
 
@@ -43,7 +43,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     private TextView tv_username;
 
 
-    private UserProfileActivityController activityController;
+    private ActivityController activityController;
     private AppUserController userController;
 
     @Override
@@ -51,7 +51,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        this.activityController = (UserProfileActivityController) ActivityControllerFactory.getControllerForView(
+        this.activityController = ActivityControllerFactory.getControllerForView(
                 ActivityControllerFactory.FactoryCatalog.ACTIVITY_USER_PROFILE, this);
         this.userController = AppUserController.getInstance();
 

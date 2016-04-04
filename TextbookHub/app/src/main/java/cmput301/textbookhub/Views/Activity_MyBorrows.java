@@ -59,9 +59,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
         lv_my_borrows.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (userController.hasInternetAccess(context) && !userController.hasServerAccess()) {
-                    return;
-                } else if (!userController.hasInternetAccess(context)) {
+                if (!userController.hasInternetAccess(context)) {
                     return;
                 }
                 if(!activityController.isOkToQuery(((MyBorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID())){

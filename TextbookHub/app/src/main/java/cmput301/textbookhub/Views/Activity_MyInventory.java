@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
-import cmput301.textbookhub.Controllers.MyInventoryActivityController;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Receivers.NetworkStateObserver;
 import cmput301.textbookhub.Receivers.NetworkStateManager;
@@ -39,7 +39,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     private ArrayList inventoryList;
     Spinner spinner;
 
-    private MyInventoryActivityController activityController;
+    private ActivityController activityController;
     private AppUserController userController;
 
     private InventoryListAdapter adapter;
@@ -51,7 +51,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_inventory);
 
-        this.activityController = (MyInventoryActivityController) ActivityControllerFactory.getControllerForView(
+        this.activityController = ActivityControllerFactory.getControllerForView(
                 ActivityControllerFactory.FactoryCatalog.ACTIVITY_MY_INVENTORY, this);
         this.userController = AppUserController.getInstance();
 
@@ -95,6 +95,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         } else {
             inventoryList = userController.getAllPersonalBooks();
         }
+        userController.sortTextbooksByDate(inventoryList);
         resetAdapter();
     }
 

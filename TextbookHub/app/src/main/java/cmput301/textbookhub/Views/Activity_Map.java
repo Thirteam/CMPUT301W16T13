@@ -2,8 +2,6 @@ package cmput301.textbookhub.Views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -29,10 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
+import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
-import cmput301.textbookhub.Controllers.MapActivityController;
+import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.GPSTracker;
 import cmput301.textbookhub.Models.DataHelper;
 import cmput301.textbookhub.R;
@@ -58,9 +54,11 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
     EditText et_address;
     LinearLayout layout_search_address;
 
-    MapActivityController activityController;
+    ActivityController activityController;
+    AppUserController userController;
 
     private Context context;
+    private MarkerOptions marker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,18 +68,16 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
-        this.activityController = (MapActivityController) ActivityControllerFactory.getControllerForView(ActivityControllerFactory.FactoryCatalog.ACTIVITY_MAP, this);
+        this.activityController = ActivityControllerFactory.getControllerForView(ActivityControllerFactory.FactoryCatalog.ACTIVITY_MAP, this);
         this.context = this;
+        this.userController = AppUserController.getInstance();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_ok,
-                null);
+        View view = getLayoutInflater().inflate(R.layout.actionbar_buttonbar_ok, null);
         final ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
-
-
 
         if(getIntent().hasExtra(ACTIVITY_KEY_LAT)){
             this.lat = getIntent().getDoubleExtra(ACTIVITY_KEY_LAT, lat);
@@ -89,7 +85,7 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
         }else{
             Log.i("ERROR--->", "NO VALID LAT LON PASSED IN");
         }
-        gps = new GPSTracker(this);
+
         btn_finish = (Button) view.findViewById(R.id.button_ok);
         btn_search = (Button) findViewById(R.id.button_search_address);
         et_address = (EditText) findViewById(R.id.et_address);
@@ -131,19 +127,18 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
                 finish();
             }
         });
-
+        marker = new MarkerOptions()
+                .position(new LatLng(lat, lon))
+                .title("Trade Location")
+                .snippet("Trade this book here");
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                mapboxMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(lat, lon))
-                        .title("Trade Location")
-                        .snippet("Trade this book here"));
+                mapboxMap.addMarker(marker);
                 //LatLngBounds latLngBounds = new LatLngBounds.Builder().include(new LatLng(lat, lon)).build();
                 mapboxMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                         new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(12).build()
                 ));
-                //CameraUpdateFactory.newLatLngBounds(latLngBounds, 10);
 
             }
         });
@@ -164,6 +159,7 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        gps = new GPSTracker(this);
     }
 
     @Override
@@ -191,46 +187,17 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
         mapView.onDestroy();
     }
 
-    /**
-     * source: http://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address
-     * @param strAddress
-     * @return LatLng object
-     */
-    public LatLng getLocationFromAddress(String strAddress) {
-
-        Geocoder coder = new Geocoder(this);
-        List<Address> address;
-        LatLng p1 = null;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
-            }
-            Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-
-        return p1;
-    }
-
     @Override
     public void updateView() {
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                mapboxMap.removeAnnotations();
-                mapboxMap.addMarker(new MarkerOptions()
+                mapboxMap.removeMarker(marker.getMarker());
+                marker = new MarkerOptions()
                         .position(new LatLng(lat, lon))
                         .title("Trade Location")
-                        .snippet("Trade this book here"));
+                        .snippet("Trade this book here");
+                mapboxMap.addMarker(marker);
                 mapboxMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                         new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(12).build()
                 ));

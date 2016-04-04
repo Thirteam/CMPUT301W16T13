@@ -19,14 +19,31 @@
             android:id="@+id/et_search"
             android:hint="@string/search_en"
             />
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_around"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/padding_inside"
+            android:textColor="@color/pure_white"
+            android:background="@drawable/button_indigo"
+            android:text="@string/around_me_en"/>
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/btn_search"
             android:layout_margin="@dimen/padding_inside"
             android:textColor="@color/pure_white"
+            android:layout_weight="1"
             android:background="@drawable/button_indigo"
             android:text="@string/search_en"/>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -137,6 +137,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     @Override
     public void updateView(){
         bidListAdapter.notifyDataSetChanged();
+        Log.i("JID is---->", "JID:"+activityController.getCurrentBook().getJid());
         this.tv_book_name.setText(this.activityController.getCurrentBook().getName());
         this.tv_book_cat.setText(this.activityController.getCurrentBook().getCategory());
         this.tv_book_comments.setText(this.activityController.getCurrentBook().getComments());

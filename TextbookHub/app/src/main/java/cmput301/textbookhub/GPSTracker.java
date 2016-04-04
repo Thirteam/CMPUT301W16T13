@@ -77,9 +77,20 @@ public class GPSTracker extends Service implements LocationListener {
                     }
                     if (locationManager != null) {
                         try {
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        }catch (SecurityException e){e.printStackTrace();}
+                            locationManager.requestLocationUpdates(
+                                    LocationManager.NETWORK_PROVIDER,
+                                    MIN_TIME_BW_UPDATES,
+                                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                        }catch (SecurityException e){e.printStackTrace();
+
+                        }
+                        if(location == null){
+                            try{
+                                location = locationManager
+                                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                            }catch (SecurityException e1){e1.printStackTrace();}
+                            }
+                        }
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
@@ -102,19 +113,31 @@ public class GPSTracker extends Service implements LocationListener {
 
                         if (locationManager != null) {
                             try {
-                                location = locationManager
-                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                locationManager.requestLocationUpdates(
+                                        LocationManager.GPS_PROVIDER,
+                                        MIN_TIME_BW_UPDATES,
+                                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                Log.d("GPS Enabled", "GPS Enabled");
+
                             }catch (SecurityException e){
                                 e.printStackTrace();
                             }
+                            if(location == null){
+                                try {
+                                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                }catch (SecurityException e1){
+                                    e1.printStackTrace();
+                                }
+                            }
                             if (location != null) {
                                 latitude = location.getLatitude();
+                                Log.i("LAT", "LAT:"+latitude);
                                 longitude = location.getLongitude();
+                                Log.i("LON", "LON:"+longitude);
                             }
                         }
                     }
                 }
-            }
 
         } catch (Exception e) {
             e.printStackTrace();

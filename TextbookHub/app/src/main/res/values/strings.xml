@@ -32,6 +32,7 @@
     <string name="decline_bid">Decline Bid</string>
     <string name="delete_item">Delete Item</string>
     <string name="delete_picture">Delete Picture</string>
+    <string name="activity_title_around_me">Books Around Me</string>
 
     <string name="username_hint">Please enter a unique username</string>
     <string name="password_hint">Type in your password</string>
@@ -52,6 +53,7 @@
     <string name="no_bids">See a book you want? Bid fearlessly!</string>
     <string name="no_borrowed_book">Want to borrow a book? Search for it!</string>
     <string name="no_inventory_book">Have a book to lend? Click New!</string>
+    <string name="nothing_around">Within 10km, there is nothing :P</string>
     <string name="new_book">+ New</string>
 
     <string name="discard_changes">Discard Changes</string>
@@ -63,6 +65,8 @@
     <string name="activity_title_my_books">My Books</string>
     <string name="activity_title_my_borrows">Book(s) I Borrowed</string>
     <string name="take_pictures">+ Picture</string>
+    <string name="distance_">Distance:</string>
+    <string name="around_me_en">Near Me</string>
 
     <string name="error">Error</string>
     <string name="invalid_bid_entered">Invalid bid entered, please enter a bid higher than the current bid</string>

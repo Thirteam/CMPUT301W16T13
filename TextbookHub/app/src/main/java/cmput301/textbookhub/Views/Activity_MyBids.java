@@ -53,9 +53,7 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView, Netw
         lv_my_bids.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (userController.hasInternetAccess(context) && !userController.hasServerAccess()) {
-                    return;
-                } else if (!userController.hasInternetAccess(context)) {
+                if (!userController.hasInternetAccess(context)) {
                     return;
                 }
                 if(!activityController.isOkToQuery(((MyBidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID())){

@@ -32,34 +32,16 @@ public abstract class ActivityController extends BaseController{
         this.views = new ArrayList<>();
     }
 
-
-
-    public BookStatus findBookStatus(String name) throws IllegalArgumentException{
-        for(BookStatus status : BookStatus.values()){
-            if(status.equalsName(name)){
-                return status;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    public ArrayList<BaseView> getBaseViews() {
-        return views;
-    }
-
-    public void setBaseViews(ArrayList<BaseView> list) {
-        this.views = list;
-    }
-
     public void addBaseView(BaseView view) {
         this.views.add(view);
     }
 
-    public void updateBaseViews() {
-        for(BaseView v : this.views)
-            v.updateView();
-    }
-
+    /**
+     * Display a general purpose notification dialog
+     * @param ctx activity context
+     * @param title dialog title
+     * @param msg dialog message
+     */
     public void displayNotificationDialog(Context ctx, String title, String msg){
         AlertDialog.Builder dialog = new AlertDialog.Builder(ctx);
         dialog.setTitle(title);
@@ -81,6 +63,11 @@ public abstract class ActivityController extends BaseController{
         }
     }
 
+    /**
+     * Check if a certain book is up to date on the server
+     * @param id
+     * @return boolean
+     */
     public boolean isOkToQuery(String id){
         try{
             queryTextbook(id);

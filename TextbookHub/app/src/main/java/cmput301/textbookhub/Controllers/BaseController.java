@@ -3,10 +3,13 @@ package cmput301.textbookhub.Controllers;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cmput301.textbookhub.Models.Bid;
 import cmput301.textbookhub.Models.BookStatus;
@@ -98,11 +101,21 @@ public abstract class BaseController {
     public void updateTextbookOnServer(Textbook b){
         DataHelper.UpdateTextbookTask execute = new DataHelper.UpdateTextbookTask();
         execute.execute(b);
+        Log.i("JID is", "ID:" + b.getJid());
     }
 
     public void clearAndResetBids(Textbook b){
         b.clearAllBids();
         b.addBid(new Bid(Double.parseDouble(b.getStartBidAmount()), queryUser(b.getOwner())));
+    }
+
+    public void sortTextbooksByDate(ArrayList<Textbook> list){
+        Collections.sort(list, new Comparator<Textbook>() {
+            @Override
+            public int compare(Textbook lhs, Textbook rhs) {
+                return new Double(Double.parseDouble(rhs.getTimestamp())).compareTo(new Double(Double.parseDouble(lhs.getTimestamp())));
+            }
+        });
     }
 
 }

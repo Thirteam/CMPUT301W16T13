@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -17,12 +18,10 @@ import android.widget.EditText;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
+import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.AppUserController;
-import cmput301.textbookhub.Controllers.EditBookActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.Textbook;
@@ -40,7 +39,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
     static final int REQUEST_LOCATION_SETTING = 4321;
 
     private Button btn_save, btn_cancel;
-    private EditBookActivityController activityController;
+    private ActivityController activityController;
     private AppUserController userController;
     private Button btn_add_pic, btn_set_location;
     private EditText et_book_name, et_book_edition, et_book_comments,  et_starting_bid;
@@ -63,8 +62,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.context = this;
 
         //need two controllers for every activity
-        this.activityController = (EditBookActivityController) ActivityControllerFactory.getControllerForView(
-                ActivityControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
+        this.activityController = ActivityControllerFactory.getControllerForView(ActivityControllerFactory.FactoryCatalog.ACTIVITY_EDIT_BOOK, this);
         this.userController = AppUserController.getInstance();
         //customize actionbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -98,6 +96,7 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
             LatLng loc =userController.getCurrUserLocation();
             this.lat = loc.getLatitude();
             this.lon = loc.getLongitude();
+            Log.i("LAUNCHING ", "EDITBOOKACTIVITY WITHOUT VALID TRADE LOC, CURR LOC"+this.lat+" || "+this.lon);
         }
 
         btn_save.setOnClickListener(new View.OnClickListener() {

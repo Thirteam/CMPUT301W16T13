@@ -76,9 +76,4 @@
             android:layout_below="@id/tv_nothing_here"/>
 
     </LinearLayout>
-
-
-
-
-
 </RelativeLayout>

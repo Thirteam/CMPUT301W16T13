@@ -1,6 +1,8 @@
 package cmput301.textbookhub;
 
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.util.Log;
 
 
 /**
@@ -70,6 +72,17 @@ public class Tools {
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    public static Double calculateDistanceInMeters(Double latA, Double lngA, Double latB, Double lngB){
+        Location locationA = new Location("point A");
+        locationA.setLatitude(latA);
+        locationA.setLongitude(lngA);
+        Location locationB = new Location("point B");
+        locationB.setLatitude(latB);
+        locationB.setLongitude(lngB);
+        Log.i("DIST CALC", latA + "," + lngA + " to " + latB + "," + lngB + " distance is " + locationA.distanceTo(locationB));
+        return new Double(locationA.distanceTo(locationB));
     }
 
 }

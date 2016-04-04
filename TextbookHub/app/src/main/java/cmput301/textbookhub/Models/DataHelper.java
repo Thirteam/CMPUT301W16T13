@@ -183,36 +183,31 @@ public class DataHelper {
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
-
-            String search_string = "";
-
+            String search_string;
             //Start our initial array list (empty)
             ArrayList<Textbook> textbooks =  new ArrayList<Textbook>();
-
-            for(String key:search_strings) {
-                if (Tools.isStringValid(search_strings[0])) {
-                    search_string = "{\"query\": {\"match\":{ \"bookName\": \"" + key + "\"}}}";
+            if(search_strings.length != 0 && Tools.isStringValid(search_strings[0])) {
+                search_string = "{\"query\": {\"match\":{ \"bookName\": \"" + search_strings[0] + "\"}}}";
+            }else{
+                search_string = "{\"query\": {\"match_all\":{}}}";
+            }
+            //Note: I'm making a huge assumption here, that only the first search term will be used.
+            Search search = new Search.Builder(search_string)
+                    .addIndex("thirteam")
+                    .addType("textbook")
+                    .build();
+            try {
+                SearchResult execute = client.execute(search);
+                if (execute.isSucceeded()) {
+                    //Search our list of tweets
+                    List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
+                    textbooks.addAll(returned_books);
+                } else {
+                    //TODO add an error message
+                    Log.i("ERROR SEARCH", execute.getErrorMessage());
                 }
-
-                //Note: I'm making a huge assumption here, that only the first search term will be used.
-                Search search = new Search.Builder(search_string)
-                        .addIndex("thirteam")
-                        .addType("textbook")
-                        .build();
-
-                try {
-                    SearchResult execute = client.execute(search);
-                    if (execute.isSucceeded()) {
-                        //Search our list of tweets
-                        List<Textbook> returned_books = execute.getSourceAsObjectList(Textbook.class);
-                        textbooks.addAll(returned_books);
-                    } else {
-                        //TODO add an error message
-                        Log.i("ERROR SEARCH", execute.getErrorMessage());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return textbooks;
         }
@@ -381,7 +376,8 @@ public class DataHelper {
         @Override
         protected Void doInBackground(String... ids){
             verifyClient();
-            Delete del = new Delete.Builder(ids[0]).index("thirteam").type("textbook").build();
+            Delete del = new Delete.Builder(ids[0]).id(ids[0]).index("thirteam").type("textbook").build();
+            Log.i("DELETE", "DELETING WITH ID"+ids[0]);
             try {
                 DocumentResult result = client.execute(del);
                 if (!result.isSucceeded()) {
@@ -564,6 +560,7 @@ public class DataHelper {
             return null;
         }
     }
+
 
     public static class GetLocationFromAddressTask  extends AsyncTask<String, Void, JSONObject>{
 

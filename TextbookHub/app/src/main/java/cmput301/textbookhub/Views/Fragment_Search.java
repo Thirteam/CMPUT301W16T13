@@ -31,7 +31,7 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
     private  TextView tv_hint, tv_no_conn_hint;
     private  SearchListAdapter adapter;
     private EditText et_search;
-    private Button btn_search;
+    private Button btn_search, btn_near_me;
     AppUserController userController;
     MainActivityController activityController;
 
@@ -43,6 +43,7 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
         tv_hint = (TextView) v.findViewById(R.id.tv_search_hint);
         et_search = (EditText) v.findViewById(R.id.et_search);
         btn_search = (Button) v.findViewById(R.id.btn_search);
+        btn_near_me = (Button) v.findViewById(R.id.btn_around);
         tv_no_conn_hint = (TextView) v.findViewById(R.id.tv_no_conn_hint);
         userController = AppUserController.getInstance();
         tv_hint.setText(getResources().getString(R.string.new_search));
@@ -56,6 +57,18 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
                 }
             }
         });
+        this.btn_near_me.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userController.hasInternetAccess(getContext()) && !userController.hasServerAccess()) {
+                    return;
+                } else if (!userController.hasInternetAccess(getContext())) {
+                    return;
+                }
+                Intent i = new Intent(getContext(), Activity_AroundMe.class);
+                startActivity(i);
+            }
+        });
         this.adapter = new SearchListAdapter(v.getContext(), R.layout.adapter_search_list, activityController.getCurrSearchResult());
         lv_search_result.setAdapter(adapter);
         initListViewClickListener();
@@ -65,12 +78,10 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
 
     private void search(){
         if(userController.hasInternetAccess(getContext()) && userController.hasServerAccess()) {
-            if (Tools.isStringValid(et_search.getText().toString())) {
                 activityController.initNewSearch(et_search.getText().toString());
                 adapter = new SearchListAdapter(getContext(), R.layout.adapter_search_list, activityController.getCurrSearchResult());
                 lv_search_result.setAdapter(adapter);
                 toggleView();
-            }
         }
     }
 

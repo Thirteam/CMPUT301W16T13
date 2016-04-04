@@ -493,6 +493,7 @@
     <string name="accessToken">pk.eyJ1IjoieHVlZmVpMSIsImEiOiJjaW1sbmo3OHQwN2d1dTRtNm84bmVsaW0zIn0.0NX2qut-ZonP8Xj9Kl2mqQ</string>
     <string name="actions_picture">What do you want to do with this picture?</string>
     <string name="actions_title">Actions</string>
+    <string name="activity_title_around_me">Books Around Me</string>
     <string name="activity_title_my_bids">Book(s) I Bid On</string>
     <string name="activity_title_my_books">My Books</string>
     <string name="activity_title_my_borrows">Book(s) I Borrowed</string>
@@ -501,6 +502,9 @@
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
     <eat-comment/>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="around_me_en">Near Me</string>
     <!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.mapbox.mapboxsdk/mapbox-android-sdk/4.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="attributionTelemetryMessage">You are helping to make OpenStreetMap and Mapbox maps better by contributing anonymous usage data.</string>
@@ -540,6 +544,7 @@
     <string name="delete_item">Delete Item</string>
     <string name="delete_picture">Delete Picture</string>
     <string name="discard_changes">Discard Changes</string>
+    <string name="distance_">Distance:</string>
     <string name="edit_en">Edit</string>
     <string name="edit_warning">Edit this textbook will remove all the current bids, proceed?</string>
     <string name="email">Email</string>
@@ -579,6 +584,7 @@
     <string name="no_en">No</string>
     <string name="no_inventory_book">Have a book to lend? Click New!</string>
     <string name="no_result_found">No result(s) found</string>
+    <string name="nothing_around">Within 10km, there is nothing :P</string>
     <string name="nothing_here">There is nothing here!</string>
     <string name="offline_content">No internet connection found, only limited features will be available</string>
     <string name="offline_new_book">New book(s) will be uploaded to the server later when there is a connection</string>
