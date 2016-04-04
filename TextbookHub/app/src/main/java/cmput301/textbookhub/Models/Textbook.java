@@ -14,6 +14,16 @@ import cmput301.textbookhub.Tools;
 import io.searchbox.annotations.JestId;
 
 /**
+ * <code>Textbook</code> is the item user own or borrowed. It is can also be bid on.
+ * Textbooks can be find by searching through the database.
+ *
+ * @author Thirteam
+ * @version 1.1
+ * @since 2016/03/08
+ * @see BidList
+ * @see BookShelf
+ * @see BookStatus
+ *
  * Created by Fred on 2016/3/8.
  */
 public class Textbook implements NamedItem, UniqueItem<String>{
@@ -149,10 +159,20 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return bids;
     }
 
+    /**
+     * <code>getBookHighestBidAmount</code> gets the highest <code>Bid</code> for this <code>Textbook</code>.
+     *
+     * @return highest monetary <code>Bid</code> amount.
+     */
     public Double getBookHighestBidAmount(){
         return bids.getHighestBid().getAmount();
     }
 
+    /**
+     * The builder is used to build a <code>Textbook</code>
+     *
+     * <p>This aids in the building of </p>
+     */
     public static class Builder{
 
         private Textbook textbook;
@@ -212,6 +232,7 @@ public class Textbook implements NamedItem, UniqueItem<String>{
 
     }
 
+<<<<<<< HEAD
     public Double getLat() {
         return lat;
     }
@@ -228,6 +249,13 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         this.lon = lon;
     }
 
+=======
+    /**
+     * <code>getPictures</code> returns the pictures for the specified <code>Textbook</code>
+     *
+     * @return an ArrayList of pictures
+     */
+>>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     public ArrayList<Bitmap>getPictures(){
         ArrayList<Bitmap> rv = new ArrayList<>();
         for(String pic:this.pictures){
@@ -236,20 +264,52 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return rv;
     }
 
+<<<<<<< HEAD
     public void clearAllPictures(){
         this.pictures.clear();
     }
 
+=======
+    /**
+     * <code>addPicture</code> adds a picture to the <code>Textbook</code>
+     *
+     * @param pic the picture to be added
+     */
+>>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     public void addPicture(Bitmap pic){
         String str = convertBitmapToString(pic);
         this.pictures.add(str);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * <code>removePictureAt</code> removes the picture from the <code>Textbook</code> at the specified index
+     *
+     * @param idx the index of the picture to be removed from this <code>Textbook</code>
+     */
+    public void removePictureAt(int idx){
+        this.pictures.remove(idx);
+    }
+
+    /**
+     * <code>convertStringToBitmap</code> converts the <code>String</code> to bitmap format
+     *
+     * @param pic the <code>String</code> to be converted
+     * @return the bitmap result
+     */
+>>>>>>> a1c81148f4f58e28a2b0cf4421ab915891569b53
     private Bitmap convertStringToBitmap(String pic){
         byte[] decodeString = Base64.decode(pic, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
     }
 
+    /**
+     * <code>convertBitmapToString</code> converts the bitmap format to the <code>String</code> format
+     *
+     * @param picture the bitmap to converted
+     * @return the resulting <code>String</code>
+     */
     public String convertBitmapToString(Bitmap picture){
         int bitmapByteCount= BitmapCompat.getAllocationByteCount(picture);
         Log.i("SIZE IN BYTES BEFORE", ""+bitmapByteCount);

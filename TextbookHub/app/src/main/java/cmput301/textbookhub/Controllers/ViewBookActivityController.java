@@ -15,6 +15,13 @@ import cmput301.textbookhub.Tools;
 import cmput301.textbookhub.Views.Activity_EditBook;
 
 /**
+ * <code>ViewBookActivityController</code> the controller of <code>Activity_ViewBook</code>
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/10
+ * @see ActivityController
+ * @see cmput301.textbookhub.Views.Activity_ViewBook
+ *
  * Created by Fred on 2016/3/10.
  *
  * Each activity controller is dedicated to one activity

@@ -3,9 +3,13 @@ package cmput301.textbookhub.Controllers;
 import cmput301.textbookhub.Views.BaseView;
 
 /**
- * Created by Fred on 2016/3/10.
+ * <code>ActivityControllerFactory</code> producing controllers for different activities
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/10
+ * @see ActivityController
  *
- * Controller factory producing controllers for different activities
+ * Created by Fred on 2016/3/10.
  */
 public class ActivityControllerFactory {
 

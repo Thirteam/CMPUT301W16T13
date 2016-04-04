@@ -15,9 +15,13 @@ import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.BaseView;
 
 /**
+ * <code>ActivityController</code> class responsible for handling activity related tasks
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/08
+ *
  * Created by Fred on 2016/3/8.
  *
- * Base controller class responsible for handling activity related tasks
  */
 public abstract class ActivityController extends BaseController{
 
