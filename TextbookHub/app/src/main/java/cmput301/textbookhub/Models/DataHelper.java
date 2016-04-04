@@ -20,6 +20,12 @@ import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
+ * <code>DataHelper</code> is used to upload and download information to/from Elastic Search.
+ *
+ * @author Thirteam
+ * @version 1.4
+ * @since 2016/03/12
+ *
  * Created by Jayden on 2016-03-12.
  *
  * Based on the code built by esports
@@ -27,7 +33,19 @@ import io.searchbox.core.Update;
 public class DataHelper {
     private static JestDroidClient    client;
 
+    /**
+     * Get <code>Textbook</code>(s) from the ElasticSearch server.
+     * <p>This class runs a background task to obtain a list of <code>Textbook</code>s <br>
+     *     In order to populate the <code>BookShelf</code></p>
+     * */
     public static class GetTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+
+        /**
+         * Get a <code>Textbook</code>(s) from ElasticSearch
+         *
+         * @param search_strings the parameters to search ElasticSearch with (username)
+         * @return An ArrayList of the <code>Textbook</code>(s) returned by the query.
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
@@ -65,7 +83,19 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Update the information of the current <code>User</code> on the ElasticSearch server.
+     * <p>This class runs a background task to update <code>User</code> without reducing <br>
+     *     the fluidity of the app..</p>
+     * */
     public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        /**
+         * Update the current <code>User</code> information on ElasticSearch.
+         *
+         * @param users the <Code>User</Code>(s) to update from local memory.
+         * @return <code>null</code>
+         * */
         @Override
         protected Void doInBackground(User... users){
             String script_pass = "{\"doc\":{" +
@@ -92,7 +122,20 @@ public class DataHelper {
         }
     }
 
+    /**
+     * This class is used mainly to test server connectivity
+     * <p>This class runs this background task so that it may test for online connectivity <br>
+     *     With the intention of pushing all changes on local memory to ElasticSearch should <br>
+     *     Online connectivity resume/begin.</p>
+     * */
     public static class TestServerConnectionTask  extends AsyncTask<Void, Void, Boolean>{
+
+        /**
+         * Test the current connection to the ElasticSearch server.
+         *
+         * @param params <code>null</code> parameter(s) to test connection.
+         * @return <code>true</code> for connecting or <code>false</code> for timing out.
+         * */
         @Override
         protected Boolean doInBackground(Void... params) {
             verifyClient();
@@ -114,7 +157,19 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Search for <code>Textbook</code>(s) from the ElasticSearch server.
+     * <p>This class runs a background task to obtain a list of <code>Textbook</code>s <br>
+     *     that match the search_strings</p>
+     * */
     public static class SearchTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+
+        /**
+         * Get a list of <code>Textbook</code>(s) that match the criteria set by <code>search_strings</code>.
+         *
+         * @param search_strings the keywords used in the query
+         * @return An ArrayList of <code>Textbook</code>(s) matching the search_strings
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
@@ -153,7 +208,18 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Get all <code>Textbook</code>(s) from the ElasticSearch server.
+     * <p>This class runs a background task to obtain a list of all <code>Textbook</code>s</p>
+     * */
     public static class GetAllTextbookTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+
+        /**
+         * Gets all the <code>Textbook</code>s from the ElasticSearch server
+         *
+         * @param search_strings
+         * @return An ArrayList of all <code>Textbook</code>(s) from the ElasticSearch server
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
@@ -191,7 +257,20 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Get bidded <code>Textbook</code>(s) by a specific bidder from the ElasticSearch server.
+     * <p>This class runs a background task to obtain a list of <code>Textbook</code>s <br>
+     *     In order to populate the My Bids activity with <code>Textbook</code>(s) the <br>
+     *     current user has bidded on.</p>
+     * */
     public static class GetBiddedTextbookByBidderTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+
+        /**
+         * Gets the bidded <code>Textbook</code>(s) by the <code>User</code>.
+         *
+         * @param search_strings the <code>User</code> to query for
+         * @return An ArrayList of <code>Textbook</code>(s) matching the query.
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
@@ -226,7 +305,19 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Get <code>Textbook</code>(s) currently borrowed from by a specific <code>User</code> from the ElasticSearch server.
+     * <p>This class runs a background task to obtain a list of <code>Textbook</code>s <br>
+     *     In order to populate the Borrowed activity</p>
+     * */
     public static class GetTextbookByBorrowerTask extends AsyncTask<String, Void, ArrayList<Textbook>>{
+
+        /**
+         * Gets the <code>Textbook</code>(s) borrowed by the current <code>User</code>.
+         *
+         * @param search_strings the <code>User</code> to get a list of borrowed <code>Textbook</code>(s) from.
+         * @return An ArrayList of borrowed <code>Textbook</code>(s) for the current <code>User</code>.
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(String... search_strings){
             verifyClient();
@@ -264,7 +355,19 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Delete <code>Textbook</code>(s) from the ElasticSearch server.
+     * <p>This class runs a background task to delete a list of <code>Textbook</code>(s) <br>
+     *     from the ElasticSearch server</p>
+     * */
     public static class DeleteTextbookTask extends AsyncTask<String, Void, Void> {
+
+        /**
+         * Removes the <code>Textbook</code>(s) with the id(s) matching those in ids.
+         *
+         * @param ids the id(s) of the <code>Textbook</code>(s) to be removed
+         * @return <code>null</code>
+         * */
         @Override
         protected Void doInBackground(String... ids){
             verifyClient();
@@ -281,10 +384,20 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Add a <code>Textbook</code>(s) to the ElasticSearch server.
+     * <p>This class runs a background task to add a <code>Textbook</code> to the ElasticSearch server.</p>
+     * */
     public static class AddTextbookTask extends AsyncTask<Textbook, Void, ArrayList<Textbook>> {
         
         private ArrayList<Textbook> books = new ArrayList<>();
 
+        /**
+         * Adds the <code>Textbook</code> to the ElasticSearch server
+         *
+         * @param textbooks the <code>Textbook</code>(s) to be added to the server.
+         * @return An ArrayList of the <code>Textbook</code>(s) added.
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(Textbook... textbooks){
             verifyClient();
@@ -315,10 +428,21 @@ public class DataHelper {
 
 
 
+    /**
+     * Update the <code>Textbook</code>(s) information on ElasticSearch from local memory.
+     * <p>This class runs a background task to obtain a list of <code>Textbook</code>s <br>
+     *     In order to populate the <code>BookShelf</code></p>
+     * */
     public static class UpdateTextbookTask extends AsyncTask<Textbook, Void, ArrayList<Textbook>> {
 
         private ArrayList<Textbook> books = new ArrayList();
 
+        /**
+         * Updates the <code>Textbook</code>(s) information on the server.
+         *
+         * @param textbooks
+         * @return <code>true</code> for connecting or <code>false</code> for timing out.
+         * */
         @Override
         protected ArrayList<Textbook> doInBackground(Textbook... textbooks){
             verifyClient();
@@ -346,7 +470,18 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Get <code>User</code>(s) from the ElasticSearch server.
+     * <p>This class runs a background task to obtain an ArrayList of <code>Users</code>(s) </p>
+     * */
     public static class GetUserTask extends AsyncTask<String, Void, ArrayList<User>>{
+
+        /**
+         * Gets <code>User</code> from the server
+         *
+         * @param search_strings <code>User</code> to get from server.
+         * @return An ArrayList of <code>User</code>(s)
+         * */
         @Override
         protected ArrayList<User> doInBackground(String... search_strings){
             verifyClient();
@@ -383,7 +518,18 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Adds <code>User</code>(s) to the ElasticSearch server
+     * <p>This class runs a background task to obtain a list of <code>User</code>(s).</p>
+     * */
     public static class AddUserTask extends AsyncTask<User, Void, Void> {
+
+        /**
+         * Adds the <code>User</code>(s) to the Server
+         *
+         * @param users the list of <code>User</code>(s) to add.
+         * @return <code>null</code>
+         * */
         @Override
         protected Void doInBackground(User... users){
             verifyClient();
@@ -409,6 +555,10 @@ public class DataHelper {
         }
     }
 
+    /**
+     * Verify the connection to the ElasticSearch server.
+     *
+     * */
     public static void verifyClient(){
         //1. Verify the client exists
         //2. If is doesn't, make it
