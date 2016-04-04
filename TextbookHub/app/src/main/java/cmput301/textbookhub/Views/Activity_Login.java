@@ -37,6 +37,8 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
         btn_register = (Button) findViewById(R.id.button_register);
         et_username = (EditText) findViewById(R.id.et_username);
         et_password = (EditText) findViewById(R.id.et_password);
+        et_username.getText().clear();
+        et_password.getText().clear();
         context = this;
 
         btn_login.setOnClickListener(new View.OnClickListener() {

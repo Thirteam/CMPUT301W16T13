@@ -3,8 +3,6 @@ package cmput301.textbookhub.Controllers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import java.util.ArrayList;
 
 import cmput301.textbookhub.Models.BookStatus;
+import cmput301.textbookhub.Models.Textbook;
 import cmput301.textbookhub.R;
 import cmput301.textbookhub.Views.BaseView;
 
@@ -75,6 +74,16 @@ public abstract class ActivityController extends BaseController{
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public boolean isOkToQuery(String id){
+        try{
+            Textbook b = queryTextbook(id);
+            return true;
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return false;
         }
     }
 

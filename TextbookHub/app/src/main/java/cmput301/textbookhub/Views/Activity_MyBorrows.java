@@ -36,6 +36,8 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
     private AppUserController userController;
     private MyBorrowedListAdapter adapter;
 
+    public static final int REQUEST_DID_RETURN_BOOK = 1111;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +64,15 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
                 } else if (!userController.hasInternetAccess(context)) {
                     return;
                 }
+                if(!activityController.isOkToQuery(((MyBorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID())){
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.wait_update));
+                    return;
+                }
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
                 b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((MyBorrowedListAdapter) lv_my_borrows.getAdapter()).getItem(position).getID());
                 i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                startActivityForResult(i, 0);
+                startActivityForResult(i, REQUEST_DID_RETURN_BOOK);
             }
         });
         adapter = new MyBorrowedListAdapter(this.context, R.layout.adapter_book_borrowed, activityController.getBooksIBorrowed(userController.getAppUser().getName()));
@@ -99,9 +105,9 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if(requestCode == REQUEST_DID_RETURN_BOOK && resultCode == RESULT_OK){
             String book_id = data.getStringExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID);
-            if(book_id!=null){
+            if(book_id!=null && data.hasExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_RETURNED)){
                 refreshListViewData(book_id);
             }else{
                 Log.i("ON RESULT FAILED", "NO ID FOUND");
@@ -143,6 +149,7 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
                 finish();
             }
         });
+        dialog.setCancelable(false);
         dialog.show();
     }
 

@@ -18,6 +18,9 @@ android {
         }
     }
 }
+android {
+    useLibrary 'org.apache.http.legacy'
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -25,4 +28,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile files('src/main/includes/jest-droid-2.0.1-SNAPSHOT.jar')
+    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:4.0.0@aar') {
+        transitive = true
+    }
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'org.apache.karaf.http:http:3.0.6'
 }

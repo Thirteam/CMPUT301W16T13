@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MainActivityController;
@@ -81,6 +81,10 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
                 if (userController.hasInternetAccess(getContext()) && !userController.hasServerAccess()) {
                     return;
                 } else if (!userController.hasInternetAccess(getContext())) {
+                    return;
+                }
+                if(!activityController.isOkToQuery(adapter.getItem(position).getID())){
+                    activityController.displayNotificationDialog(getContext(), getContext().getResources().getString(R.string.error), getContext().getResources().getString(R.string.wait_update));
                     return;
                 }
                 Intent i = new Intent(getContext(), Activity_ViewBook.class);

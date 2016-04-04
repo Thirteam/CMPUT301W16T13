@@ -135,13 +135,14 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/padding_line_spacing_large"
-            android:paddingTop="@dimen/padding_line_spacing_small"
             >
 
-            <ViewPager
+            <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="240dp"
                 android:id="@+id/vp_pictures"
+                android:visibility="visible"
+                android:layout_marginBottom="@dimen/padding_line_spacing_small"
                 />
 
             <TextView
@@ -151,7 +152,7 @@
             android:paddingEnd="@dimen/padding_title"
             android:paddingLeft="@dimen/padding_title"
             android:paddingRight="@dimen/padding_title"
-            android:paddingStart="@dimen/padding_title"
+            android:paddingStart="@dimen/padding_title" android:layout_marginTop="@dimen/padding_line_spacing_medium"
             android:text="@string/book_name_"
             android:textColor="@color/mat_grey_superdark"
             android:textSize="@dimen/textsize_large"

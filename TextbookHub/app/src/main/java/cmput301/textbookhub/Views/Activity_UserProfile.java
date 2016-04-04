@@ -94,9 +94,9 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                         btn_save.setText(getResources().getString(R.string.save_en));
                         btn_finish.setText(getResources().getString(R.string.cancel_en));
                     } else {
-
                             if (Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
                                 userController.updateExistingUser(et_password.getText().toString(), et_email.getText().toString());
+                                activityController.clearOnScreenKsyboard((Activity_UserProfile)(context));
                                 finish();
                             } else {
                                 activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.invalid_user_profile));
@@ -142,6 +142,7 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
                 public void onClick(View v) {
                     if (Tools.isStringValid(et_username.getText().toString()) && Tools.isStringValid(et_password.getText().toString()) && Tools.isStringValid(et_email.getText().toString())) {
                         if (userController.registerNewUser(et_username.getText().toString(), et_password.getText().toString(), et_email.getText().toString())) {
+                            activityController.clearOnScreenKsyboard((Activity_UserProfile)(context));
                             Intent intent = new Intent(context, Activity_Main.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             context.startActivity(intent);

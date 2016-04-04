@@ -44,6 +44,8 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
 
     private InventoryListAdapter adapter;
 
+    public static final int REQUEST_SHOULD_CLEAR_INDICATOR = 1309;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,11 +202,15 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
                     } else if (!userController.hasInternetAccess(context)) {
                         return;
                     }
+                    if(!activityController.isOkToQuery(((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID())){
+                        activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.wait_update));
+                        return;
+                    }
                     Intent i = new Intent(context, Activity_ViewBook.class);
                     Bundle b = new Bundle();
                     b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((InventoryListAdapter) lv_my_books.getAdapter()).getItem(position).getID());
                     i.putExtra(Activity_ViewBook.INTENT_EXTRAS_KEY_BUNDLE, b);
-                    startActivityForResult(i, 0);
+                    startActivityForResult(i, REQUEST_SHOULD_CLEAR_INDICATOR);
                 }
             });
         }else{
@@ -242,7 +248,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if(requestCode == REQUEST_SHOULD_CLEAR_INDICATOR && resultCode == RESULT_OK){
             String book_to_clear_indicator = data.getStringExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID);
             Log.i("CLEAR", "INDICATOR");
             adapter.clearIndicator(book_to_clear_indicator);

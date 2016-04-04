@@ -1,11 +1,12 @@
 package cmput301.textbookhub.Views;
 
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     public static final String BUNDLE_KEY_BOOK_ID = "BOOK_ID";
     public static final String INTENT_EXTRAS_KEY_BUNDLE = "BUNDLE";
     public static final String ACTIVITY_RESULT_KEY_BOOK_ID = "BOOK_ID";
+    public static final String ACTIVITY_RESULT_KEY_BOOK_RETURNED = "BOOK_RETURNED";
 
     private Button btn_finish;
     private Button btn_delete;
@@ -59,6 +61,8 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
     private LinearLayout bid_section;
     private LinearLayout borrowed_section_layout;
     private EmbeddedListView lv_bid_hist;
+    private ViewPager picturePager;
+    private PicturePagerAdapter pagerAdapter;
     private Context context;
 
     private String book_id;
@@ -120,8 +124,12 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                 finish();
             }
         });
+        this.picturePager = (ViewPager) findViewById(R.id.vp_pictures);
+        this.pagerAdapter = new PicturePagerAdapter(context, activityController.getCurrentBook().getPictures(), picturePager, false);
+        this.picturePager.setAdapter(this.pagerAdapter);
         initActionView();
         updateView();
+        //Toast.makeText(this, "Size:"+picturePager.getAdapter().getCount(),Toast.LENGTH_LONG).show();
     }
 
 
@@ -137,6 +145,11 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
         this.tv_book_status.setText(this.activityController.getCurrentBook().getBookStatus().toString());
         if(!this.activityController.getCurrentBook().getBookStatus().equals(BookStatus.BORROWED)) {
             this.btn_current_highest_bid.setText(this.activityController.getCurrentBook().getBidList().getHighestBid().toString());
+        }
+        if(this.pagerAdapter.getCount() == 0){
+            this.picturePager.setVisibility(View.GONE);
+        }else{
+            this.picturePager.setVisibility(View.VISIBLE);
         }
     }
 
@@ -172,6 +185,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                         activityController.updateCurrentTextbook();
                         Intent i = getIntent();
                         i.putExtra(Activity_ViewBook.ACTIVITY_RESULT_KEY_BOOK_ID, activityController.getCurrentBook().getID());
+                        i.putExtra(ACTIVITY_RESULT_KEY_BOOK_RETURNED, ACTIVITY_RESULT_KEY_BOOK_RETURNED);
                         setResult(RESULT_OK, i);
                         finish();//On activity result is needed
                     }
@@ -184,7 +198,11 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                             finish();
                         }
                         //launch map activity
-
+                        Intent i = new Intent(context, Activity_Map.class);
+                        i.putExtra(Activity_Map.ACTIVITY_KEY_LAT, activityController.getCurrentBook().getLat());
+                        i.putExtra(Activity_Map.ACTIVITY_KEY_LONG, activityController.getCurrentBook().getLon());
+                        i.putExtra(Activity_Map.ACTIVITY_TYPE, Activity_Map.ACTIVITY_VIEW_ONLY);
+                        startActivity(i);
                     }
                 });
             }
@@ -215,7 +233,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                                 finish();
                             }
                         });
-                        b.setNegativeButton(getResources().getString(R.string.cancel_en), new DialogInterface.OnClickListener() {
+                        b.setNegativeButton(getResources().getString(R.string.no_en), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
@@ -242,7 +260,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                             finish();
                         }
                     });
-                    b.setNegativeButton(getResources().getString(R.string.cancel_en), new DialogInterface.OnClickListener() {
+                    b.setNegativeButton(getResources().getString(R.string.no_en), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

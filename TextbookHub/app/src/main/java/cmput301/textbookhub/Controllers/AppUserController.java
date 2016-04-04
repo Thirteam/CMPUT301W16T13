@@ -1,9 +1,13 @@
 package cmput301.textbookhub.Controllers;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.GPSTracker;
 import cmput301.textbookhub.Models.BookStatus;
 import cmput301.textbookhub.Models.OfflineCommandList;
 import cmput301.textbookhub.Models.DataHelper;
@@ -218,6 +222,20 @@ public class AppUserController extends BaseController implements NetworkStateObs
     @Override
     public void onInternetDisconnect() {
         loadUserBookShelf();
+    }
+
+    public LatLng getCurrUserLocation(){
+        GPSTracker gps = new GPSTracker(context);
+        Double lat = 53.631611;
+        Double lon = -113.323975;
+        if(gps.canGetLocation()){
+            lat = gps.getLatitude();
+            lon = gps.getLongitude();
+        }else {
+            Log.i("GPS FAILURE", "CANNOT GET LOC");
+        }
+        gps.stopUsingGPS();
+        return new LatLng(lat, lon);
     }
 
     public void executeOfflineCommands(){

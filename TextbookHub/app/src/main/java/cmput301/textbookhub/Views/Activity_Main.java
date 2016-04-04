@@ -28,7 +28,6 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
     private MainActivityController activityController;
     private AppUserController userController;
     AlertDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,16 +41,8 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(getResources().getString(R.string.offline_title));
-        b.setMessage(getResources().getString(R.string.offline_content));
-        b.setPositiveButton(getResources().getString(R.string.ok_en), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog = b.create();
+        makeConnectionLostDialog();
+        updateView();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -69,7 +60,13 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
     }
 
     @Override
-    public void updateView(){}
+    public void updateView(){
+        if(activityController.hasInternetAccess(this)){
+            dialog.dismiss();
+        }else{
+            dialog.show();
+        }
+    }
 
     @Override
     public void onInternetConnect() {
@@ -122,5 +119,19 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
         super.onPause();
         //userController.saveOfflineCommands();
         userController.saveOfflineUserProfile();
+        NetworkStateManager.getInstance().removeViewObserver(this);
+    }
+
+    public void makeConnectionLostDialog(){
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(getResources().getString(R.string.offline_title));
+        b.setMessage(getResources().getString(R.string.offline_content));
+        b.setPositiveButton(getResources().getString(R.string.ok_en), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = b.create();
     }
 }

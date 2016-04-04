@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TextbookHub</string>
-
+    <string name="accessToken">pk.eyJ1IjoieHVlZmVpMSIsImEiOiJjaW1sbmo3OHQwN2d1dTRtNm84bmVsaW0zIn0.0NX2qut-ZonP8Xj9Kl2mqQ</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="username_">Username:</string>
@@ -31,6 +31,7 @@
     <string name="accept_bid">Accept Bid</string>
     <string name="decline_bid">Decline Bid</string>
     <string name="delete_item">Delete Item</string>
+    <string name="delete_picture">Delete Picture</string>
 
     <string name="username_hint">Please enter a unique username</string>
     <string name="password_hint">Type in your password</string>
@@ -95,6 +96,13 @@
     <string name="warning">Warning</string>
     <string name="delete_confirm">Are you sure?</string>
     <string name="edit_warning">Edit this textbook will remove all the current bids, proceed?</string>
+    <string name="actions_title">Actions</string>
+    <string name="actions_picture">What do you want to do with this picture?</string>
+    <string name="wait_update">Book is being updated, please wait for update to finish</string>
+    <string name="hint_search_address">Enter address here</string>
+    <string name="invalid_address">Address Invalid</string>
+    <string name="set_location">Set Trade Location</string>
+    <string name="default_location_used">No internet connection, default location will be used</string>
     <string-array name="category_array">
         <item>English</item>
         <item>Business</item>

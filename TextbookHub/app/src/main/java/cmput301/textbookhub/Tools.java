@@ -2,6 +2,7 @@ package cmput301.textbookhub;
 
 import android.graphics.Bitmap;
 
+
 /**
  * Created by Fred on 2016/3/12.
  */
@@ -45,4 +46,5 @@ public class Tools {
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
+
 }

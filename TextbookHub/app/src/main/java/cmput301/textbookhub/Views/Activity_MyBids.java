@@ -58,6 +58,10 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView, Netw
                 } else if (!userController.hasInternetAccess(context)) {
                     return;
                 }
+                if(!activityController.isOkToQuery(((MyBidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID())){
+                    activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.wait_update));
+                    return;
+                }
                 Intent i = new Intent(context, Activity_ViewBook.class);
                 Bundle b = new Bundle();
                 b.putString(Activity_ViewBook.BUNDLE_KEY_BOOK_ID, ((MyBidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID());
@@ -119,6 +123,7 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView, Netw
                 finish();
             }
         });
+        dialog.setCancelable(false);
         dialog.show();
     }
 

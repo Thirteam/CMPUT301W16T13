@@ -2,7 +2,9 @@ package cmput301.textbookhub.Models;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.graphics.BitmapCompat;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -36,6 +38,10 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     private BookStatus bookStatus = BookStatus.AVAILABLE;
 
     private ViewStatus viewStatus = ViewStatus.NO_NEW_BID;
+
+    private Double lat = 53.631611;
+
+    private Double lon = -113.323975;
 
     public Textbook(User owner, String bookName){
         this.timestamp = new Long(Calendar.getInstance().getTimeInMillis()).toString();
@@ -171,9 +177,25 @@ public class Textbook implements NamedItem, UniqueItem<String>{
             return this;
         }
 
+        public Builder addPictures(ArrayList<Bitmap> pics){
+            for(Bitmap p:pics)
+                this.textbook.addPicture(p);
+            return this;
+        }
+
         public Builder addCategory(String category){
             if(Tools.isStringValid(category))
                 this.textbook.setCategory(category);
+            return this;
+        }
+
+        public Builder addLat(Double lat){
+            this.textbook.setLat(lat);
+            return this;
+        }
+
+        public Builder addLon(Double lon){
+            this.textbook.setLon(lon);
             return this;
         }
 
@@ -190,6 +212,22 @@ public class Textbook implements NamedItem, UniqueItem<String>{
 
     }
 
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
     public ArrayList<Bitmap>getPictures(){
         ArrayList<Bitmap> rv = new ArrayList<>();
         for(String pic:this.pictures){
@@ -198,13 +236,13 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return rv;
     }
 
+    public void clearAllPictures(){
+        this.pictures.clear();
+    }
+
     public void addPicture(Bitmap pic){
         String str = convertBitmapToString(pic);
         this.pictures.add(str);
-    }
-
-    public void removePictureAt(int idx){
-        this.pictures.remove(idx);
     }
 
     private Bitmap convertStringToBitmap(String pic){
@@ -213,9 +251,14 @@ public class Textbook implements NamedItem, UniqueItem<String>{
     }
 
     public String convertBitmapToString(Bitmap picture){
-        picture = Tools.getResizedBitmap(picture, 500);
+        int bitmapByteCount= BitmapCompat.getAllocationByteCount(picture);
+        Log.i("SIZE IN BYTES BEFORE", ""+bitmapByteCount);
+        picture = Tools.getResizedBitmap(picture, 190);
+        bitmapByteCount= BitmapCompat.getAllocationByteCount(picture);
+        Log.i("SIZE IN BYTES AFTER", ""+bitmapByteCount);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         picture.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        Log.i("SIZE IN BYTES FINAL", "" + byteArrayOutputStream.size());
         byte[] b = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
     }

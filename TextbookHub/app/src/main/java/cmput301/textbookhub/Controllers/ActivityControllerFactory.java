@@ -17,7 +17,8 @@ public class ActivityControllerFactory {
         ACTIVITY_MY_BORROWS,
         ACTIVITY_MY_INVENTORY,
         ACTIVITY_USER_PROFILE,
-        ACTIVITY_VIEW_BOOK
+        ACTIVITY_VIEW_BOOK,
+        ACTIVITY_MAP
     }
 
     public static ActivityController getControllerForView(FactoryCatalog catalog, BaseView v){
@@ -46,6 +47,9 @@ public class ActivityControllerFactory {
                 break;
             case ACTIVITY_VIEW_BOOK:
                 controller = new ViewBookActivityController();
+                break;
+            case ACTIVITY_MAP:
+                controller = new MapActivityController();
                 break;
             default:
                 controller = new ActivityController(){};
