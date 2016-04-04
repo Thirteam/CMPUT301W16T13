@@ -16,6 +16,15 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 
 /**
+ * <code>OfflineHelper</code> is used to save offline changes to local memory
+ * <p>The files will then be pushed to the ElasticSearch server upon reconnecting to the internet</p>
+ *
+ * @author Thirteam
+ * @version 1.0
+ * @since 2016/03/30
+ * @see OfflineCommandList
+ * @see OfflineNewTextbookCommand
+ *
  * Created by Fred on 2016/3/29.
  */
 public class OfflineHelper {
@@ -23,6 +32,12 @@ public class OfflineHelper {
     private static final String OFFLINE_USER_PROFILE = "user.sav";
     private static final String OFFLINE_COMMAND_LIST = "commands.sav";
 
+    /**
+     * <code>loadUserFromFile</code> gets the <code>User</code> from local memory.
+     *
+     * @param ctx the Context
+     * @return the <code>User</code>, if none found returns <code>null</code>
+     * */
     public User loadUserFromFile(Context ctx){
         try {
             FileInputStream fis = ctx.openFileInput(OFFLINE_USER_PROFILE);
@@ -38,6 +53,12 @@ public class OfflineHelper {
         return null;
     }
 
+    /**
+     * <code>saveUserFromFile</code> saves the <code>User</code> to local memory.
+     *
+     * @param ctx the Context
+     * @param user the <code>User</code> to save
+     * */
     public void saveUserToFile(Context ctx, User user){
         try {
             FileOutputStream fos = ctx.openFileOutput(OFFLINE_USER_PROFILE,

@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
+import cmput301.textbookhub.Views.Activity_Login;
+import cmput301.textbookhub.Views.Activity_UserProfile;
+import cmput301.textbookhub.Views.MyBidListAdapter;
 import io.searchbox.annotations.JestId;
 
 /**
@@ -16,6 +19,7 @@ import io.searchbox.annotations.JestId;
  * @see Activity_UserProfile
  * @see MyBidListAdapter
  * @see Activity_Login
+ *
  * Created by Fred on 2016/3/8.
  */
 public class User implements NamedItem, UniqueItem<String>{
@@ -28,7 +32,7 @@ public class User implements NamedItem, UniqueItem<String>{
     private BookShelf bookShelf;
 
     /**
-     * User with unique username and password.
+     * <code>User</code> with unique username and password.
      * 
      * @param username the username of the user
      * @param password the password of the user
@@ -41,7 +45,7 @@ public class User implements NamedItem, UniqueItem<String>{
     }
 
     /**
-     * User with a unique username, password, and an email.
+     * <code>User</code> with a unique username, password, and an email.
      * 
      * @param username the username of the user
      * @param password the password of the user
