@@ -3,13 +3,13 @@ package cmput301.textbookhub.Models;
 import java.util.Calendar;
 
 /**
- * <code>Bid</code> is use to return the bid amount, bidder, bid time made from <code>User</code> on a <code>Textbook</code>.
+ * <code>Bid</code> is used to return the bid amount, bidder, bid time made from <code>User</code> on a <code>Textbook</code>.
  * 
  * @author Thirteam
  * @version 1.1
  * @since 2016/03/08
  * @see User
- * @see Testbook
+ * @see Textbook
  * Created by Fred on 2016/3/8.
  */
 public class Bid implements Comparable, UniqueItem<String>{
@@ -35,7 +35,7 @@ public class Bid implements Comparable, UniqueItem<String>{
     /**
      * Return the amount bidded.
      * 
-     * @retrun the bid amount
+     * @return the bid amount
      */
     public Double getAmount() {
 
@@ -43,18 +43,18 @@ public class Bid implements Comparable, UniqueItem<String>{
     }
 
     /**
-     * Return the bidder on the textbook.
+     * Return the bidder on the <code>TextBook</code>.
      * 
-     * @return the textbook bidder
+     * @return the <code>User</code> that bidded.
      */
     public String getBidder() {
         return bidder;
     }
 
     /**
-     * Return the bid time.
+     * Return the <code>Bid</code> time.
      * 
-     * @retrun the timestamp of the bid
+     * @return the timestamp of the <code>Bid</code.
      */
     public String getTimestamp() {
         return timestamp;
