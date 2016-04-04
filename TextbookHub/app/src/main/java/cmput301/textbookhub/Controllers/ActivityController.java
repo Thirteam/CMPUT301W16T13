@@ -83,7 +83,7 @@ public abstract class ActivityController extends BaseController{
 
     public boolean isOkToQuery(String id){
         try{
-            Textbook b = queryTextbook(id);
+            queryTextbook(id);
             return true;
         }catch (RuntimeException e){
             e.printStackTrace();
