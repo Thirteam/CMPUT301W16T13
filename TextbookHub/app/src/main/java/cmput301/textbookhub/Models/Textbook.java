@@ -18,6 +18,10 @@ import io.searchbox.annotations.JestId;
  * @author Thirteam
  * @version 1.1
  * @since 2016/03/08
+ * @see BidList
+ * @see BookShelf
+ * @see BookStatus
+ *
  * Created by Fred on 2016/3/8.
  */
 public class Textbook implements NamedItem, UniqueItem<String>{
@@ -149,10 +153,20 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return bids;
     }
 
+    /**
+     * <code>getBookHighestBidAmount</code> gets the highest <code>Bid</code> for this <code>Textbook</code>.
+     *
+     * @return highest monetary <code>Bid</code> amount.
+     */
     public Double getBookHighestBidAmount(){
         return bids.getHighestBid().getAmount();
     }
 
+    /**
+     * The builder is used to build a <code>Textbook</code>
+     *
+     * <p>This aids in the building of </p>
+     */
     public static class Builder{
 
         private Textbook textbook;
@@ -196,6 +210,11 @@ public class Textbook implements NamedItem, UniqueItem<String>{
 
     }
 
+    /**
+     * <code>getPictures</code> returns the pictures for the specified <code>Textbook</code>
+     *
+     * @return an ArrayList of pictures
+     */
     public ArrayList<Bitmap>getPictures(){
         ArrayList<Bitmap> rv = new ArrayList<>();
         for(String pic:this.pictures){
@@ -204,20 +223,42 @@ public class Textbook implements NamedItem, UniqueItem<String>{
         return rv;
     }
 
+    /**
+     * <code>addPicture</code> adds a picture to the <code>Textbook</code>
+     *
+     * @param pic the picture to be added
+     */
     public void addPicture(Bitmap pic){
         String str = convertBitmapToString(pic);
         this.pictures.add(str);
     }
 
+    /**
+     * <code>removePictureAt</code> removes the picture from the <code>Textbook</code> at the specified index
+     *
+     * @param idx the index of the picture to be removed from this <code>Textbook</code>
+     */
     public void removePictureAt(int idx){
         this.pictures.remove(idx);
     }
 
+    /**
+     * <code>convertStringToBitmap</code> converts the <code>String</code> to bitmap format
+     *
+     * @param pic the <code>String</code> to be converted
+     * @return the bitmap result
+     */
     private Bitmap convertStringToBitmap(String pic){
         byte[] decodeString = Base64.decode(pic, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
     }
 
+    /**
+     * <code>convertBitmapToString</code> converts the bitmap format to the <code>String</code> format
+     *
+     * @param picture the bitmap to converted
+     * @return the resulting <code>String</code>
+     */
     public String convertBitmapToString(Bitmap picture){
         picture = Tools.getResizedBitmap(picture, 500);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
