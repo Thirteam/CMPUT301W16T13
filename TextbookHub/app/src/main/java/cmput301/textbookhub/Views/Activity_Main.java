@@ -134,4 +134,10 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
         });
         dialog = b.create();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkStateManager.getInstance().setAppInactive();
+    }
 }

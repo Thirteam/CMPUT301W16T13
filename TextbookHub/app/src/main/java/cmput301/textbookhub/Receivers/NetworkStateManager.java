@@ -22,6 +22,7 @@ public class NetworkStateManager{
 
     private ArrayList<NetworkStateObserver> controllerObservers = new ArrayList<>();
     private ArrayList<NetworkStateObserver> viewObservers = new ArrayList<>();
+    private boolean isAppActive = true;
 
     private NetworkStateManager(){}
 
@@ -60,16 +61,18 @@ public class NetworkStateManager{
      * @param context the context
      */
     public void onNetworkStateChange(Context context) {
-        if(isInternetConnected(context)){
-            for(NetworkStateObserver o: controllerObservers)
-                o.onInternetConnect();
-            for(NetworkStateObserver o: viewObservers)
-                o.onInternetConnect();
-        }else{
-            for(NetworkStateObserver o: controllerObservers)
-                o.onInternetDisconnect();
-            for(NetworkStateObserver o: viewObservers)
-                o.onInternetDisconnect();
+        if(isAppActive) {
+            if (isInternetConnected(context)) {
+                for (NetworkStateObserver o : controllerObservers)
+                    o.onInternetConnect();
+                for (NetworkStateObserver o : viewObservers)
+                    o.onInternetConnect();
+            } else {
+                for (NetworkStateObserver o : controllerObservers)
+                    o.onInternetDisconnect();
+                for (NetworkStateObserver o : viewObservers)
+                    o.onInternetDisconnect();
+            }
         }
     }
 
@@ -95,5 +98,13 @@ public class NetworkStateManager{
         if(instance == null)
             instance = new NetworkStateManager();
         return instance;
+    }
+
+    public void setAppActive(){
+        this.isAppActive = true;
+    }
+
+    public void setAppInactive(){
+        this.isAppActive = false;
     }
 }

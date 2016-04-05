@@ -1,8 +1,12 @@
 package cmput301.textbookhub.Receivers;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+
+import java.util.List;
 
 /**
  * <code>NetworkStateReceiver</code>
@@ -21,6 +25,7 @@ public class NetworkStateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        manager.onNetworkStateChange(context);
+            manager.onNetworkStateChange(context);
     }
+
 }

@@ -19,4 +19,4 @@
        android:shape="rectangle">
     <corners android:radius="@dimen/design_snackbar_background_corner_radius"/>
     <solid android:color="@color/design_snackbar_background_color"/>
-</shape><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/design/res/drawable/design_snackbar_background.xml --><!-- From: file:/C:/Users/Fred/Documents/GitHub/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/drawable/design_snackbar_background.xml -->
+</shape><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/design/res/drawable/design_snackbar_background.xml --><!-- From: file:/afs/ualberta.ca/home/x/u/xuefei1/projects/CMPUT301W16T13/TextbookHub/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/drawable/design_snackbar_background.xml -->
