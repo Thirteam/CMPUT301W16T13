@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.ViewBookActivityController;
@@ -381,6 +382,18 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             });
         }
         return dialogBuilder.create();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BaseApplication.activityPaused();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseApplication.activityResumed();
     }
 
 }

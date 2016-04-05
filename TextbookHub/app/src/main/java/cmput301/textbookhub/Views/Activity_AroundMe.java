@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -28,6 +29,18 @@ public class Activity_AroundMe extends AppCompatActivity implements BaseView{
     private AppUserController userController;
     private ActivityController activityController;
     private LinearLayout layout_no_book_around_hint;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BaseApplication.activityPaused();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseApplication.activityResumed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

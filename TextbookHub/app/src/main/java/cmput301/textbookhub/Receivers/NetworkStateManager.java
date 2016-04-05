@@ -5,6 +5,8 @@ import android.net.NetworkInfo;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
+
 /**
  * <code>NetworkStateManager</code> is used to manage/monitor offline and online connectivity.
  *
@@ -22,7 +24,8 @@ public class NetworkStateManager{
 
     private ArrayList<NetworkStateObserver> controllerObservers = new ArrayList<>();
     private ArrayList<NetworkStateObserver> viewObservers = new ArrayList<>();
-    private boolean isAppActive = true;
+    private boolean updatePending = true;
+    private Context context;
 
     private NetworkStateManager(){}
 
@@ -61,18 +64,24 @@ public class NetworkStateManager{
      * @param context the context
      */
     public void onNetworkStateChange(Context context) {
-        if(isAppActive) {
-            if (isInternetConnected(context)) {
-                for (NetworkStateObserver o : controllerObservers)
-                    o.onInternetConnect();
-                for (NetworkStateObserver o : viewObservers)
-                    o.onInternetConnect();
-            } else {
-                for (NetworkStateObserver o : controllerObservers)
-                    o.onInternetDisconnect();
-                for (NetworkStateObserver o : viewObservers)
-                    o.onInternetDisconnect();
-            }
+        this.context = context;
+        if (isInternetConnected(context)) {
+            for (NetworkStateObserver o : controllerObservers)
+                o.onInternetConnect();
+            for (NetworkStateObserver o : viewObservers)
+                o.onInternetConnect();
+        } else {
+            for (NetworkStateObserver o : controllerObservers)
+                o.onInternetDisconnect();
+            for (NetworkStateObserver o : viewObservers)
+                o.onInternetDisconnect();
+        }
+    }
+
+    public void execPendingUpdates(){
+        if(this.updatePending){
+            onNetworkStateChange(context);
+            clearUpdatePending();
         }
     }
 
@@ -100,11 +109,11 @@ public class NetworkStateManager{
         return instance;
     }
 
-    public void setAppActive(){
-        this.isAppActive = true;
+    public void setUpdatePending(){
+        this.updatePending= true;
     }
 
-    public void setAppInactive(){
-        this.isAppActive = false;
+    public void clearUpdatePending(){
+        this.updatePending = false;
     }
 }

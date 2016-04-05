@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -159,6 +160,7 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        BaseApplication.activityResumed();
         gps = new GPSTracker(this);
     }
 
@@ -167,6 +169,7 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
         super.onPause();
         mapView.onPause();
         gps.stopUsingGPS();
+        BaseApplication.activityPaused();
     }
 
     @Override
@@ -186,6 +189,8 @@ public class Activity_Map extends AppCompatActivity implements BaseView{
         super.onDestroy();
         mapView.onDestroy();
     }
+
+
 
     @Override
     public void updateView() {

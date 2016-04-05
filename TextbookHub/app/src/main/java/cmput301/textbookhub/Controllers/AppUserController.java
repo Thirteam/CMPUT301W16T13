@@ -46,6 +46,10 @@ public class AppUserController extends BaseController implements NetworkStateObs
         NetworkStateManager.getInstance().addControllerObserver(this);
     }
 
+    public void unRegisterObserver(){
+        NetworkStateManager.getInstance().removeViewObserver(this);
+    }
+
     public static AppUserController getInstance(){
         if(instance == null)
             instance = new AppUserController();
@@ -182,7 +186,7 @@ public class AppUserController extends BaseController implements NetworkStateObs
             }
         }catch(Exception e){
             e.printStackTrace();
-            throw new RuntimeException();
+            return false;
         }
     }
 
@@ -224,13 +228,17 @@ public class AppUserController extends BaseController implements NetworkStateObs
 
     @Override
     public void onInternetConnect() {
-        executeOfflineCommands();
-        loadUserBookShelf();
+        if(getAppUser()!= null) {
+            executeOfflineCommands();
+            loadUserBookShelf();
+        }
     }
 
     @Override
     public void onInternetDisconnect() {
-        loadUserBookShelf();
+        if(getAppUser() != null) {
+            loadUserBookShelf();
+        }
     }
 
     public LatLng getCurrUserLocation(){

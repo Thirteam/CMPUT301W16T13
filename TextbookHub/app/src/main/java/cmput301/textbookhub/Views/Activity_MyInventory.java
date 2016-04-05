@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -236,6 +237,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
         super.onResume();
         initListViewData(0);
         this.updateView();
+        BaseApplication.activityResumed();
         //Toast.makeText(this, "Size:"+adapter.getCount(), Toast.LENGTH_LONG).show();
         NetworkStateManager.getInstance().addViewObserver(this);
     }
@@ -243,6 +245,7 @@ public class Activity_MyInventory extends AppCompatActivity implements BaseView,
     @Override
     protected void onPause() {
         super.onPause();
+        BaseApplication.activityPaused();
         NetworkStateManager.getInstance().removeViewObserver(this);
     }
 

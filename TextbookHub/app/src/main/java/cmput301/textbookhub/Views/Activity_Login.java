@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -105,5 +106,17 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
 
     public Button getBtn_register() {
         return btn_register;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BaseApplication.activityPaused();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseApplication.activityResumed();
     }
 }

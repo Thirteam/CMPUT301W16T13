@@ -20,6 +20,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
@@ -238,5 +239,17 @@ public class Activity_EditBook extends AppCompatActivity implements BaseView{
         this.lat = textbook.getLat();
         this.lon = textbook.getLon();
         return textbook;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BaseApplication.activityPaused();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseApplication.activityResumed();
     }
 }

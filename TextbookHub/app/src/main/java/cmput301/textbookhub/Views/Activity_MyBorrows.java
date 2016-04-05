@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBorrowsActivityController;
@@ -123,12 +124,14 @@ public class Activity_MyBorrows extends AppCompatActivity implements BaseView, N
     protected void onResume() {
         super.onResume();
         updateView();
+        BaseApplication.activityResumed();
         NetworkStateManager.getInstance().addViewObserver(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        BaseApplication.activityPaused();
         NetworkStateManager.getInstance().removeViewObserver(this);
     }
 

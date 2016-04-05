@@ -13,6 +13,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MainActivityController;
@@ -82,6 +83,8 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
     protected void onResume() {
         super.onResume();
         userController.saveOfflineUserProfile();
+        BaseApplication.activityResumed();
+        //NetworkStateManager.getInstance().execPendingUpdates();
         NetworkStateManager.getInstance().addViewObserver(this);
     }
 
@@ -119,6 +122,7 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
         super.onPause();
         //userController.saveOfflineCommands();
         userController.saveOfflineUserProfile();
+        BaseApplication.activityPaused();
         NetworkStateManager.getInstance().removeViewObserver(this);
     }
 
@@ -138,6 +142,6 @@ public class Activity_Main extends AppCompatActivity implements BaseView, Networ
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NetworkStateManager.getInstance().setAppInactive();
+        //userController.unRegisterObserver();
     }
 }

@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
 import cmput301.textbookhub.Controllers.MyBidsActivityController;
@@ -56,7 +57,7 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView, Netw
                 if (!userController.hasInternetAccess(context)) {
                     return;
                 }
-                if(!activityController.isOkToQuery(((MyBidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID())){
+                if (!activityController.isOkToQuery(((MyBidListAdapter) lv_my_bids.getAdapter()).getItem(position).getID())) {
                     activityController.displayNotificationDialog(context, context.getResources().getString(R.string.error), context.getResources().getString(R.string.wait_update));
                     return;
                 }
@@ -97,12 +98,14 @@ public class Activity_MyBids extends AppCompatActivity implements BaseView, Netw
     protected void onResume() {
         super.onResume();
         updateView();
+        BaseApplication.activityResumed();
         NetworkStateManager.getInstance().addViewObserver(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        BaseApplication.activityPaused();
         NetworkStateManager.getInstance().removeViewObserver(this);
     }
 

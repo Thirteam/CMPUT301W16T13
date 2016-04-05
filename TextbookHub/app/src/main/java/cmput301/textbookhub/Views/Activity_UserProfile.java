@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cmput301.textbookhub.BaseApplication;
 import cmput301.textbookhub.Controllers.ActivityController;
 import cmput301.textbookhub.Controllers.ActivityControllerFactory;
 import cmput301.textbookhub.Controllers.AppUserController;
@@ -195,6 +196,13 @@ public class Activity_UserProfile extends AppCompatActivity implements BaseView{
     @Override
     protected void onPause() {
         super.onPause();
+        BaseApplication.activityPaused();
         userController.saveOfflineCommands();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseApplication.activityResumed();
     }
 }
