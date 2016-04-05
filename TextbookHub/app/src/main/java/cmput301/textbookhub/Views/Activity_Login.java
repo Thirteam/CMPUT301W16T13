@@ -91,4 +91,19 @@ public class Activity_Login extends AppCompatActivity implements BaseView{
     public void updateView(){
     }
 
+    public EditText getEt_password() {
+        return et_password;
+    }
+
+    public EditText getEt_username() {
+        return et_username;
+    }
+
+    public Button getBtn_login() {
+        return btn_login;
+    }
+
+    public Button getBtn_register() {
+        return btn_register;
+    }
 }

@@ -168,7 +168,8 @@ public class Fragment_Search extends BaseFragment implements NetworkStateObserve
 
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDetach() {
+        super.onDetach();
+        NetworkStateManager.getInstance().removeViewObserver(this);
     }
 }

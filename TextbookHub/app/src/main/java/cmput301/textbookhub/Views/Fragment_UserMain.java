@@ -144,8 +144,9 @@ public class Fragment_UserMain extends BaseFragment implements NetworkStateObser
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDetach() {
+        super.onDetach();
+        NetworkStateManager.getInstance().removeViewObserver(this);
     }
 
     @Override
