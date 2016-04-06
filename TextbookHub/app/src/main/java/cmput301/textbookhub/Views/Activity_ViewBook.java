@@ -172,7 +172,7 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
             this.bid_section.setVisibility(View.GONE);
             if(IamTheOwnerOfThisBook(username)) {
                 this.borrowed_section_layout.setVisibility(View.GONE);
-            }else{
+            }else if(this.activityController.getCurrentBook().getBorrower().equals(userController.getAppUser().getName())){
                 this.borrowed_section_layout.setVisibility(View.VISIBLE);
                 this.btn_return_book = (Button) findViewById(R.id.button_return);
                 this.btn_trade_location = (Button) findViewById(R.id.button_location);
@@ -207,6 +207,8 @@ public class Activity_ViewBook extends AppCompatActivity implements BaseView{
                         startActivity(i);
                     }
                 });
+            }else{
+                this.borrowed_section_layout.setVisibility(View.GONE);
             }
             return;
         }
